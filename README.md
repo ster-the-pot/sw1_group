@@ -1,2 +1,3 @@
-# sw1_group
-Software Engineering I Group 
+# Software Engineering I Group 
+## Daily Scheduling Application
+
