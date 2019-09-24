@@ -8,8 +8,7 @@
 ### Project Vision
 To empower Students to make the most of their studies by automating their class planning and improving their time-management through the use of already available and insightful data.
 ## Iteration I:
- [Google Docs Link](https://drive.google.com/drive/folders/1Ni6raK5v-mg5TyCYdPYLkPaCONj0QyRc?usp=sharing "Team Google Drive")
-
+[PDF Document Link](https://drive.google.com/open?id=1mVftZGB7TX9JWXMV7r9NRBDeQs4zTHNp)
 ### Deliverables:
  * ~~Project Vision~~
  * ~~Team Members~~
