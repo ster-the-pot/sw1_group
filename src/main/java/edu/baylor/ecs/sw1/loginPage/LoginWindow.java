@@ -27,9 +27,17 @@ import javax.swing.JPasswordField;
  * @author strafford
  *
  */
-public class LoginWindow  extends JFrame  {
+public class LoginWindow  extends JFrame implements Runnable {
 	private JTextField txtUsernamefield;
 	private JPasswordField passwordField;
+	
+	@Override
+	public void run() {
+		this.setVisible(true);
+		
+	}
+	
+
 
 	public LoginWindow(){
 		getContentPane().setBackground(Color.WHITE);
@@ -123,5 +131,11 @@ public class LoginWindow  extends JFrame  {
 		eastPanel.add(btnLogin, gbc_btnLogin);
 		
 	}
+
+
+
+	
+	
+	
 
 }
