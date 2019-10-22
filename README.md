@@ -27,6 +27,18 @@ To empower Students to make the most of their studies by automating their class 
  * ~~Timecards~~
 
 
+## Iteration II
+
+### Deliverables:
+* Sequence Diagrams
+* ~~Git Link~~
+* ~~Issue Tracking Link~~
+* GRASP
+* Test Coverage Plan
+* Updated Project Plan
+
+### Revisions to Iteration 1
+
 
 
 
