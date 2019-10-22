@@ -1,8 +1,12 @@
 package edu.baylor.ecs.sw1.myday;
+//INCLUDE Javadoc comments in all submitted code
 
 /**
- * Hello world!
- *
+ * Represent's the entry point of the main myDay runnable, responsible for initating the gui
+ * and preparing execution
+ * 
+ * @author Sterling Trafford
+ * 
  */
 public class App 
 {
