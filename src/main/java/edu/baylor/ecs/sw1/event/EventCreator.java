@@ -91,7 +91,22 @@ public class EventCreator {
 			
 			
 			if(eventName.strip().equals("") || startDValue == null || endDValue == null || startTValue == null || endTValue == null) {
-				//TODO: add error popup here.
+				
+				String errorMessage = "Error: Invalid data.";
+				if(eventName.strip().equals("")) {
+					errorMessage = "Error: No event name.";
+				} else if(startDValue == null) {
+					errorMessage = "Error: No start date.";
+				} else if(endDValue == null) {
+					errorMessage = "Error: No end date.";
+				} else if(startTValue == null) {
+					errorMessage = "Error: No start time.";
+				} else if(endTValue == null) {
+					errorMessage = "Error: No end time.";
+				}
+				
+				JOptionPane.showMessageDialog(owner, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+				
 				displayOptions(owner,message);
 			} else {
 				event = new Event();
