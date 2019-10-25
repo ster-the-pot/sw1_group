@@ -2,7 +2,7 @@ package edu.baylor.ecs.sw1.event;
 
 import java.util.Date;
 
-public class EventInfo {
+public class Event {
 	String eventName;
 	String eventPriority;
 	Date startDate;
