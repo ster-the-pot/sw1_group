@@ -10,10 +10,15 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -37,11 +42,12 @@ public class MonthView extends JFrame implements ActionListener {
 	//static JTable mTable;
 	static JFrame mFrame;
 	static JLabel mMonth, mDay;
-	static JButton mLast, mNext;
+	static JButton mLast, mNext, mSide;
 	static JPanel mPanel, menuPanel;
 	static int realYear, realMonth, realDay, currentYear, currentMonth;
-	TableColumn col;
-	JPanel panel;
+	//TableColumn col;
+	static JPanel panel, sidePanel, AllPanel;
+	
 
 	public MonthView() {
 		prepareGUI();
@@ -56,28 +62,49 @@ public class MonthView extends JFrame implements ActionListener {
 		
 		mainFrame = new JFrame("MonthView");
 		mainFrame.setSize(700, 600);
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		AllPanel = new JPanel();		
+		
+		sidePanel = new JPanel();
+		JLabel label = new JLabel("HELLO");
+
+		sidePanel.setBackground(Color.GRAY);
+		sidePanel.add(label);
+		sidePanel.setPreferredSize(new Dimension(50, 40));
+		GridLayout layout = new GridLayout(7, 0);
+		layout.setHgap(1);
+		layout.setVgap(1);
+		sidePanel.setLayout(layout);
+		
+		
 		
 		menuPanel = new JPanel(new FlowLayout());
+		
 		menuPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		mLast = new JButton("Last");
 		mLast.addActionListener(this);
 		menuPanel .add(mLast);
 		mMonth = new JLabel(months[currentMonth] + " " + currentYear, SwingConstants.CENTER);
-		mMonth.setPreferredSize(new Dimension(80, 20));
+		mMonth.setPreferredSize(new Dimension(100, 20));
 		menuPanel.add(mMonth);
 		mNext = new JButton("Next");
 		mNext.addActionListener(this);
 		menuPanel.add(mNext);
 		
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		
+	
 		
 		mPanel = new JPanel();
 		mPanel.setLayout(new FlowLayout());
+		mPanel.add(menuPanel, BorderLayout.NORTH);
 		
-		mainFrame.getContentPane().add(menuPanel, BorderLayout.NORTH);
+		
 
+		mainFrame.add(sidePanel, BorderLayout.WEST);
 		mainFrame.add(mPanel);
+		
+		//mainFrame.add(AllPanel);
 		mainFrame.setVisible(true);
 		
 		initCalendar();
@@ -98,9 +125,7 @@ public class MonthView extends JFrame implements ActionListener {
 		layout.setVgap(1);
 		panel.setLayout(layout);
 
-		
-		//panel.getComponent(n);
-			
+	
 		
 		// Get current day
 		GregorianCalendar cal = new GregorianCalendar(); // Create calendar
@@ -120,7 +145,6 @@ public class MonthView extends JFrame implements ActionListener {
 		JLabel label;
 		JPanel cellPanel;
 
-		System.out.println(startMonth);
 		int i = 1;
 		for(i = 1; i <= startMonth; i++) {
 			panel.add(new JPanel());
@@ -159,7 +183,6 @@ public class MonthView extends JFrame implements ActionListener {
 		JLabel label;
 		JPanel cellPanel;
 		int i = 1;
-		System.out.println(startMonth);
 		for(i = 1; i <= startMonth; i++) {
 			panel.add(new JPanel());
 		}
