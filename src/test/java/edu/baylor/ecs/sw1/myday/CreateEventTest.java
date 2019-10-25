@@ -18,7 +18,7 @@ public class CreateEventTest {
 				
 				EventCreator eventDialog = new EventCreator(testFrame);
 				
-				EventInfo event = eventDialog.getEvent();
+				Event event = eventDialog.getEvent();
 				if(event != null) {
 					System.out.println("Got event: " + event.getEventName());
 				} else {
