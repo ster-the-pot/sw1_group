@@ -3,19 +3,17 @@ package edu.baylor.ecs.sw1.monthView;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
-import java.awt.Font;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
-import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -30,67 +28,80 @@ import javax.swing.table.TableColumn;
  *
  */
 public class MonthView extends JFrame implements ActionListener {
+	private JFrame mainFrame;
 	String[] dayHeader = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
 	String[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September",
 			"October", "November", "December" };
 	//List<Event> Events;
 	static DefaultTableModel monthCalendar;
-	static JTable mTable;
+	//static JTable mTable;
 	static JFrame mFrame;
 	static JLabel mMonth, mDay;
 	static JButton mLast, mNext;
-	static JPanel mPanel;
+	static JPanel mPanel, menuPanel;
 	static int realYear, realMonth, realDay, currentYear, currentMonth;
 	TableColumn col;
+	JPanel panel;
 
-	MonthView() {
+	public MonthView() {
+		prepareGUI();
+	}
 
-		getContentPane().setBackground(Color.WHITE);
-		getContentPane().setFont(new Font("Lucida Grande", Font.PLAIN, 34));
-		getContentPane().setLayout(new BorderLayout(0, 0));
+	public static void main(String[] args) {
+		MonthView swingLayoutDemo = new MonthView();
+		//swingLayoutDemo.showGridLayoutDemo();
+	}
 
-		// Basic JFrame
-		mFrame = new JFrame("MonthView");
-		mFrame.setSize(500, 400);
-		mFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mFrame.setVisible(true);
-
-		// Make table
-		monthCalendar = new DefaultTableModel();
-		mTable = new JTable(monthCalendar);
-
-		mPanel = new JPanel();
-
-		mFrame.getContentPane().add(mPanel, BorderLayout.NORTH);
-
+	private void prepareGUI() {
+		
+		mainFrame = new JFrame("MonthView");
+		mainFrame.setSize(700, 600);
+		
+		menuPanel = new JPanel(new FlowLayout());
+		menuPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		mLast = new JButton("Last");
 		mLast.addActionListener(this);
-		mPanel.add(mLast);
+		menuPanel .add(mLast);
 		mMonth = new JLabel(months[currentMonth] + " " + currentYear, SwingConstants.CENTER);
-		mMonth.setPreferredSize(new Dimension(340, 20));
-		mPanel.add(mMonth);
-
+		mMonth.setPreferredSize(new Dimension(80, 20));
+		menuPanel.add(mMonth);
 		mNext = new JButton("Next");
 		mNext.addActionListener(this);
+		menuPanel.add(mNext);
+		
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		mPanel.add(mNext);
-		mFrame.getContentPane().add(new JScrollPane(mTable));
+		
+		mPanel = new JPanel();
+		mPanel.setLayout(new FlowLayout());
+		
+		mainFrame.getContentPane().add(menuPanel, BorderLayout.NORTH);
 
+		mainFrame.add(mPanel);
+		mainFrame.setVisible(true);
+		
 		initCalendar();
-
+		
 	}
+
 
 	private void initCalendar() {
 
-		// Add comunms to the tableModel
-		for (int i = 0; i < 7; i++) {
-			monthCalendar.addColumn(dayHeader[i]);
-			//col = mTable.getColumnModel().getColumn(i);
-	        //setUpEvents(mTable, mTable.getColumnModel().getColumn(i));
-	        
+		
+		panel = new JPanel();
+		
+		panel.setBackground(Color.darkGray);
+		panel.setSize(500, 700);
+		panel.setPreferredSize(new Dimension(500, 400));
+		GridLayout layout = new GridLayout(0, 7);
+		layout.setHgap(1);
+		layout.setVgap(1);
+		panel.setLayout(layout);
 
-		}
-
+		
+		//panel.getComponent(n);
+			
+		
 		// Get current day
 		GregorianCalendar cal = new GregorianCalendar(); // Create calendar
 		realDay = cal.get(GregorianCalendar.DAY_OF_MONTH); // Get day
@@ -99,63 +110,74 @@ public class MonthView extends JFrame implements ActionListener {
 		currentMonth = realMonth; // Match month and year
 		currentYear = realYear;
 
+		
 		mMonth.setText(months[currentMonth] + " " + currentYear);
-		mMonth.setBounds(100, 100, 200, 200);
-		mTable.setColumnSelectionAllowed(true);
-		mTable.setRowSelectionAllowed(true);
-		mTable.setRowHeight(50);
-		mTable.setPreferredScrollableViewportSize(new Dimension(500, 70));
-		mTable.setFillsViewportHeight(true);
 
-		monthCalendar.setColumnCount(7);
-		monthCalendar.setRowCount(6);
 
-		int numDays, startMonth;
+		int numDays,startMonth;
 		numDays = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
-		startMonth = cal.get(GregorianCalendar.DAY_OF_WEEK);
-		for (int i = 1; i <= numDays; i++) {
-			
-			 //String str = Integer.toString(i) + " HelloThere"; Object value = str;
-			int row = ((i + startMonth - 2) / 7);
-			int column = (i + startMonth - 2) % 7;
-			monthCalendar.setValueAt(i, row, column);
+		startMonth = cal.get(GregorianCalendar.DAY_OF_WEEK) - cal.get(GregorianCalendar.DAY_OF_WEEK_IN_MONTH);
+		JLabel label;
+		JPanel cellPanel;
+
+		System.out.println(startMonth);
+		int i = 1;
+		for(i = 1; i <= startMonth; i++) {
+			panel.add(new JPanel());
 		}
+		for (; i <= (numDays + startMonth); i++) {
+			
+			label = new JLabel("Day: " + (i - startMonth /*+ 4*/));
+			cellPanel = new JPanel();
+			
+			cellPanel.add(label);
+			panel.add(cellPanel);
+		}
+		while(i != 43) {
+			panel.add(new JPanel());
+			i++;
+		}
+		
+		mPanel.add(panel);
+		mainFrame.setVisible(true);
+		
 
 	}
 
 	public void updateCalendar() {
-		// Allow/disallow buttons
-
-		// btnPrev.setEnabled(true); btnNext.setEnabled(true);
 
 		mMonth.setText(months[currentMonth] + " " + currentYear);
 
-		for (int i = 0; i < 6; i++) {
-			for (int j = 0; j < 7; j++) {
-				monthCalendar.setValueAt(null, i, j);
-			}
-		}
 
+		panel.removeAll();
+		
+		
 		int numDays, startMonth;
 		GregorianCalendar cal = new GregorianCalendar(currentYear, currentMonth, 1);
 		numDays = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
-		startMonth = cal.get(GregorianCalendar.DAY_OF_WEEK);
-
-		for (int i = 1; i <= numDays; i++) {
-			/*
-			 * String str = Integer.toString(i) + " HelloThere"; Object value = str;
-			 */
-			int row = ((i + startMonth - 2) / 7);
-			int column = (i + startMonth - 2) % 7;
-			monthCalendar.setValueAt(i, row, column);
+		startMonth = cal.get(GregorianCalendar.DAY_OF_WEEK) - cal.get(GregorianCalendar.DAY_OF_WEEK_IN_MONTH);
+		JLabel label;
+		JPanel cellPanel;
+		int i = 1;
+		System.out.println(startMonth);
+		for(i = 1; i <= startMonth; i++) {
+			panel.add(new JPanel());
+		}
+		for (; i <= (numDays + startMonth); i++) {
+			
+			label = new JLabel("Day: " + (i - startMonth /*+ 4*/));
+			cellPanel = new JPanel();
+			
+			cellPanel.add(label);
+			panel.add(cellPanel);
+		}
+		while(i != 43) {
+			panel.add(new JPanel());
+			i++;
 		}
 
-		monthCalendar.fireTableDataChanged();
+		//monthCalendar.fireTableDataChanged();
 
-	}
-
-	public static void main(String args[]) {
-		MonthView m = new MonthView();
 	}
 
 	@Override
@@ -177,5 +199,6 @@ public class MonthView extends JFrame implements ActionListener {
 		}
 		updateCalendar();
 	}
+	
 
 }
