@@ -8,8 +8,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
-import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,6 +18,14 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+
+/**
+ * WeekView class creates the week view for the calendar. 
+ * It contains a constructor with a JTable as the calendar base. 
+ * 
+ * @author Elizabeth Brighton
+ *
+ */
 public class WeekView extends JFrame implements ActionListener {
 	String[] dayHeader = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
 	String[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September",
@@ -31,7 +37,8 @@ public class WeekView extends JFrame implements ActionListener {
 	static JLabel mMonth, mDay;
 	static JButton mLast, mNext;
 	static JPanel mPanel;
-	static int realYear, realMonth, realDay, currentYear, currentMonth, currentDay;
+	static int realYear, realMonth, realDay, currentYear, currentMonth, currentDay, 
+				lastYear, lastMonth, lastMaxDay;
 	GregorianCalendar cal;
 	TableColumn col;
 
@@ -90,7 +97,20 @@ public class WeekView extends JFrame implements ActionListener {
 		currentDay = realDay;
 		currentMonth = realMonth; // Match month and year
 		currentYear = realYear;
-
+		
+		GregorianCalendar tempCal;
+		if(currentMonth > 1) {
+			tempCal = new GregorianCalendar(realYear, realMonth-1, 1);
+		} else {
+			tempCal = new GregorianCalendar(realYear - 1, 12, 1);
+		}
+		lastMaxDay = tempCal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
+		lastMonth = tempCal.get(GregorianCalendar.MONTH); // Get month
+		lastYear = tempCal.get(GregorianCalendar.YEAR);
+		
+		
+		
+		
 		mMonth.setText(months[currentMonth] + " " + currentYear);
 		mMonth.setBounds(100, 100, 200, 200);
 		mTable.setColumnSelectionAllowed(true);
@@ -102,17 +122,24 @@ public class WeekView extends JFrame implements ActionListener {
 		monthCalendar.setColumnCount(7);
 		monthCalendar.setRowCount(1);
 
-		int numDays, startMonth, dayOfWeek;// , currentDay;
+		
+		int numDays, dayOfWeek;
 		numDays = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
-		// startMonth = cal.get(GregorianCalendar.DAY_OF_WEEK);
 		dayOfWeek = cal.get(GregorianCalendar.DAY_OF_WEEK);
-		// currentDay = cal.get(GregorianCalendar.DAY_OF_MONTH);
+
 
 		System.out.println(currentDay - dayOfWeek + " " + (currentDay + 7 - dayOfWeek) + " " + numDays);
-		System.out.println(currentDay);
-		for (int i = currentDay - dayOfWeek + 1, j = 0; i <= currentDay + 7 - dayOfWeek; i++, j++) {
-
-			monthCalendar.setValueAt(i, 0, j);
+		System.out.println(currentDay + " " );
+		for (int i = (currentDay - dayOfWeek + 1), j = 0; i <= (currentDay + 7 - dayOfWeek); i++, j++) {
+			if(i > numDays) {
+				monthCalendar.setValueAt(i-numDays, 0, j);
+			} else if (i < 0){
+				monthCalendar.setValueAt(i + lastMaxDay, 0, j);
+			}else {
+				monthCalendar.setValueAt(i, 0, j);
+			}
+				
+			
 		}
 
 	}
@@ -137,11 +164,14 @@ public class WeekView extends JFrame implements ActionListener {
 
 		System.out.println(currentDay - dayOfWeek + " " + (currentDay + 7 - dayOfWeek) + " " + numDays);
 		System.out.println(currentDay);
-		for (int i = currentDay - dayOfWeek + 1, j = 0; i <= currentDay + 7 - dayOfWeek; i++, j++) {
-			if(i >= 1 && i <= numDays) {
-				monthCalendar.setValueAt(i, 0, j);	
+		for (int i = (currentDay - dayOfWeek + 1), j = 0; i <= (currentDay + 7 - dayOfWeek); i++, j++) {
+			if(i > numDays) {
+				monthCalendar.setValueAt(i-numDays, 0, j);
+			} else if (i < 0){
+				monthCalendar.setValueAt(i + lastMaxDay, 0, j);
+			}else {
+				monthCalendar.setValueAt(i, 0, j);
 			}
-			
 		}
 
 		monthCalendar.fireTableDataChanged();
@@ -158,51 +188,54 @@ public class WeekView extends JFrame implements ActionListener {
 		if ("Last".equals(e.getActionCommand())) {
 			if (currentDay - 7 <= 0) {
 				if (currentMonth != 0) {
-					currentMonth--;
-					GregorianCalendar caltemp = new GregorianCalendar(currentYear, currentMonth, 1);
-					currentDay = caltemp.getActualMaximum(GregorianCalendar.DAY_OF_MONTH) - 7 + currentDay;
+					currentMonth = lastMonth;
+					lastMonth--;
+					lastMaxDay = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
+					
+					cal = new GregorianCalendar(currentYear, currentMonth, 1);
+					currentDay = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH) - 7 + currentDay;
 
 				} else {
+					lastMonth = 0;
+					lastYear = currentYear;
 					currentMonth = 11;
 					currentYear--;
-					GregorianCalendar caltemp = new GregorianCalendar(currentYear, currentMonth, 1);
-					currentDay = caltemp.getActualMaximum(GregorianCalendar.DAY_OF_MONTH) - 7 + currentDay;
+					lastMaxDay = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
+					
+					cal = new GregorianCalendar(currentYear, currentMonth, 1);
+					currentDay = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH) - 7 + currentDay;
 
 				}
 			} else {
 				currentDay = currentDay - 7;
 			}
-
+		//If the calendar is moving forward we don't have to worry about last month
 		} else if ("Next".equals(e.getActionCommand())) {
 			if (currentDay + 7 > cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH)) {
 				if (currentMonth != 11) {
 					currentMonth++;
 					int currentDisp = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH) 
 							- currentDay;
-					int ofset = cal.get(GregorianCalendar.DAY_OF_WEEK) ;
-					GregorianCalendar caltemp = new GregorianCalendar(currentYear, currentMonth, 1);
-					System.out.println(currentDisp + " " + ofset);
-					if(currentDisp != ofset) {
-						currentDay = 0 - currentDisp;	
-					}
-					else {
-						currentDay = ofset;
-					}
+					//int ofset = cal.get(GregorianCalendar.DAY_OF_WEEK);
+					
+					cal = new GregorianCalendar(currentYear, currentMonth, 1);
+					//System.out.println(currentDisp + " " + ofset);
+
+					currentDay = 7- currentDisp;	
+					
 					
 				} else {
 					currentMonth = 0;
 					currentYear++;
 					int currentDisp = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH) 
 							- currentDay;
-					int ofset = cal.get(GregorianCalendar.DAY_OF_WEEK) ;
-					GregorianCalendar caltemp = new GregorianCalendar(currentYear, currentMonth, 1);
-					System.out.println(currentDisp + " " + ofset);
-					if(currentDisp != ofset) {
-						currentDay = 0 - currentDisp;	
-					}
-					else {
-						currentDay = ofset;
-					}
+					//int ofset = cal.get(GregorianCalendar.DAY_OF_WEEK) ;
+					cal = new GregorianCalendar(currentYear, currentMonth, 1);
+					//System.out.println(currentDisp + " " + ofset);
+					
+					currentDay = 7 - currentDisp;	
+					
+					
 				}
 			} else {
 				currentDay = currentDay + 7;

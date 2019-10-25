@@ -20,6 +20,15 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+
+
+/**
+ * MonthView class creates the month view for the calendar. 
+ * It contains a constructor with a JTable as the calendar base. 
+ * 
+ * @author Elizabeth Brighton
+ *
+ */
 public class MonthView extends JFrame implements ActionListener {
 	String[] dayHeader = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
 	String[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September",
@@ -168,22 +177,5 @@ public class MonthView extends JFrame implements ActionListener {
 		}
 		updateCalendar();
 	}
-/*
-	public void setUpEvents(JTable table, TableColumn AllColumns) {
-//Set up the editor for the sport cells.
-		JComboBox comboBox = new JComboBox();
-		comboBox.addItem("Snowboarding");
-		comboBox.addItem("Rowing");
-		comboBox.addItem("Knitting");
-		comboBox.addItem("Speed reading");
-		comboBox.addItem("Pool");
-		comboBox.addItem("None of the above");
-		AllColumns.setCellEditor(new DefaultCellEditor(comboBox));
 
-//Set up tool tips for the sport cells.
-		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-		renderer.setToolTipText("Click for combo box");
-		AllColumns.setCellRenderer(renderer);
-	}
-*/
 }
