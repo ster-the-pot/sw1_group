@@ -1,8 +1,9 @@
 package edu.baylor.ecs.sw1.myday;
 
 
-import edu.baylor.ecs.sw1.eventFrames.*;
 import javax.swing.JFrame;
+
+import edu.baylor.ecs.sw1.event.*;
 
 
 public class CreateEventTest {
@@ -15,8 +16,14 @@ public class CreateEventTest {
 				testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				testFrame.pack();
 				
-				CreateEventDialog eventDialog = new CreateEventDialog(testFrame);
-				eventDialog.setVisible(true);
+				EventCreator eventDialog = new EventCreator(testFrame);
+				
+				EventInfo event = eventDialog.getEvent();
+				if(event != null) {
+					System.out.println("Got event: " + event.getEventName());
+				} else {
+					System.out.println("User cancelled?");
+				}
 			}
 		});
 	}
