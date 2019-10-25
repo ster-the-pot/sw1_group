@@ -1,13 +1,12 @@
 package edu.baylor.ecs.sw1.event;
 
-import java.time.Duration;
 import java.util.Date;
 
 public class EventInfo {
 	String eventName;
 	String eventPriority;
-	Date eventDate;
-	Duration eventDuration;
+	Date startDate;
+	Date endDate;
 	String eventDescription;
 
 	public String getEventName() {
@@ -22,17 +21,17 @@ public class EventInfo {
 	public void setEventPriority(String eventPriority) {
 		this.eventPriority = eventPriority;
 	}
-	public Date getEventDate() {
-		return eventDate;
+	public Date getStartDate() {
+		return startDate;
 	}
-	public void setEventDate(Date eventDate) {
-		this.eventDate = eventDate;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
-	public Duration getEventDuration() {
-		return eventDuration;
+	public Date getEndDate() {
+		return endDate;
 	}
-	public void setEventDuration(Duration eventDuration) {
-		this.eventDuration = eventDuration;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 	public String getEventDescription() {
 		return eventDescription;
@@ -40,6 +39,4 @@ public class EventInfo {
 	public void setEventDescription(String eventDescription) {
 		this.eventDescription = eventDescription;
 	}
-	
-	
 }
