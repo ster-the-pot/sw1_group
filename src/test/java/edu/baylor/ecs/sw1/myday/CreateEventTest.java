@@ -20,7 +20,7 @@ public class CreateEventTest {
 				
 				Event event = eventDialog.getEvent();
 				if(event != null) {
-					System.out.println("Got event: " + event.getEventName());
+					EventDisplayer.display(testFrame, event);
 				} else {
 					System.out.println("User cancelled?");
 				}
