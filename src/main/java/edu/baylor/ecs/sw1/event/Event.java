@@ -2,6 +2,11 @@ package edu.baylor.ecs.sw1.event;
 
 import java.util.Date;
 
+/**
+ * 
+ * @author Par Wilkinson
+ *
+ */
 public class Event {
 	String eventName;
 	String eventPriority;
