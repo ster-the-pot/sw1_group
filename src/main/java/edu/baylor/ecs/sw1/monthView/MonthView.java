@@ -12,7 +12,6 @@ import java.util.GregorianCalendar;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -28,44 +27,22 @@ import edu.baylor.ecs.sw1.ShowDay.ShowDay;
  * @author Elizabeth Brighton
  *
  */
-public class MonthView extends JFrame implements ActionListener {
-	private JFrame mainFrame;
+public class MonthView extends JPanel implements ActionListener {
 	String[] dayHeader = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
 	String[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September",
 			"October", "November", "December" };
-	static JFrame mFrame;
 	static JLabel mMonth, mDay;
 	static JButton mLast, mNext;
 	static JPanel mPanel;
 	static int realYear, realMonth, realDay, currentYear, currentMonth;
-	static JPanel panel, sidePanel;
+	static JPanel panel;
 	GregorianCalendar cal;
 
 	public MonthView() {
 		prepareGUI();
 	}
 
-	public static void main(String[] args) {
-		MonthView swingLayoutDemo = new MonthView();
-	}
-
 	private void prepareGUI() {
-		
-		mainFrame = new JFrame("MonthView");
-		mainFrame.setSize(700, 600);
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-
-		sidePanel = new JPanel();
-		JLabel label = new JLabel("HELLO");
-
-		sidePanel.setBackground(Color.GRAY);
-		sidePanel.add(label);
-		sidePanel.setPreferredSize(new Dimension(50, 40));
-		GridLayout layout = new GridLayout(7, 0);
-		layout.setHgap(1);
-		layout.setVgap(1);
-		sidePanel.setLayout(layout);
 		
 		
 		
@@ -88,8 +65,6 @@ public class MonthView extends JFrame implements ActionListener {
 		mNext.addActionListener(this);
 		menuPanel.add(mNext);
 		
-		
-		
 		JPanel dayOfWeekPanel = new JPanel();
 		GridLayout dayLayout = new GridLayout(0, 7);
 		dayLayout.setHgap(1);
@@ -107,41 +82,27 @@ public class MonthView extends JFrame implements ActionListener {
 		}
 		dayOfWeekPanel.setBorder(BorderFactory.createLineBorder(Color.darkGray));
 		
-		
-		
-		
 		mPanel = new JPanel();
 		mPanel.setLayout(new BoxLayout(mPanel, BoxLayout.Y_AXIS));
 		mPanel.add(menuPanel, BorderLayout.NORTH);
 		mPanel.add(dayOfWeekPanel, BorderLayout.NORTH);
 		
-
-		mainFrame.add(sidePanel, BorderLayout.WEST);
-		mainFrame.add(mPanel);
-		
-		mainFrame.setVisible(true);
-		
 		initCalendar();
-		
 	}
 
 
 	private void initCalendar() {
-
-		
-		panel = new JPanel();
-		
-		panel.setBackground(Color.darkGray);
-		panel.setSize(500, 700);
+		this.setBackground(Color.darkGray);
+		this.setSize(500, 700);
 		GridLayout layout = new GridLayout(0, 7);
 	
 		layout.setHgap(1);
 		layout.setVgap(1);
-		panel.setLayout(layout);
+		this.setLayout(layout);
 		JLabel label;
 		JPanel cellPanel;
 		
-		panel.setPreferredSize(new Dimension(500, 500));
+		this.setPreferredSize(new Dimension(500, 500));
 		
 		// Get current day
 		GregorianCalendar cal = new GregorianCalendar(); // Create calendar
@@ -157,39 +118,36 @@ public class MonthView extends JFrame implements ActionListener {
 
 		//Function that adds all the Panels 
 		addPanels();
-			
-
 	}
 
 	public void updateCalendar() {
 
 		mMonth.setText(months[currentMonth] + " " + currentYear);
 
-		panel.removeAll();
+		this.removeAll();
 		
 		//Function that adds all the Panels 
 		addPanels();
 	}
 
 	private void addPanels() {
+		this.add(mPanel);
+
 		int numDays, startMonth;
 		cal = new GregorianCalendar(currentYear, currentMonth, 1);
 		numDays = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
 		startMonth = cal.get(GregorianCalendar.DAY_OF_WEEK) - cal.get(GregorianCalendar.DAY_OF_WEEK_IN_MONTH);
 		int i = 1;
 		for(i = 1; i <= startMonth; i++) {
-			panel.add(new JPanel());
+			this.add(new JPanel());
 		}
 		for (; i <= (numDays + startMonth); i++) {
-			panel.add(new ShowDay((i-startMonth), currentMonth, currentYear));	
+			this.add(new ShowDay((i-startMonth), currentMonth, currentYear));	
 		}
 		while(i != 43) {
-			panel.add(new JPanel());
+			this.add(new JPanel());
 			i++;
 		}
-		
-		mPanel.add(panel);
-		mainFrame.setVisible(true);
 	}
 	
 	@Override
