@@ -4,9 +4,7 @@ package edu.baylor.ecs.sw1.weekView;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.ComponentOrientation;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +17,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableModel;
+
+import edu.baylor.ecs.sw1.ShowDay.ShowDay;
 
 
 
@@ -37,19 +36,15 @@ public class WeekView extends JFrame implements ActionListener {
 	String[] dayHeader = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
 	String[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September",
 			"October", "November", "December" };
-	String[] monthsAbv = { "Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept",
-			"Oct", "Nov", "Dec" };
-	//List<Event> Events;
-	static DefaultTableModel monthCalendar;
-	//static JTable mTable;
+
+
 	static JFrame mFrame;
 	static JLabel mMonth, mDay;
-	static JButton mLast, mNext, mSide;
-	static JPanel mPanel, menuPanel;
+	static JButton mLast, mNext;
+	static JPanel mPanel;
 	static int realYear, realMonth, realDay, currentYear, currentMonth, currentDay, 
 	lastYear, lastMonth, lastMaxDay, dayOfWeek;
-	//TableColumn col;
-	static JPanel panel, sidePanel, AllPanel;
+	static JPanel panel, sidePanel;
 	GregorianCalendar cal;
 
 	public WeekView() {
@@ -58,7 +53,6 @@ public class WeekView extends JFrame implements ActionListener {
 
 	public static void main(String[] args) {
 		WeekView swingLayoutDemo = new WeekView();
-		//swingLayoutDemo.showGridLayoutDemo();
 	}
 
 	private void prepareGUI() {
@@ -66,8 +60,7 @@ public class WeekView extends JFrame implements ActionListener {
 		mainFrame = new JFrame("WeekView");
 		mainFrame.setSize(700, 600);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		AllPanel = new JPanel();		
+			
 		
 		sidePanel = new JPanel();
 		JLabel label = new JLabel("HELLO");
@@ -103,9 +96,6 @@ public class WeekView extends JFrame implements ActionListener {
 		
 		
 		
-		
-		
-		
 		JPanel dayOfWeekPanel = new JPanel();
 		GridLayout dayLayout = new GridLayout(0, 7);
 		dayLayout.setHgap(1);
@@ -135,7 +125,7 @@ public class WeekView extends JFrame implements ActionListener {
 		mainFrame.add(sidePanel, BorderLayout.WEST);
 		mainFrame.add(mPanel);
 		
-		//mainFrame.add(AllPanel);
+		
 		mainFrame.setVisible(true);
 		
 		initCalendar();
@@ -179,42 +169,8 @@ public class WeekView extends JFrame implements ActionListener {
 			dayOfWeek = cal.get(GregorianCalendar.DAY_OF_WEEK);
 		}
 		
-		
-
-		JLabel label;
-		JPanel cellPanel;
-
-		int i = 1;
-
-		for (i = (currentDay - dayOfWeek + 1); i <= (currentDay + 7 - dayOfWeek); i++) {
-
-			if(i > numDays) {
-				label = new JLabel(monthsAbv[(currentMonth+1)%13] + " " + (i + currentDay - numDays));
-				cellPanel = new JPanel();
-				cellPanel.add(label);
-				panel.add(cellPanel);
-			} else if (i < 0){
-				if(currentMonth != 0)
-					label = new JLabel(monthsAbv[currentMonth-1] + " " + (lastMaxDay + i));
-				else 
-					label = new JLabel(monthsAbv[11] + " " + (lastMaxDay + i));
-				cellPanel = new JPanel();
-				cellPanel.add(label);
-				panel.add(cellPanel);
-			}else {
-				label = new JLabel("" + (i));
-				cellPanel = new JPanel();
-				cellPanel.add(label);
-				panel.add(cellPanel);
-			}
-				
-			
-		}
-		
-
-		
-		mPanel.add(panel);
-		mainFrame.setVisible(true);
+		//Function that adds all the Panels
+		addPanels();
 		
 
 	}
@@ -223,40 +179,42 @@ public class WeekView extends JFrame implements ActionListener {
 
 		mMonth.setText(months[currentMonth] + " " + currentYear);
 
-
 		panel.removeAll();
 		
-		
+		//Function that adds all the Panels
+		addPanels();
+
+	}
+
+	private void addPanels() {
 		int numDays;
 		numDays = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
-		JLabel label;
-		JPanel cellPanel;
 
 		int i = 1;
 		
 		for (i = (currentDay - dayOfWeek + 1); i <= (currentDay + 7 - dayOfWeek); i++) {
 
-			if(i > numDays) {
-				label = new JLabel(monthsAbv[(currentMonth+1)%13] + " " + (i + currentDay - numDays));
+			if(i > numDays) {	
+				if(currentMonth != 11)
+					panel.add(new ShowDay((i + currentDay - numDays), currentMonth+1, currentYear, true));
+				else
+					panel.add(new ShowDay((i + currentDay - numDays), 0, currentYear+1, true));
+				
 			} else if (i <= 0){
 				if(currentMonth != 0)
-					label = new JLabel(monthsAbv[currentMonth-1] + " " + (lastMaxDay + i));
+					panel.add(new ShowDay((lastMaxDay + i), currentMonth-1, currentYear, true));	
 				else 
-					label = new JLabel(monthsAbv[11] + " " + (lastMaxDay + i));
+					panel.add(new ShowDay((lastMaxDay + i), 11, currentYear-1, true));
+
 			}else {
+				panel.add(new ShowDay(i, currentMonth, currentYear));
 
-				label = new JLabel("" + (i));
-
-			}	
-			cellPanel = new JPanel();
-			cellPanel.add(label);
-			panel.add(cellPanel);
+			}
 		}
-
 		mPanel.add(panel);
 		mainFrame.setVisible(true);
+		
 	}
-
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -295,7 +253,6 @@ public class WeekView extends JFrame implements ActionListener {
 					
 					int currentDisp = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH) 
 							- currentDay;
-					//int ofset = cal.get(GregorianCalendar.DAY_OF_WEEK);
 					
 					cal = new GregorianCalendar(currentYear, currentMonth, 1);
 
@@ -312,7 +269,6 @@ public class WeekView extends JFrame implements ActionListener {
 					
 					int currentDisp = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH) 
 							- currentDay;
-					//int ofset = cal.get(GregorianCalendar.DAY_OF_WEEK) ;
 					cal = new GregorianCalendar(currentYear, currentMonth, 1);
 
 					
