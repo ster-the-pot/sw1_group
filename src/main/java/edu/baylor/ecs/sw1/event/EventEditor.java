@@ -19,7 +19,7 @@ import org.jdatepicker.impl.*;
 import edu.baylor.ecs.sw1.utils.DateFormattedListCellRenderer;
 import edu.baylor.ecs.sw1.utils.DateLabelFormatter;
 
-public class EventCreator {
+public class EventEditor {
 	JTextField eventNameField;
 	JTextField eventPriorityField;
 	
@@ -32,34 +32,43 @@ public class EventCreator {
 	JTextField descriptionField;
 	JButton finishButton;
 	
-	Event event;
+	public EventEditor() {
 
-	public EventCreator(Frame owner) {
+	}
+	
+	public void edit(Frame owner, Event event) {
+		Date eventStartDate = event.getStartDate();
+		Date eventEndDate = event.getEndDate();
+		
 		eventNameField = new JTextField();
+		eventNameField.setText(event.getEventName());
+		
 		eventPriorityField = new JTextField();
+		eventPriorityField.setText(event.getEventPriority());
 
-		//TODO: get info from calendar
-		int year = 2015;
-		int month = 4;
-		int day = 0;
-		
 		UtilDateModel model = new UtilDateModel();
-		model.setDate(year,month,day);
-		
 		UtilDateModel endModel = new UtilDateModel();
-		endModel.setDate(year,month,day);
 		
 		Properties datePickerProps = new Properties();
 		datePickerProps.put("date.today","Today");
 		datePickerProps.put("date.month","Month");
 		datePickerProps.put("date.year","Year");
 		
+		model.setDate(Integer.parseInt((new SimpleDateFormat("yyyy")).format(eventStartDate)),
+                Integer.parseInt((new SimpleDateFormat("MM")).format(eventStartDate))-1,
+                Integer.parseInt((new SimpleDateFormat("dd")).format(eventStartDate)));	
+		
+		endModel.setDate(Integer.parseInt((new SimpleDateFormat("yyyy")).format(eventEndDate)),
+                Integer.parseInt((new SimpleDateFormat("MM")).format(eventEndDate))-1,
+                Integer.parseInt((new SimpleDateFormat("dd")).format(eventEndDate)));	
+
 		startDatePicker = new JDatePickerImpl(new JDatePanelImpl(model,datePickerProps), new DateLabelFormatter()); 
 		endDatePicker = new JDatePickerImpl(new JDatePanelImpl(endModel,datePickerProps), new DateLabelFormatter()); 
 		
 		initTimeChoosers();
-
+		
 		descriptionField = new JTextField();
+		descriptionField.setText(event.getEventDescription());
 
 		Object[] message = {
 				"Enter Event Name",eventNameField,
@@ -71,10 +80,10 @@ public class EventCreator {
 				"Enter Description",descriptionField,
 		};
 		
-		displayOptions(owner,message);
+		displayOptions(owner,message,event);
 	}
 	
-	private void displayOptions(Frame owner, Object[] message) {
+	private void displayOptions(Frame owner, Object[] message, Event event) {
 		Object[] options = {"Confirm","Cancel"};
 		int option = JOptionPane.showOptionDialog(owner, message,"Create Event",JOptionPane.OK_CANCEL_OPTION
 				,JOptionPane.QUESTION_MESSAGE,new ImageIcon("empty.png"),options,options[0]);
@@ -106,11 +115,8 @@ public class EventCreator {
 				
 				JOptionPane.showMessageDialog(owner, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
 				
-				displayOptions(owner,message);
+				displayOptions(owner,message,event);
 			} else {
-				event = new Event();
-				event.setEventName(eventName);
-				
 				Date startDate = (Date) startDValue; 
 				Date endDate = (Date) endDValue; 
 				
@@ -129,6 +135,7 @@ public class EventCreator {
 			}
 		}
 	}
+
 	
 	private void initTimeChoosers() {
 		Calendar cal = Calendar.getInstance();
@@ -153,7 +160,4 @@ public class EventCreator {
 		endTimeChooser.setRenderer(new DateFormattedListCellRenderer(new SimpleDateFormat("HH:mm")));
 	}
 	
-	public Event getEvent() {
-		return event;
-	}
 }
