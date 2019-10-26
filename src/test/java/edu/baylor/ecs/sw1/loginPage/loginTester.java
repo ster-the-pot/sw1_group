@@ -21,10 +21,4 @@ public class loginTester {
 		SwingUtilities.invokeLater(login);
 	}
 	
-	@Test
-	public void renderPage() {
-		LoginWindow login = new LoginWindow();
-		SwingUtilities.invokeLater(login);
-	
-	}
 }
