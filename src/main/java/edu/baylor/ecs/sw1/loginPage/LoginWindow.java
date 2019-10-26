@@ -14,7 +14,6 @@ import javax.swing.SwingConstants;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
-import java.awt.CardLayout;
 import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
@@ -62,24 +61,19 @@ public class LoginWindow  extends JFrame implements Runnable {
 		lblWelcomeToMyday.setHorizontalAlignment(SwingConstants.CENTER);
 		northPanel.add(lblWelcomeToMyday);
 		
-		JPanel westPanel = new JPanel();
+		JPanel westPanel = new JPanel(new GridBagLayout());
+		westPanel.setPreferredSize(new Dimension(500,500));
 		getContentPane().add(westPanel, BorderLayout.WEST);
-		westPanel.setPreferredSize(new Dimension(500, 50));
-		westPanel.setLayout(new BorderLayout(0, 0));
+		ImagePanel logoPanel = new ImagePanel("src/main/resources/testIMG.png");
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		c.gridx = 200;
+		c.gridy = 200;
+		westPanel.add(logoPanel,c);
+		logoPanel.revalidate();
 		
-		JPanel logoPanel = new JPanel();
-		westPanel.add(logoPanel, BorderLayout.SOUTH);
-		try {
-			BufferedImage myDayLogo = ImageIO.read(new File(""));
-			System.out.println(System.getProperty("user.dir"));
-			JLabel picLabel = new JLabel(new ImageIcon(myDayLogo));
-			add(picLabel);
-		}catch(IOException e) {
-			
-		}
 		
 		JPanel myDayStatsPanel = new JPanel();
-		westPanel.add(myDayStatsPanel, BorderLayout.NORTH);
 		
 		
 		JPanel eastPanel = new JPanel();
