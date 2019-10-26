@@ -8,6 +8,7 @@ public class Event {
 	Date startDate;
 	Date endDate;
 	String eventDescription;
+	Boolean completed;
 
 	public String getEventName() {
 		return eventName;
@@ -39,4 +40,11 @@ public class Event {
 	public void setEventDescription(String eventDescription) {
 		this.eventDescription = eventDescription;
 	}
+	public Boolean getCompleted() {
+		return completed;
+	}
+	public void setCompleted(Boolean completed) {
+		this.completed = completed;
+	}
+	
 }
