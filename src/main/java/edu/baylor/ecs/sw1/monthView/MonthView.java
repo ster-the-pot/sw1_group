@@ -45,7 +45,6 @@ public class MonthView extends JPanel implements ActionListener {
 	private void prepareGUI() {
 		
 		
-		
 		JPanel menuPanel = new JPanel();
 		GridLayout menuLayout = new GridLayout(0, 5);
 		menuLayout.setHgap(1);
@@ -65,6 +64,7 @@ public class MonthView extends JPanel implements ActionListener {
 		mNext.addActionListener(this);
 		menuPanel.add(mNext);
 		
+		
 		JPanel dayOfWeekPanel = new JPanel();
 		GridLayout dayLayout = new GridLayout(0, 7);
 		dayLayout.setHgap(1);
@@ -82,25 +82,41 @@ public class MonthView extends JPanel implements ActionListener {
 		}
 		dayOfWeekPanel.setBorder(BorderFactory.createLineBorder(Color.darkGray));
 		
+		
 		mPanel = new JPanel();
 		mPanel.setLayout(new BoxLayout(mPanel, BoxLayout.Y_AXIS));
+		
 		mPanel.add(menuPanel, BorderLayout.NORTH);
 		mPanel.add(dayOfWeekPanel, BorderLayout.NORTH);
+		
 		
 		initCalendar();
 	}
 
 
 	private void initCalendar() {
-		this.setBackground(Color.darkGray);
+		/*this.setBackground(Color.darkGray);
 		this.setSize(500, 700);
 		GridLayout layout = new GridLayout(0, 7);
 	
 		layout.setHgap(1);
 		layout.setVgap(1);
-		this.setLayout(layout);
-		JLabel label;
-		JPanel cellPanel;
+		this.setLayout(layout);*/
+	
+		
+
+		panel = new JPanel();
+		
+		panel.setBackground(Color.darkGray);
+		panel.setSize(500, 700);
+		panel.setPreferredSize(new Dimension(500, 500));
+		GridLayout layout = new GridLayout(0, 7);
+		layout.setHgap(1);
+		layout.setVgap(1);
+		
+		panel.setLayout(layout);
+		panel.setBorder(BorderFactory.createLineBorder(Color.darkGray));
+		
 		
 		this.setPreferredSize(new Dimension(500, 500));
 		
@@ -112,7 +128,7 @@ public class MonthView extends JPanel implements ActionListener {
 		currentMonth = realMonth; // Match month and year
 		currentYear = realYear;
 
-		
+
 		mMonth.setText(months[currentMonth] + " " + currentYear);
 
 
@@ -124,30 +140,34 @@ public class MonthView extends JPanel implements ActionListener {
 
 		mMonth.setText(months[currentMonth] + " " + currentYear);
 
-		this.removeAll();
+		panel.removeAll();
 		
 		//Function that adds all the Panels 
 		addPanels();
 	}
 
 	private void addPanels() {
-		this.add(mPanel);
-
+		
+		
 		int numDays, startMonth;
 		cal = new GregorianCalendar(currentYear, currentMonth, 1);
 		numDays = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
 		startMonth = cal.get(GregorianCalendar.DAY_OF_WEEK) - cal.get(GregorianCalendar.DAY_OF_WEEK_IN_MONTH);
 		int i = 1;
 		for(i = 1; i <= startMonth; i++) {
-			this.add(new JPanel());
+			panel.add(new JPanel());
 		}
 		for (; i <= (numDays + startMonth); i++) {
-			this.add(new ShowDay((i-startMonth), currentMonth, currentYear));	
+			panel.add(new ShowDay((i-startMonth), currentMonth, currentYear));	
 		}
 		while(i != 43) {
-			this.add(new JPanel());
+			panel.add(new JPanel());
 			i++;
 		}
+		
+		mPanel.add(panel);
+		this.add(mPanel);
+		mPanel.setVisible(true);
 	}
 	
 	@Override
