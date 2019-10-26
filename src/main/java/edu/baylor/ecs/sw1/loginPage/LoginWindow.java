@@ -11,7 +11,7 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
-
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import java.awt.CardLayout;
@@ -19,6 +19,10 @@ import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 
@@ -34,10 +38,11 @@ public class LoginWindow  extends JFrame implements Runnable {
 	@Override
 	public void run() {
 		this.setVisible(true);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.pack();
 		
 	}
 	
-
 
 	public LoginWindow(){
 		getContentPane().setBackground(Color.WHITE);
@@ -60,12 +65,22 @@ public class LoginWindow  extends JFrame implements Runnable {
 		JPanel westPanel = new JPanel();
 		getContentPane().add(westPanel, BorderLayout.WEST);
 		westPanel.setPreferredSize(new Dimension(500, 50));
+		westPanel.setLayout(new BorderLayout(0, 0));
 		
-		ImageIcon wImage = new ImageIcon("testIMG.png");
-		westPanel.setLayout(new CardLayout(0, 0));
-		JLabel lblNewLabel = new JLabel();
-		lblNewLabel.setIcon(wImage);
-		westPanel.add(lblNewLabel, "name_1343097577624496");
+		JPanel logoPanel = new JPanel();
+		westPanel.add(logoPanel, BorderLayout.SOUTH);
+		try {
+			BufferedImage myDayLogo = ImageIO.read(new File(""));
+			System.out.println(System.getProperty("user.dir"));
+			JLabel picLabel = new JLabel(new ImageIcon(myDayLogo));
+			add(picLabel);
+		}catch(IOException e) {
+			
+		}
+		
+		JPanel myDayStatsPanel = new JPanel();
+		westPanel.add(myDayStatsPanel, BorderLayout.NORTH);
+		
 		
 		JPanel eastPanel = new JPanel();
 		eastPanel.setBackground(Color.WHITE);

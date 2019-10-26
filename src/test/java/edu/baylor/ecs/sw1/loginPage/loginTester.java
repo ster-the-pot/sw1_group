@@ -16,6 +16,11 @@ public class loginTester {
 
 	}
 	
+	public static void main(String [] args) {
+		LoginWindow login = new LoginWindow();
+		SwingUtilities.invokeLater(login);
+	}
+	
 	@Test
 	public void renderPage() {
 		LoginWindow login = new LoginWindow();
