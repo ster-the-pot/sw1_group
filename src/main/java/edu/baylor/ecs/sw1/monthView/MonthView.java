@@ -114,7 +114,7 @@ public class MonthView extends JFrame implements ActionListener {
 		
 		panel.setBackground(Color.darkGray);
 		panel.setSize(500, 700);
-		panel.setPreferredSize(new Dimension(500, 400));
+		panel.setPreferredSize(new Dimension(500, 500));
 		GridLayout layout = new GridLayout(0, 7);
 		layout.setHgap(1);
 		layout.setVgap(1);
@@ -146,10 +146,10 @@ public class MonthView extends JFrame implements ActionListener {
 		}
 		for (; i <= (numDays + startMonth); i++) {
 			
-			label = new JLabel("Day: " + (i - startMonth /*+ 4*/));
+			label = new JLabel("" + (i - startMonth));
 			cellPanel = new JPanel();
 			
-			cellPanel.add(label);
+			cellPanel.add(label, BorderLayout.WEST);
 			panel.add(cellPanel);
 		}
 		while(i != 43) {
@@ -183,7 +183,7 @@ public class MonthView extends JFrame implements ActionListener {
 		}
 		for (; i <= (numDays + startMonth); i++) {
 			
-			label = new JLabel("Day: " + (i - startMonth /*+ 4*/));
+			label = new JLabel("" + (i - startMonth));
 			cellPanel = new JPanel();
 			
 			cellPanel.add(label);
@@ -194,7 +194,8 @@ public class MonthView extends JFrame implements ActionListener {
 			i++;
 		}
 
-		//monthCalendar.fireTableDataChanged();
+		mPanel.add(panel);
+		mainFrame.setVisible(true);
 
 	}
 
