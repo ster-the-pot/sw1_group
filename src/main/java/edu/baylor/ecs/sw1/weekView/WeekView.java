@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,8 +24,10 @@ import javax.swing.table.DefaultTableModel;
 
 
 /**
- * MonthView class creates the month view for the calendar. 
- * It contains a constructor with a JTable as the calendar base. 
+ * WeekView class creates the week view for the calendar. 
+ * It uses a JPanel as the calendar base. The main differences
+ * between this and the MonthView class is how the tables
+ * are made and updated, as well as the Action performed Override.
  * 
  * @author Elizabeth Brighton
  *
@@ -60,7 +63,7 @@ public class WeekView extends JFrame implements ActionListener {
 
 	private void prepareGUI() {
 		
-		mainFrame = new JFrame("MonthView");
+		mainFrame = new JFrame("WeekView");
 		mainFrame.setSize(700, 600);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -79,26 +82,54 @@ public class WeekView extends JFrame implements ActionListener {
 		
 		
 		
-		menuPanel = new JPanel(new FlowLayout());
+		JPanel menuPanel = new JPanel();
+		GridLayout menuLayout = new GridLayout(0, 5);
+		menuLayout.setHgap(1);
+		menuLayout.setVgap(1);
+		menuPanel.setLayout(menuLayout);
+		menuPanel.setPreferredSize(new Dimension(500, 20));
 		
-		menuPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		
 		mLast = new JButton("Last");
 		mLast.addActionListener(this);
-		menuPanel .add(mLast);
+		menuPanel.add(mLast);
+		menuPanel.add(new JPanel());
 		mMonth = new JLabel(months[currentMonth] + " " + currentYear, SwingConstants.CENTER);
-		mMonth.setPreferredSize(new Dimension(100, 20));
 		menuPanel.add(mMonth);
+		menuPanel.add(new JPanel());
 		mNext = new JButton("Next");
 		mNext.addActionListener(this);
 		menuPanel.add(mNext);
 		
 		
-	
+		
+		
+		
+		
+		JPanel dayOfWeekPanel = new JPanel();
+		GridLayout dayLayout = new GridLayout(0, 7);
+		dayLayout.setHgap(1);
+		dayLayout.setVgap(1);
+		dayOfWeekPanel.setLayout(dayLayout);
+		dayOfWeekPanel.setBackground(Color.darkGray);
+		dayOfWeekPanel.setPreferredSize(new Dimension(500, 30));
+		JLabel daylabel;
+		JPanel cellPanel;
+		for(int i = 0; i < 7; i++) {
+			daylabel = new JLabel(dayHeader[i]);
+			cellPanel = new JPanel();
+			cellPanel.add(daylabel);
+			dayOfWeekPanel.add(cellPanel);
+		}
+		dayOfWeekPanel.setBorder(BorderFactory.createLineBorder(Color.darkGray));
+		
+		
+		
 		
 		mPanel = new JPanel();
-		mPanel.setLayout(new FlowLayout());
+		mPanel.setLayout(new BoxLayout(mPanel, BoxLayout.Y_AXIS));
 		mPanel.add(menuPanel, BorderLayout.NORTH);
-		
+		mPanel.add(dayOfWeekPanel, BorderLayout.NORTH);
 		
 
 		mainFrame.add(sidePanel, BorderLayout.WEST);
@@ -108,7 +139,6 @@ public class WeekView extends JFrame implements ActionListener {
 		mainFrame.setVisible(true);
 		
 		initCalendar();
-		
 	}
 
 
