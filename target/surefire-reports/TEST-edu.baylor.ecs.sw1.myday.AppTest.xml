@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="edu.baylor.ecs.sw1.myday.AppTest" time="0.026" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="edu.baylor.ecs.sw1.myday.AppTest" time="0.021" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
     <property name="java.specification.version" value="12"/>
@@ -13,7 +13,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk-12.0.2.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/strafford/Documents/Baylor/Fall_2019/Software_Engineering/groupProject/myDay/target/surefire/surefirebooter3374218644659355584.jar /Users/strafford/Documents/Baylor/Fall_2019/Software_Engineering/groupProject/myDay/target/surefire 2019-10-22T13-39-06_672-jvmRun1 surefire15029790706812249082tmp surefire_013530400278780768408tmp"/>
+    <property name="sun.java.command" value="/Users/strafford/Documents/Baylor/Fall_2019/Software_Engineering/groupProject/myDay/target/surefire/surefirebooter11481688683542327354.jar /Users/strafford/Documents/Baylor/Fall_2019/Software_Engineering/groupProject/myDay/target/surefire 2019-10-22T14-22-35_038-jvmRun1 surefire7278332879420880589tmp surefire_09746617768918790876tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/strafford/Documents/Baylor/Fall_2019/Software_Engineering/groupProject/myDay/target/test-classes:/Users/strafford/Documents/Baylor/Fall_2019/Software_Engineering/groupProject/myDay/target/classes:/Users/strafford/.m2/repository/junit/junit/4.11/junit-4.11.jar:/Users/strafford/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -29,7 +29,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="/Users/strafford/Documents/Baylor/Fall_2019/Software_Engineering/groupProject/myDay/target/surefire/surefirebooter3374218644659355584.jar"/>
+    <property name="surefire.real.class.path" value="/Users/strafford/Documents/Baylor/Fall_2019/Software_Engineering/groupProject/myDay/target/surefire/surefirebooter11481688683542327354.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="12.0.2+10"/>
     <property name="user.name" value="strafford"/>
@@ -52,5 +52,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
     <property name="java.class.version" value="56.0"/>
   </properties>
-  <testcase name="shouldAnswerWithTrue" classname="edu.baylor.ecs.sw1.myday.AppTest" time="0.002"/>
+  <testcase name="shouldAnswerWithTrue" classname="edu.baylor.ecs.sw1.myday.AppTest" time="0.001"/>
 </testsuite>
