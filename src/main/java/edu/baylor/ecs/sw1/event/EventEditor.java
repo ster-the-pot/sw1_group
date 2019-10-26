@@ -125,8 +125,10 @@ public class EventEditor {
 				
 				startDate.setHours(startTime.getHours());
 				startDate.setMinutes(startTime.getMinutes());
+				startDate.setSeconds(0);
 				endDate.setHours(endTime.getHours());
 				endDate.setMinutes(endTime.getMinutes());
+				endDate.setSeconds(0);
 				
 				event.setStartDate(startDate);
 				event.setEndDate(endDate);
