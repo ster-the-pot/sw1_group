@@ -12,9 +12,12 @@ import javax.swing.JPanel;
 import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -30,118 +33,44 @@ import javax.swing.JPasswordField;
  * @author strafford
  *
  */
-public class LoginWindow  extends JFrame implements Runnable {
-	private JTextField txtUsernamefield;
-	private JPasswordField passwordField;
-	
-	@Override
-	public void run() {
-		this.setVisible(true);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+public class LoginWindow extends JFrame implements Runnable {
+	LoginWindow(){
+		
+		
+		getContentPane().setLayout(new BoxLayout(this.getContentPane(),BoxLayout.Y_AXIS));
+		JPanel topLabel = new JPanel();
+		topLabel.setPreferredSize(new Dimension(50,500));
+		topLabel.setBackground(Color.BLUE);
+		JLabel myDayLabel = new JLabel("Welcome to MyDay!");
+		myDayLabel.setForeground(Color.WHITE);
+		
+		JPanel midGrid = new JPanel(new GridLayout(0,2));
+		midGrid.setPreferredSize(new Dimension(midGrid.getMaximumSize()));
+		
+		JPanel statsLogo = new JPanel(new GridLayout(2,1));
+		statsLogo.setBackground(Color.BLACK);
+		ImagePanel img = new ImagePanel("src/main/resources/testIMG.png");
+		statsLogo.add(img);
+		JPanel loginPanel = new JPanel();
+		
+		
+		midGrid.add(statsLogo);
+		midGrid.add(loginPanel);
+		
+		topLabel.add(myDayLabel);
+		this.getContentPane().add(topLabel);
+		this.getContentPane().add(midGrid);
 		this.pack();
 		
 	}
-	
-
-	public LoginWindow(){
-		getContentPane().setBackground(Color.WHITE);
-		getContentPane().setFont(new Font("Lucida Grande", Font.PLAIN, 34));
-		getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		JPanel northPanel = new JPanel();
-		
-		northPanel.setBackground(UIManager.getColor("PopupMenu.selectionBackground"));
-		northPanel.setPreferredSize(new Dimension(40, 50));
-		FlowLayout flowLayout = (FlowLayout) northPanel.getLayout();
-		getContentPane().add(northPanel, BorderLayout.NORTH);
-		
-		JLabel lblWelcomeToMyday = new JLabel("Welcome to MyDay!");
-		lblWelcomeToMyday.setForeground(Color.WHITE);
-		lblWelcomeToMyday.setFont(new Font("Lucida Grande", Font.BOLD, 33));
-		lblWelcomeToMyday.setHorizontalAlignment(SwingConstants.CENTER);
-		northPanel.add(lblWelcomeToMyday);
-		
-		JPanel westPanel = new JPanel(new GridBagLayout());
-		westPanel.setPreferredSize(new Dimension(500,500));
-		getContentPane().add(westPanel, BorderLayout.WEST);
-		ImagePanel logoPanel = new ImagePanel("src/main/resources/testIMG.png");
-		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.BOTH;
-		c.gridx = 200;
-		c.gridy = 200;
-		westPanel.add(logoPanel,c);
-		logoPanel.revalidate();
-		
-		
-		JPanel myDayStatsPanel = new JPanel();
-		
-		
-		JPanel eastPanel = new JPanel();
-		eastPanel.setBackground(Color.WHITE);
-		eastPanel.setPreferredSize(new Dimension(510, 50));
-		getContentPane().add(eastPanel, BorderLayout.EAST);
-		GridBagLayout gbl_eastPanel = new GridBagLayout();
-		gbl_eastPanel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_eastPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_eastPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_eastPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		eastPanel.setLayout(gbl_eastPanel);
-		
-		JLabel lblUsername = new JLabel("Username");
-		lblUsername.setPreferredSize(new Dimension(75,25));
-		GridBagConstraints gbc_lblUsername = new GridBagConstraints();
-		gbc_lblUsername.gridwidth = 3;
-		gbc_lblUsername.insets = new Insets(0, 0, 5, 5);
-		gbc_lblUsername.gridx = 4;
-		gbc_lblUsername.gridy = 7;
-		eastPanel.add(lblUsername, gbc_lblUsername);
-		
-		txtUsernamefield = new JTextField();
-		GridBagConstraints gbc_txtUsernamefield = new GridBagConstraints();
-		gbc_txtUsernamefield.gridwidth = 3;
-		gbc_txtUsernamefield.insets = new Insets(0, 0, 5, 5);
-		gbc_txtUsernamefield.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtUsernamefield.gridx = 4;
-		gbc_txtUsernamefield.gridy = 8;
-		eastPanel.add(txtUsernamefield, gbc_txtUsernamefield);
-		txtUsernamefield.setColumns(11);
-		
-		JLabel lblPassword = new JLabel("Password");
-		GridBagConstraints gbc_lblPassword = new GridBagConstraints();
-		gbc_lblPassword.gridwidth = 3;
-		gbc_lblPassword.insets = new Insets(0, 0, 5, 5);
-		gbc_lblPassword.gridx = 4;
-		gbc_lblPassword.gridy = 9;
-		eastPanel.add(lblPassword, gbc_lblPassword);
-		
-		passwordField = new JPasswordField();
-		GridBagConstraints gbc_passwordField = new GridBagConstraints();
-		gbc_passwordField.gridwidth = 3;
-		gbc_passwordField.insets = new Insets(0, 0, 5, 5);
-		gbc_passwordField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_passwordField.gridx = 4;
-		gbc_passwordField.gridy = 10;
-		eastPanel.add(passwordField, gbc_passwordField);
-		
-		JButton btnCreateAccount = new JButton("Create Account");
-		btnCreateAccount.setPreferredSize(new Dimension(75,75));
-		GridBagConstraints gbc_btnCreateAccount = new GridBagConstraints();
-		gbc_btnCreateAccount.insets = new Insets(0, 0, 5, 5);
-		gbc_btnCreateAccount.gridx = 3;
-		gbc_btnCreateAccount.gridy = 13;
-		eastPanel.add(btnCreateAccount, gbc_btnCreateAccount);
-		
-		JButton btnLogin = new JButton("Login");
-		GridBagConstraints gbc_btnLogin = new GridBagConstraints();
-		btnLogin.setPreferredSize(new Dimension(75,100));
-		gbc_btnLogin.insets = new Insets(0, 0, 5, 5);
-		gbc_btnLogin.gridx = 7;
-		gbc_btnLogin.gridy = 13;
-		eastPanel.add(btnLogin, gbc_btnLogin);
+	@Override
+	public void run() {
+		this.setPreferredSize(new Dimension(900,900));
+		this.setVisible(true);
 		
 	}
-
-
+	
 
 	
 	
