@@ -31,8 +31,7 @@ import edu.baylor.ecs.sw1.ShowDay.ShowDay;
  * @author Elizabeth Brighton
  *
  */
-public class WeekView extends JFrame implements ActionListener {
-	private JFrame mainFrame;
+public class WeekView extends JPanel implements ActionListener {
 	String[] dayHeader = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
 	String[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September",
 			"October", "November", "December" };
@@ -51,29 +50,7 @@ public class WeekView extends JFrame implements ActionListener {
 		prepareGUI();
 	}
 
-	public static void main(String[] args) {
-		WeekView swingLayoutDemo = new WeekView();
-	}
-
 	private void prepareGUI() {
-		
-		mainFrame = new JFrame("WeekView");
-		mainFrame.setSize(700, 600);
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			
-		
-		sidePanel = new JPanel();
-		JLabel label = new JLabel("HELLO");
-
-		sidePanel.setBackground(Color.GRAY);
-		sidePanel.add(label);
-		sidePanel.setPreferredSize(new Dimension(50, 40));
-		GridLayout layout = new GridLayout(7, 0);
-		layout.setHgap(1);
-		layout.setVgap(1);
-		sidePanel.setLayout(layout);
-		
-		
 		
 		JPanel menuPanel = new JPanel();
 		GridLayout menuLayout = new GridLayout(0, 5);
@@ -93,8 +70,6 @@ public class WeekView extends JFrame implements ActionListener {
 		mNext = new JButton("Next");
 		mNext.addActionListener(this);
 		menuPanel.add(mNext);
-		
-		
 		
 		JPanel dayOfWeekPanel = new JPanel();
 		GridLayout dayLayout = new GridLayout(0, 7);
@@ -120,13 +95,6 @@ public class WeekView extends JFrame implements ActionListener {
 		mPanel.setLayout(new BoxLayout(mPanel, BoxLayout.Y_AXIS));
 		mPanel.add(menuPanel, BorderLayout.NORTH);
 		mPanel.add(dayOfWeekPanel, BorderLayout.NORTH);
-		
-
-		mainFrame.add(sidePanel, BorderLayout.WEST);
-		mainFrame.add(mPanel);
-		
-		
-		mainFrame.setVisible(true);
 		
 		initCalendar();
 	}
@@ -212,8 +180,8 @@ public class WeekView extends JFrame implements ActionListener {
 			}
 		}
 		mPanel.add(panel);
-		mainFrame.setVisible(true);
-		
+		this.add(mPanel);
+		mPanel.setVisible(true);
 	}
 	
 	@Override
