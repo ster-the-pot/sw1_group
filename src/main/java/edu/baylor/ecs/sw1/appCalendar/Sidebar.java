@@ -30,12 +30,12 @@ public class Sidebar extends JPanel {
 	}
 	
 	public Sidebar() {
-		this.setBackground(Color.GRAY);
-		this.setPreferredSize(new Dimension(50, 40));
-		GridLayout layout = new GridLayout(7, 0);
+		//this.setBackground(Color.GRAY);
+		GridLayout layout = new GridLayout(12, 0);
 		layout.setHgap(1);
 		layout.setVgap(1);
 		this.setLayout(layout);
+		
 		
 		String[] viewChoices = {"Month View", "Week View"};
 		viewSwitcher = new JComboBox<>(viewChoices);

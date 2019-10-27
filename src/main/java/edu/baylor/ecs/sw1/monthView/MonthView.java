@@ -108,8 +108,10 @@ public class MonthView extends JPanel implements ActionListener {
 		panel = new JPanel();
 		
 		panel.setBackground(Color.darkGray);
-		panel.setSize(500, 700);
-		panel.setPreferredSize(new Dimension(500, 500));
+		//panel.setSize(500, 700);
+		
+		panel.setPreferredSize(new Dimension(1100, 600));
+		//panel.setMaximumSize( panel.getPreferredSize() );
 		GridLayout layout = new GridLayout(0, 7);
 		layout.setHgap(1);
 		layout.setVgap(1);
@@ -118,7 +120,7 @@ public class MonthView extends JPanel implements ActionListener {
 		panel.setBorder(BorderFactory.createLineBorder(Color.darkGray));
 		
 		
-		this.setPreferredSize(new Dimension(500, 500));
+		//this.setPreferredSize(new Dimension(500, 500));
 		
 		// Get current day
 		GregorianCalendar cal = new GregorianCalendar(); // Create calendar
