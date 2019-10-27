@@ -38,7 +38,7 @@ public class AppCalendar extends JFrame implements ActionListener {
 	private void render() {
 		this.getContentPane().removeAll();
 
-		
+		this.setBackground(Color.WHITE);
 		
 		//this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.X_AXIS));
 		this.setLayout(new BorderLayout());

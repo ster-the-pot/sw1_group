@@ -1,5 +1,6 @@
 package edu.baylor.ecs.sw1.event;
 
+import java.awt.Color;
 import java.awt.Frame;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -10,9 +11,11 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 
 import org.jdatepicker.impl.*;
 
@@ -31,7 +34,8 @@ public class EventCreator {
 
 	JTextField descriptionField;
 	JButton finishButton;
-	
+
+	Color labelColor = new Color(64, 143, 222);
 	Event event;
 
 	public EventCreator(Frame owner) {
@@ -55,7 +59,11 @@ public class EventCreator {
 		datePickerProps.put("date.year","Year");
 		
 		startDatePicker = new JDatePickerImpl(new JDatePanelImpl(model,datePickerProps), new DateLabelFormatter()); 
+		JFormattedTextField textField = startDatePicker.getJFormattedTextField();
+		textField.setBackground(Color.WHITE);
 		endDatePicker = new JDatePickerImpl(new JDatePanelImpl(endModel,datePickerProps), new DateLabelFormatter()); 
+		JFormattedTextField textField2 = endDatePicker.getJFormattedTextField();
+		textField2.setBackground(Color.WHITE);
 		
 		initTimeChoosers();
 
@@ -149,7 +157,9 @@ public class EventCreator {
 		}
 		
 		startTimeChooser = new JComboBox<>(startModel);
+		startTimeChooser.setBackground(Color.WHITE);
 		endTimeChooser = new JComboBox<>(endModel);
+		endTimeChooser.setBackground(Color.WHITE);
 		
 		startTimeChooser.setRenderer(new DateFormattedListCellRenderer(new SimpleDateFormat("HH:mm")));
 		endTimeChooser.setRenderer(new DateFormattedListCellRenderer(new SimpleDateFormat("HH:mm")));

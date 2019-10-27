@@ -46,9 +46,6 @@ public class LoginWindow extends JFrame implements Runnable {
 		
 		
 		
-		
-		
-		
 		LoginPanel loginPanel = new LoginPanel();
 		loginPanel.setBackground(Color.WHITE);
 		midGrid.add(statsLogo);

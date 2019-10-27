@@ -5,6 +5,7 @@ package edu.baylor.ecs.sw1.weekView;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,7 +41,9 @@ public class WeekView extends JPanel implements ActionListener {
 	static int realYear, realMonth, realDay, currentYear, currentMonth, currentDay, lastYear, lastMonth, lastMaxDay, dayOfWeek;
 	static JPanel panel;
 	GregorianCalendar cal;
-
+	Font loginBold = new Font(Font.SANS_SERIF, Font.BOLD, 18);
+	
+	
 	public WeekView() {
 		prepareGUI();
 	}
@@ -59,14 +62,19 @@ public class WeekView extends JPanel implements ActionListener {
 		mLast = new JButton("Last");
 		mLast.addActionListener(this);
 		menuPanel.add(mLast);
-		menuPanel.add(new JPanel());
+		JPanel temp = new JPanel();
+		temp.setBackground(Color.WHITE);
+		menuPanel.add(temp);
 		mMonth = new JLabel(months[currentMonth] + " " + currentYear, SwingConstants.CENTER);
+		mMonth.setFont(loginBold);
 		menuPanel.add(mMonth);
-		menuPanel.add(new JPanel());
+		JPanel temp2 = new JPanel();
+		temp2.setBackground(Color.WHITE);
+		menuPanel.add(temp2);
 		mNext = new JButton("Next");
 		mNext.addActionListener(this);
 		menuPanel.add(mNext);
-		
+		menuPanel.setBackground(Color.WHITE);
 		
 		JPanel dayOfWeekPanel = new JPanel();
 		GridLayout dayLayout = new GridLayout(0, 7);
@@ -187,6 +195,7 @@ public class WeekView extends JPanel implements ActionListener {
 		
 		mPanel.add(panel);
 		this.add(mPanel);
+		this.setBackground(Color.WHITE);
 		mPanel.setVisible(true);
 	}
 	

@@ -35,7 +35,7 @@ public class Sidebar extends JPanel {
 		layout.setHgap(1);
 		layout.setVgap(1);
 		this.setLayout(layout);
-		
+		this.setBackground(Color.WHITE);
 		
 		String[] viewChoices = {"Month View", "Week View"};
 		viewSwitcher = new JComboBox<>(viewChoices);

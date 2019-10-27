@@ -4,6 +4,7 @@ package edu.baylor.ecs.sw1.monthView;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,6 +38,7 @@ public class MonthView extends JPanel implements ActionListener {
 	static int realYear, realMonth, realDay, currentYear, currentMonth;
 	static JPanel panel;
 	GregorianCalendar cal;
+	Font loginBold = new Font(Font.SANS_SERIF, Font.BOLD, 18);
 
 	public MonthView() {
 		prepareGUI();
@@ -56,14 +58,19 @@ public class MonthView extends JPanel implements ActionListener {
 		mLast = new JButton("Last");
 		mLast.addActionListener(this);
 		menuPanel.add(mLast);
-		menuPanel.add(new JPanel());
+		JPanel temp = new JPanel();
+		temp.setBackground(Color.WHITE);
+		menuPanel.add(temp);
 		mMonth = new JLabel(months[currentMonth] + " " + currentYear, SwingConstants.CENTER);
+		mMonth.setFont(loginBold);
 		menuPanel.add(mMonth);
-		menuPanel.add(new JPanel());
+		JPanel temp2 = new JPanel();
+		temp2.setBackground(Color.WHITE);
+		menuPanel.add(temp2);
 		mNext = new JButton("Next");
 		mNext.addActionListener(this);
 		menuPanel.add(mNext);
-		
+		menuPanel.setBackground(Color.WHITE);
 		
 		JPanel dayOfWeekPanel = new JPanel();
 		GridLayout dayLayout = new GridLayout(0, 7);
@@ -85,7 +92,7 @@ public class MonthView extends JPanel implements ActionListener {
 		
 		mPanel = new JPanel();
 		mPanel.setLayout(new BoxLayout(mPanel, BoxLayout.Y_AXIS));
-		
+
 		mPanel.add(menuPanel, BorderLayout.NORTH);
 		mPanel.add(dayOfWeekPanel, BorderLayout.NORTH);
 		
@@ -172,6 +179,7 @@ public class MonthView extends JPanel implements ActionListener {
 		
 		mPanel.add(panel);
 		this.add(mPanel);
+		this.setBackground(Color.WHITE);
 		mPanel.setVisible(true);
 	}
 	
