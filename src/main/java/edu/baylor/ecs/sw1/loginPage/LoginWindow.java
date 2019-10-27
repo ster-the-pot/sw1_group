@@ -1,33 +1,17 @@
 package edu.baylor.ecs.sw1.loginPage;
 
 import javax.swing.JFrame;
-
-import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JPanel;
-import java.awt.FlowLayout;
-import javax.swing.SwingConstants;
-import javax.imageio.ImageIO;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.UIManager;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
-import javax.swing.JButton;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import javax.swing.BoxLayout;
 
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
+
 import javax.swing.JTextField;
 
 /**

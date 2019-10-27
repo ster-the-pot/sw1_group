@@ -1,6 +1,5 @@
 package edu.baylor.ecs.sw1.loginPage;
 
-import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;

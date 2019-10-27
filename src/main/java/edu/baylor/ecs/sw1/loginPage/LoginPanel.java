@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 
 /**
- * renders login panel in the login window, responsible for acceptign user input
+ * renders login panel in the login window, responsible for accepting user input
  * @author strafford
  *
  */
@@ -50,6 +50,7 @@ public class LoginPanel extends JPanel {
 		
 		txtusername = new JTextField();
 		txtusername.setText("Tomas Cerny");
+		txtusername.setHorizontalAlignment(JTextField.CENTER);
 		GridBagConstraints gbc_txtusername = new GridBagConstraints();
 		gbc_txtusername.gridwidth = 3;
 		gbc_txtusername.insets = new Insets(0, 0, 5, 0);
