@@ -41,6 +41,7 @@ To empower Students to make the most of their studies by automating their class 
 Refactored Domain Model
 * Allows for cross-user functionality
 * Incorporated MVC principles and GRASP
+
 Modified Use-Case:Set Free-Time
 * Changed to Schedule Time
 * More closely reflects process of scheduling
