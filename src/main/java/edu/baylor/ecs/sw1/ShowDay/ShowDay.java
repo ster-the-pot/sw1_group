@@ -18,8 +18,7 @@ public class ShowDay extends JPanel{
 		
 		dayPanel = new JPanel();
 		dayPanel.add(label);
-		
-		
+
 		this.add(dayPanel);
 		
 	}

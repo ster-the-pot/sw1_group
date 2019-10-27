@@ -144,6 +144,9 @@ public class MonthView extends JPanel implements ActionListener {
 		
 		//Function that adds all the Panels 
 		addPanels();
+		
+		panel.revalidate();
+		panel.repaint();
 	}
 
 	private void addPanels() {

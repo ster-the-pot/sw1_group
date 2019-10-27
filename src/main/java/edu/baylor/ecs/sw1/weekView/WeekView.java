@@ -13,13 +13,11 @@ import java.util.GregorianCalendar;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import edu.baylor.ecs.sw1.ShowDay.ShowDay;
-
 
 
 /**
@@ -35,15 +33,12 @@ public class WeekView extends JPanel implements ActionListener {
 	String[] dayHeader = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
 	String[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September",
 			"October", "November", "December" };
-
-
-	static JFrame mFrame;
+	
 	static JLabel mMonth, mDay;
 	static JButton mLast, mNext;
 	static JPanel mPanel;
-	static int realYear, realMonth, realDay, currentYear, currentMonth, currentDay, 
-	lastYear, lastMonth, lastMaxDay, dayOfWeek;
-	static JPanel panel, sidePanel;
+	static int realYear, realMonth, realDay, currentYear, currentMonth, currentDay, lastYear, lastMonth, lastMaxDay, dayOfWeek;
+	static JPanel panel;
 	GregorianCalendar cal;
 
 	public WeekView() {
@@ -51,6 +46,7 @@ public class WeekView extends JPanel implements ActionListener {
 	}
 
 	private void prepareGUI() {
+
 		
 		JPanel menuPanel = new JPanel();
 		GridLayout menuLayout = new GridLayout(0, 5);
@@ -71,6 +67,7 @@ public class WeekView extends JPanel implements ActionListener {
 		mNext.addActionListener(this);
 		menuPanel.add(mNext);
 		
+		
 		JPanel dayOfWeekPanel = new JPanel();
 		GridLayout dayLayout = new GridLayout(0, 7);
 		dayLayout.setHgap(1);
@@ -89,20 +86,20 @@ public class WeekView extends JPanel implements ActionListener {
 		dayOfWeekPanel.setBorder(BorderFactory.createLineBorder(Color.darkGray));
 		
 		
-		
-		
 		mPanel = new JPanel();
 		mPanel.setLayout(new BoxLayout(mPanel, BoxLayout.Y_AXIS));
+		
 		mPanel.add(menuPanel, BorderLayout.NORTH);
 		mPanel.add(dayOfWeekPanel, BorderLayout.NORTH);
 		
+		
 		initCalendar();
+		
+	
 	}
 
 
 	private void initCalendar() {
-
-		
 		panel = new JPanel();
 		
 		panel.setBackground(Color.darkGray);
@@ -114,7 +111,11 @@ public class WeekView extends JPanel implements ActionListener {
 		
 		panel.setLayout(layout);
 		panel.setBorder(BorderFactory.createLineBorder(Color.darkGray));
-	
+		
+		
+		this.setPreferredSize(new Dimension(500, 500));
+		
+
 		
 		// Get current day
 		cal = new GregorianCalendar(); // Create calendar
@@ -137,6 +138,8 @@ public class WeekView extends JPanel implements ActionListener {
 			dayOfWeek = cal.get(GregorianCalendar.DAY_OF_WEEK);
 		}
 		
+		
+		
 		//Function that adds all the Panels
 		addPanels();
 		
@@ -148,25 +151,29 @@ public class WeekView extends JPanel implements ActionListener {
 		mMonth.setText(months[currentMonth] + " " + currentYear);
 
 		panel.removeAll();
+	
+		
 		
 		//Function that adds all the Panels
 		addPanels();
-
+		//initCalendar();
+		
+		panel.revalidate();
+		panel.repaint();
 	}
 
 	private void addPanels() {
+		
 		int numDays;
 		numDays = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
 
 		int i = 1;
-		
 		for (i = (currentDay - dayOfWeek + 1); i <= (currentDay + 7 - dayOfWeek); i++) {
-
 			if(i > numDays) {	
 				if(currentMonth != 11)
-					panel.add(new ShowDay((i + currentDay - numDays), currentMonth+1, currentYear, true));
+					panel.add(new ShowDay((i  - numDays), currentMonth+1, currentYear, true));
 				else
-					panel.add(new ShowDay((i + currentDay - numDays), 0, currentYear+1, true));
+					panel.add(new ShowDay((i - numDays), 0, currentYear+1, true));
 				
 			} else if (i <= 0){
 				if(currentMonth != 0)
@@ -176,20 +183,23 @@ public class WeekView extends JPanel implements ActionListener {
 
 			}else {
 				panel.add(new ShowDay(i, currentMonth, currentYear));
-
 			}
 		}
+		
 		mPanel.add(panel);
 		this.add(mPanel);
 		mPanel.setVisible(true);
 	}
+	
+	
+	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if ("Last".equals(e.getActionCommand())) {
 			if (currentDay - 7 <= 0) {
 				if (currentMonth != 0) {
-					currentMonth = lastMonth;
+					currentMonth--;
 					lastMonth--;
 					lastMaxDay = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
 					
@@ -247,7 +257,6 @@ public class WeekView extends JPanel implements ActionListener {
 				currentDay = currentDay + 7;
 			}
 		}
-
 		updateCalendar();
 	}
 	

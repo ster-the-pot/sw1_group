@@ -14,6 +14,7 @@ public class ViewTester {
 				testFrame.setVisible(true);
 				testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				
+				//MonthView view = new MonthView();
 				WeekView view = new WeekView();
 				testFrame.getContentPane().add(view);
 				view.setVisible(true);
