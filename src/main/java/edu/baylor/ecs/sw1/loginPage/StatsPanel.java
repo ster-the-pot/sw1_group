@@ -21,6 +21,7 @@ public class StatsPanel extends JPanel{
  * Render's Stats Panel, pulling data from User Data to get a total event count
  */
 	public StatsPanel() {
+		//Create labels for displaying eventCount
 		JLabel eCount = new JLabel(this.getEventsCount(127),SwingConstants.CENTER);
 		this.setLayout(new GridLayout(0,1));
 		eCount.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 35));
@@ -29,6 +30,7 @@ public class StatsPanel extends JPanel{
 		countLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 26));
 		countLabel.setForeground(tColor);
 		
+		//add labels to current frame
 		this.add(eCount);
 		this.add(countLabel);
 	}

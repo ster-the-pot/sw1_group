@@ -5,13 +5,9 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.Dimension;
-
 import javax.swing.JPanel;
 import java.awt.GridLayout;
-
 import javax.swing.BoxLayout;
-
-
 import javax.swing.JTextField;
 
 /**
@@ -26,6 +22,7 @@ public class LoginWindow extends JFrame implements Runnable {
 	JTextField username, password;
 	JLabel uLabel, pLabel;
 	LoginWindow(){
+		//init box layout to display all components
 		getContentPane().setLayout(new BoxLayout(this.getContentPane(),BoxLayout.Y_AXIS));
 		JPanel topLabel = new JPanel();
 		topLabel.setPreferredSize(new Dimension(10,5));
@@ -40,24 +37,22 @@ public class LoginWindow extends JFrame implements Runnable {
 		JPanel statsLogo = new JPanel(new GridLayout(2,1));
 		JPanel stats = new StatsPanel();
 	
+		//Create ImagePanel to display logo
 		ImagePanel logo = new ImagePanel("src/main/resources/testIMG.png");
 		statsLogo.add(logo);
 		statsLogo.add(stats);
 		
-		
-		
+
+		//Import loginPanel to render buttons and control userInput
 		LoginPanel loginPanel = new LoginPanel();
 		loginPanel.setBackground(Color.WHITE);
+		
+		//Add all objects to respective panels and insert into frame
 		midGrid.add(statsLogo);
 		midGrid.add(loginPanel);
-		
-		
 		topLabel.add(myDayLabel);
-		
 		this.getContentPane().add(topLabel);
 		this.getContentPane().add(midGrid);
-
-		
 	}
 		
 	@Override
