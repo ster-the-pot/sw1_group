@@ -63,23 +63,9 @@ public class LoginWindow extends JFrame implements Runnable {
 		
 		
 		
-		JPanel loginPanel = new JPanel();
-		loginPanel.setLayout(new BoxLayout(loginPanel,BoxLayout.Y_AXIS));
-		
-		Box.Filler blankFill = new Box.Filler(new Dimension(200,200), new Dimension(200,200), new Dimension(200,200));
-		
-		username = new JTextField();
-		password = new JTextField();
-		pLabel = new JLabel("Password");
-		uLabel = new JLabel("Username");
-		
-		loginPanel.add(blankFill);
-		loginPanel.add(uLabel);
-		loginPanel.add(username);
-		loginPanel.add(pLabel);
-		loginPanel.add(password);
 		
 		
+		LoginPanel loginPanel = new LoginPanel();
 		loginPanel.setBackground(Color.WHITE);
 		midGrid.add(statsLogo);
 		midGrid.add(loginPanel);
