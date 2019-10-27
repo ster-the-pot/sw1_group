@@ -24,6 +24,7 @@ public class ImagePanel extends JPanel {
 		
 	}
 	
+	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(this.bImage.getScaledInstance(this.getWidth(), this.getHeight(),Image.SCALE_SMOOTH), 0, 0, null);
