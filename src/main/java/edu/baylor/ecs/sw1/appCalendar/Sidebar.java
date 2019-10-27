@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,6 +16,18 @@ import javax.swing.JPanel;
  */
 public class Sidebar extends JPanel {
 	public JComboBox<String> viewSwitcher;
+	public JButton createEvent;
+	public JButton editEvent;
+	public JButton displayEventDetails;
+	public JButton deleteEvent;
+	public JButton completeEvent;
+	
+	private JButton initButton(String text) {
+		JButton button = new JButton(text);
+		button.setVisible(true);
+		this.add(button);
+		return button;
+	}
 	
 	public Sidebar() {
 		this.setBackground(Color.GRAY);
@@ -27,5 +40,11 @@ public class Sidebar extends JPanel {
 		String[] viewChoices = {"Month View", "Week View"};
 		viewSwitcher = new JComboBox<>(viewChoices);
 		this.add(viewSwitcher);
+		
+		createEvent = initButton("Create Event");
+		editEvent = initButton("Edit Event Details");
+		displayEventDetails = initButton("Display Event Details");
+		deleteEvent = initButton("Delete Event");
+		completeEvent = initButton("Complete Event");
 	}
 }
