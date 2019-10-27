@@ -16,15 +16,17 @@ public class ImagePanel extends JPanel {
 	private final static Logger LOG = Logger.getLogger(ImagePanel.class.getName());
 
 	public ImagePanel(String img) {
+		//retrieve image from resources folder and display in frame
 		try {
 			this.bImage = ImageIO.read(new File(img));
 		}catch(IOException e) {
+			//Log exception
 			LOG.severe("Image file not Found");
 		}
 		
 	}
 	
-	
+	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(this.bImage.getScaledInstance(this.getWidth(), this.getHeight(),Image.SCALE_SMOOTH), 0, 0, null);
