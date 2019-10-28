@@ -8,6 +8,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -20,7 +23,9 @@ import javax.swing.JPasswordField;
 public class LoginPanel extends JPanel {
 	private JTextField txtusername;
 	private JPasswordField passwordField;
-
+	
+	public JButton btnLogin;
+	
 	public LoginPanel()  {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -77,12 +82,14 @@ public class LoginPanel extends JPanel {
 		gbc_passwordField.gridy = 11;
 		add(passwordField, gbc_passwordField);
 		
-		JButton btnLogin = new JButton("Login");
+		btnLogin = new JButton("Login");
 		GridBagConstraints gbc_btnLogin = new GridBagConstraints();
 		gbc_btnLogin.insets = new Insets(0, 0, 0, 6);
 		gbc_btnLogin.gridx = 3;
 		gbc_btnLogin.gridy = 13;
 		add(btnLogin, gbc_btnLogin);
+		
+		
 		
 		JButton btnCreateAccount = new JButton("Create Account");
 		GridBagConstraints gbc_btnCreateAccount = new GridBagConstraints();

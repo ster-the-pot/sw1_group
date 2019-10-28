@@ -1,4 +1,7 @@
 package edu.baylor.ecs.sw1.myday;
+
+import edu.baylor.ecs.sw1.loginPage.LoginWindow;
+
 //INCLUDE Javadoc comments in all submitted code
 
 /**
@@ -12,6 +15,6 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello MyDay!" );
+    	javax.swing.SwingUtilities.invokeLater(new LoginWindow());
     }
 }
