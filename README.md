@@ -28,16 +28,17 @@ To empower Students to make the most of their studies by automating their class 
 
 
 ## Iteration II
-
+[PDF Document Link]()
 ### Deliverables:
 * Sequence Diagrams
 * ~~Git Link~~
 * ~~Issue Tracking Link~~
-* GRASP
-* Test Coverage Plan
-* Updated Project Plan
-
+* ~~GRASP~~
+* ~~Test Coverage Plan~~
+* ~~Updated Project Plan~~
+* ~~Initial Swing Demo~~
 ### Revisions to Iteration 1
+[PDF Document Link](https://drive.google.com/open?id=1HBc330eO3og-yhtXs0Mq2CEZcf5mvP2G)
 Refactored Domain Model
 * Allows for cross-user functionality
 * Incorporated MVC principles and GRASP
