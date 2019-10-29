@@ -28,7 +28,7 @@ To empower Students to make the most of their studies by automating their class 
 
 
 ## Iteration II
-[PDF Document Link]()
+[PDF Document Link](https://drive.google.com/open?id=1B5oqiqRKwCZtEB3xxZWtdjh830sS62oW)
 ### Deliverables:
 * Sequence Diagrams
 * ~~Git Link~~
