@@ -15,9 +15,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import edu.baylor.ecs.sw1.View.MonthView;
+import edu.baylor.ecs.sw1.View.View;
+import edu.baylor.ecs.sw1.View.WeekView;
 import edu.baylor.ecs.sw1.event.*;
-import edu.baylor.ecs.sw1.monthView.MonthView;
-import edu.baylor.ecs.sw1.weekView.WeekView;
 
 /**
  * This class ties together Calendar views and the Sidebar
@@ -26,8 +27,8 @@ import edu.baylor.ecs.sw1.weekView.WeekView;
  */
 public class AppCalendar extends JFrame implements ActionListener {
 	Sidebar sidebar;
-	WeekView weekView;
-	MonthView monthView;
+	View weekView;
+	View monthView;
 	Boolean inMonthView;
 	JLabel myDayLabel;
 	Font loginBold = new Font(Font.SANS_SERIF, Font.BOLD, 26);
