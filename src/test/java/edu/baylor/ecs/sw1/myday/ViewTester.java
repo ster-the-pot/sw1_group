@@ -2,8 +2,8 @@ package edu.baylor.ecs.sw1.myday;
 
 import javax.swing.JFrame;
 
-import edu.baylor.ecs.sw1.monthView.MonthView;
-import edu.baylor.ecs.sw1.weekView.WeekView;
+import edu.baylor.ecs.sw1.View.MonthView;
+import edu.baylor.ecs.sw1.View.WeekView;
 
 
 public class ViewTester {
