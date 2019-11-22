@@ -19,7 +19,7 @@ import org.jdatepicker.impl.*;
 import edu.baylor.ecs.sw1.utils.DateFormattedListCellRenderer;
 import edu.baylor.ecs.sw1.utils.DateLabelFormatter;
 
-public class EventEditor {
+public class EventEditDialog {
 	JTextField eventNameField;
 	JTextField eventPriorityField;
 	
@@ -32,7 +32,7 @@ public class EventEditor {
 	JTextField descriptionField;
 	JButton finishButton;
 	
-	public EventEditor() {
+	public EventEditDialog() {
 
 	}
 	

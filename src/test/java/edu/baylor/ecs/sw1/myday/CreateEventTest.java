@@ -16,7 +16,7 @@ public class CreateEventTest {
 				testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				testFrame.pack();
 				
-				EventCreator eventDialog = new EventCreator(testFrame);
+				EventCreationDialog eventDialog = new EventCreationDialog(testFrame);
 				
 				Event event = eventDialog.getEvent();
 				if(event != null) {
