@@ -23,14 +23,14 @@ public class EditEventTest {
 				
 				
 				System.out.println("Creating event...");
-				EventCreator creator = new EventCreator(testFrame);
+				EventCreationDialog creator = new EventCreationDialog(testFrame);
 				
 				Event event = creator.getEvent();
 				if(event != null) {
 					printEvent(event);
 					
 					System.out.println("\nEditing event...");
-					EventEditor editor = new EventEditor();
+					EventEditDialog editor = new EventEditDialog();
 					editor.edit(testFrame, event);
 					
 					printEvent(event);

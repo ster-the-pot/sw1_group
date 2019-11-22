@@ -22,7 +22,7 @@ import org.jdatepicker.impl.*;
 import edu.baylor.ecs.sw1.utils.DateFormattedListCellRenderer;
 import edu.baylor.ecs.sw1.utils.DateLabelFormatter;
 
-public class EventCreator {
+public class EventCreationDialog {
 	JTextField eventNameField;
 	JTextField eventPriorityField;
 	
@@ -38,7 +38,7 @@ public class EventCreator {
 	Color labelColor = new Color(64, 143, 222);
 	Event event;
 
-	public EventCreator(Frame owner) {
+	public EventCreationDialog(Frame owner) {
 		eventNameField = new JTextField();
 		eventPriorityField = new JTextField();
 
