@@ -19,7 +19,7 @@ import org.jdatepicker.impl.*;
 import edu.baylor.ecs.sw1.utils.DateFormattedListCellRenderer;
 import edu.baylor.ecs.sw1.utils.DateLabelFormatter;
 
-public class EventEditor {
+public class EventEditDialog {
 	JTextField eventNameField;
 	JTextField eventPriorityField;
 	
@@ -32,7 +32,7 @@ public class EventEditor {
 	JTextField descriptionField;
 	JButton finishButton;
 	
-	public EventEditor() {
+	public EventEditDialog() {
 
 	}
 	
@@ -98,10 +98,10 @@ public class EventEditor {
 			Object endTValue = endTimeChooser.getSelectedItem();
 			
 			
-			if(eventName.strip().equals("") || startDValue == null || endDValue == null || startTValue == null || endTValue == null) {
+			if(eventName.trim().equals("") || startDValue == null || endDValue == null || startTValue == null || endTValue == null) {
 				
 				String errorMessage = "Error: Invalid data.";
-				if(eventName.strip().equals("")) {
+				if(eventName.trim().equals("")) {
 					errorMessage = "Error: No event name.";
 				} else if(startDValue == null) {
 					errorMessage = "Error: No start date.";
