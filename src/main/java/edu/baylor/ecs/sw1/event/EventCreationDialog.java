@@ -97,10 +97,10 @@ public class EventCreationDialog {
 			Object endTValue = endTimeChooser.getSelectedItem();
 			
 			
-			if(eventName.strip().equals("") || startDValue == null || endDValue == null || startTValue == null || endTValue == null) {
+			if(eventName.trim().equals("") || startDValue == null || endDValue == null || startTValue == null || endTValue == null) {
 				
 				String errorMessage = "Error: Invalid data.";
-				if(eventName.strip().equals("")) {
+				if(eventName.trim().equals("")) {
 					errorMessage = "Error: No event name.";
 				} else if(startDValue == null) {
 					errorMessage = "Error: No start date.";
