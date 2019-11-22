@@ -3,7 +3,7 @@ package edu.baylor.ecs.sw1.canvas;
 import org.junit.Test;
 
 public class testCanvasAgent {
-	CanvasAgent canvas = new CanvasAgent("");
+	CanvasAgentKey canvas = new CanvasAgentKey("");
 
 	public testCanvasAgent() {
 		
