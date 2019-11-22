@@ -10,7 +10,11 @@ public class testCanvasAgent {
 	}
 	
 	@Test
-	public void testCourse() {
+	public void testGetCourseEmptyKey() {
+		canvas.getCourses("");
+	}
+	
+	public void testGetCourse() {
 		canvas.getCourses("");
 	}
 
