@@ -16,6 +16,4 @@ public interface CanvasAgent {
 	public JsonNode getCourses(String studentID);
 	public Set<String> getQuizes(String studentID, String courseID);
 	public Set<String> getAssignments(String studentID, String courseID);
-	public Set<String> getExams(String studentID,String courseID);
-
 }

@@ -9,10 +9,11 @@ import java.util.Date;
  */
 public class Event {
 	String eventName;
-	String eventPriority;
+	String eventID;
+	String eventDescription;
+	EventPriority Priority;
 	Date startDate;
 	Date endDate;
-	String eventDescription;
 	Boolean completed;
 
 	public String getEventName() {
@@ -21,11 +22,11 @@ public class Event {
 	public void setEventName(String eventName) {
 		this.eventName = eventName;
 	}
-	public String getEventPriority() {
-		return eventPriority;
+	public EventPriority getEventPriority() {
+		return Priority;
 	}
-	public void setEventPriority(String eventPriority) {
-		this.eventPriority = eventPriority;
+	public void setEventPriority(EventPriority eventPriority) {
+		this.Priority = eventPriority;
 	}
 	public Date getStartDate() {
 		return startDate;

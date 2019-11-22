@@ -107,15 +107,5 @@ public class CanvasAgentKey implements CanvasAgent {
 		return null;
 
 	}
-	/**
-	 * Given a student/courseID returns all assignments
-	 * @param studentID
-	 * @param courseID
-	 * @return
-	 */
-	public Set<String> getExams(String studentID,String courseID) {
-		return null;
-
-	}
-
+	
 }
