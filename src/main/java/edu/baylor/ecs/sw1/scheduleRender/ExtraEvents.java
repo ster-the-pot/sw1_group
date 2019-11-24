@@ -45,7 +45,9 @@ public class ExtraEvents {
 	}
 	
 	public Event getEvent() {
-		return events.get(index);
+		if(index != -1)
+			return events.get(index);
+		return null;
 	}
 	
 	

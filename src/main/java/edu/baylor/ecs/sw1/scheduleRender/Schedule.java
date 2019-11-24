@@ -10,7 +10,7 @@ public class Schedule {
 	List<Event> events;
 	final int numMonth = 4, numWeek = 7;
 	
-	public Schedule(int day, int month, int year) {
+	public Schedule(Date dayDate) {
 		
 		events = new ArrayList<Event>();
 		

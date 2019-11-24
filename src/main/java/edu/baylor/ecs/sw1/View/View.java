@@ -7,7 +7,15 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -31,12 +39,16 @@ public abstract class View extends JPanel implements ActionListener{
 	String[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September",
 			"October", "November", "December" };
 	
+	List<Event> events;
 	static Event selectedEvent = null;
+	
 	
 	JLabel mMonth, mDay;
 	JButton mLast, mNext;
 	JPanel mPanel;
 	int currentYear, currentMonth;
+	Date dayDate;
+	
 	//static JPanel panel;
 	GregorianCalendar cal;
 	Font loginBold = new Font(Font.SANS_SERIF, Font.BOLD, 18);
@@ -47,6 +59,20 @@ public abstract class View extends JPanel implements ActionListener{
 	}
 
 	private void prepareGUI() {
+		events = new ArrayList<Event>();
+		
+		//QUERY HERE!!!!!!
+		for(int i = 0; i < 10; i++) {
+			Event e = new Event();
+			e.setEventName("test: " + i);
+			e.setEndDate(new Date());
+			events.add(e);
+		}
+		events.sort(Comparator.comparing(Event::getEndDate).reversed());
+		
+		
+		
+		
 		
 		
 		JPanel menuPanel = new JPanel();
@@ -111,6 +137,31 @@ public abstract class View extends JPanel implements ActionListener{
 		View.selectedEvent = selectedEvent;
 	}
 	
+	
+	public List<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(List<Event> events) {
+		this.events = events;
+	}
+	
+	protected List<Event> getDayEvents(Date d) {
+			
+		Calendar calendar = Calendar.getInstance();
+		List<Event>  temp = new ArrayList<Event>();
+		
+		for(Event e: events) {
+			
+			calendar.setTime(e.getEndDate());
+			if(d.getYear() == calendar.get(Calendar.YEAR) && d.getMonth() == calendar.get(Calendar.MONTH)
+					&& d.getDate() == calendar.get(Calendar.DAY_OF_MONTH)) {
+				temp.add(e);
+			}
+		}
+		
+		return temp;
+	}
 	
 	
 	protected abstract void initCalendar();

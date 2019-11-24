@@ -5,6 +5,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -30,14 +32,24 @@ public class ShowDay extends JPanel implements ActionListener {
 	static JPanel dayPanel;
 	Color blueColor = new Color(64, 143, 222);
 	Color redColor = new Color(180, 63, 63);
-	Schedule schedule;
+	//Schedule schedule;
 	List<Event> events;
 	Boolean isWeek = false;
 	final int numMonth = 5, numWeek = 8;
+	int numEvents = 0;
 	String leftOver = null;
+	
+	
+	
 	/* Month View Constructor */
-	public ShowDay(int day, int month, int year) {
+	public ShowDay(int day, Date dayDate, List<Event> e) {
 
+		numEvents = numMonth - 1;
+		events = new ArrayList<Event>(e);
+		if(events.size() < numEvents) {
+			numEvents = events.size();
+		}
+		
 		// Day of the Month
 		//label = new JLabel(" " + day);
 		this.setLayout(new GridLayout(numMonth, 0));
@@ -49,16 +61,22 @@ public class ShowDay extends JPanel implements ActionListener {
 		this.setBorder(border2);
 		
 		
-		schedule = new Schedule(day, month, year);
-		events = schedule.getMonthViewList();
+
 		renderEvents();
 
 	}
 
 	/* Week View Constructor */
-	public ShowDay(int day, int month, int year, Boolean isOtherMonth) {
+	public ShowDay(int day, int month, Date dayDate, List<Event> e, Boolean isOtherMonth) {
 
 		isWeek = true;
+		events = new ArrayList<Event>(e);
+		numEvents = numWeek - 1;
+		if(events.size() < numEvents) {
+			numEvents = events.size();
+		}
+		
+		
 		String title = " " + day;
 		// Day of the Week
 		if (isOtherMonth) {
@@ -76,8 +94,7 @@ public class ShowDay extends JPanel implements ActionListener {
 		this.setBorder(border2);
 		
 		
-		schedule = new Schedule(day, month, year);
-		events = schedule.getWeekViewList();
+
 		renderEvents();
 	}
 
@@ -86,8 +103,9 @@ public class ShowDay extends JPanel implements ActionListener {
 		//this.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 
 		JButton Eventlabel;
-		for (Event e : events) {
 
+		for (int i = 0; i < numEvents; i++) {
+			Event e = events.get(i);
 			if (isWeek) {
 				Eventlabel = new JButton(
 						e.getEventName() + " " + (new SimpleDateFormat("hh:mmaa").format(e.getEndDate())));
@@ -119,8 +137,8 @@ public class ShowDay extends JPanel implements ActionListener {
 	}
 
 	private void checkEventSize() {
-		if ((num = schedule.getTotal()) > events.size()) {
-			leftOver = " " + (num - events.size()) + " More Events";
+		if ((num = events.size()) > numEvents) {
+			leftOver = " " + (num - numEvents) + " More Events";
 			JButton label1 = new JButton(leftOver);
 			this.add(label1);
 			label1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -130,17 +148,10 @@ public class ShowDay extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		System.out.println(leftOver);
-		System.out.println(e.getActionCommand());
-		
+			
 		if(leftOver.equals(e.getActionCommand())) {
-			
-			//DISPLAY THE REST OF THE EVENTS SOME HOW...... IF TIME
-			System.out.println("HERE");
-		
-			
-			ExtraEvents viewExtra = new ExtraEvents(schedule.getEventList());
+				
+			ExtraEvents viewExtra = new ExtraEvents(events);
 			currentSelected = viewExtra.getEvent();
 			
 			

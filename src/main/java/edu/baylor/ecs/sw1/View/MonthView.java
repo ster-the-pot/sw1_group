@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -27,8 +28,6 @@ public class MonthView extends View {
 	static int realYear, realMonth, realDay;
 	
 	static JPanel panel;
-	
-	List<ShowDay> sd;
 	
 
 
@@ -94,7 +93,6 @@ public class MonthView extends View {
 
 	protected void addPanels() {
 		
-		sd = new ArrayList<ShowDay>();
 		
 		int numDays, startMonth;
 		cal = new GregorianCalendar(currentYear, currentMonth, 1);
@@ -105,11 +103,8 @@ public class MonthView extends View {
 			panel.add(new JPanel());
 		}
 		for (; i <= (numDays + startMonth); i++) {
-
-			ShowDay d = new ShowDay((i-startMonth), currentMonth, currentYear);
-			sd.add(d);
-			panel.add(sd.get(sd.size()-1));	
-			
+			dayDate = new Date(currentYear, currentMonth, (i-startMonth));
+			panel.add(new ShowDay((i-startMonth), dayDate, getDayEvents(dayDate)));	
 		}
 		while(i != 43) {
 			panel.add(new JPanel());
