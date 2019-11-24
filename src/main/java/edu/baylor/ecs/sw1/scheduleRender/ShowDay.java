@@ -139,7 +139,8 @@ public class ShowDay extends JPanel implements ActionListener {
 			//DISPLAY THE REST OF THE EVENTS SOME HOW...... IF TIME
 			System.out.println("HERE");
 		
-			ExtraEvents viewExtra = new ExtraEvents(events);
+			
+			ExtraEvents viewExtra = new ExtraEvents(schedule.getEventList());
 			currentSelected = viewExtra.getEvent();
 			
 			

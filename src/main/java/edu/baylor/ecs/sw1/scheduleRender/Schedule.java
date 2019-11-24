@@ -27,6 +27,7 @@ public class Schedule {
 		
 		
 		//reversed may or may not be correct - pretty sure its reversed
+		
 		//events.sort(Comparator.comparing(Event::getEventPriority).reversed());
 		
 		
