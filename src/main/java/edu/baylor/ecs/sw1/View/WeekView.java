@@ -18,7 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import edu.baylor.ecs.sw1.ShowDay.ShowDay;
+import edu.baylor.ecs.sw1.scheduleRender.ShowDay;
 
 
 /**
@@ -49,7 +49,7 @@ public class WeekView extends View {
 		layout.setVgap(1);
 		
 		panel.setLayout(layout);
-		panel.setBorder(BorderFactory.createLineBorder(Color.darkGray));
+		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		
 
@@ -119,7 +119,7 @@ public class WeekView extends View {
 					panel.add(new ShowDay((lastMaxDay + i), 11, currentYear-1, true));
 
 			}else {
-				panel.add(new ShowDay(i, currentMonth, currentYear));
+				panel.add(new ShowDay(i, currentMonth, currentYear, false));
 			}
 		}
 		

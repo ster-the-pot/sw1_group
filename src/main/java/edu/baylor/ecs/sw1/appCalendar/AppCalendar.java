@@ -122,7 +122,15 @@ public class AppCalendar extends JFrame implements ActionListener {
 			Event event = creator.getEvent();
 		} else if(act.equals("EDIT")) {
 			
+			
+			
 		} else if(act.equals("DISPLAY")) {
+			
+			Event event = View.getSelectedEvent();
+			if(event != null) {
+				EventDisplayer.display(this, View.getSelectedEvent());
+			}
+
 			
 		} else if(act.equals("DELETE")) {
 			

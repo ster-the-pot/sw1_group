@@ -1,23 +1,17 @@
 package edu.baylor.ecs.sw1.View;
 
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-
-import edu.baylor.ecs.sw1.ShowDay.ShowDay;
+import edu.baylor.ecs.sw1.scheduleRender.ShowDay;
 
 
 
@@ -33,7 +27,8 @@ public class MonthView extends View {
 	static int realYear, realMonth, realDay;
 	
 	static JPanel panel;
-
+	
+	List<ShowDay> sd;
 	
 
 
@@ -60,7 +55,7 @@ public class MonthView extends View {
 		layout.setVgap(1);
 		
 		panel.setLayout(layout);
-		panel.setBorder(BorderFactory.createLineBorder(Color.darkGray));
+		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		
 		
 		//this.setPreferredSize(new Dimension(500, 500));
@@ -99,6 +94,7 @@ public class MonthView extends View {
 
 	protected void addPanels() {
 		
+		sd = new ArrayList<ShowDay>();
 		
 		int numDays, startMonth;
 		cal = new GregorianCalendar(currentYear, currentMonth, 1);
@@ -109,7 +105,11 @@ public class MonthView extends View {
 			panel.add(new JPanel());
 		}
 		for (; i <= (numDays + startMonth); i++) {
-			panel.add(new ShowDay((i-startMonth), currentMonth, currentYear));	
+
+			ShowDay d = new ShowDay((i-startMonth), currentMonth, currentYear);
+			sd.add(d);
+			panel.add(sd.get(sd.size()-1));	
+			
 		}
 		while(i != 43) {
 			panel.add(new JPanel());
@@ -124,6 +124,7 @@ public class MonthView extends View {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
 		if ("Last".equals(e.getActionCommand())) {
 			if (currentMonth != 0) {
 				currentMonth--;

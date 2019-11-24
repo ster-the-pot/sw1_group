@@ -16,11 +16,22 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import edu.baylor.ecs.sw1.event.Event;
+
+
+/**
+ * This is for ShowDay and its children. It is the panel for each
+ * specific day on the different views (Month or Week)
+ * 
+ * @author Elizabeth Brighton
+ *
+ */
 public abstract class View extends JPanel implements ActionListener{
 	String[] dayHeader = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
 	String[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September",
 			"October", "November", "December" };
 	
+	static Event selectedEvent = null;
 	
 	JLabel mMonth, mDay;
 	JButton mLast, mNext;
@@ -78,8 +89,7 @@ public abstract class View extends JPanel implements ActionListener{
 			cellPanel.add(daylabel);
 			dayOfWeekPanel.add(cellPanel);
 		}
-		dayOfWeekPanel.setBorder(BorderFactory.createLineBorder(Color.darkGray));
-		
+		dayOfWeekPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		mPanel = new JPanel();
 		mPanel.setLayout(new BoxLayout(mPanel, BoxLayout.Y_AXIS));
@@ -91,6 +101,16 @@ public abstract class View extends JPanel implements ActionListener{
 		initCalendar();
 	}
 
+	
+	
+	public static Event getSelectedEvent() {
+		return selectedEvent;
+	}
+
+	public static void setSelectedEvent(Event selectedEvent) {
+		View.selectedEvent = selectedEvent;
+	}
+	
 	
 	
 	protected abstract void initCalendar();
