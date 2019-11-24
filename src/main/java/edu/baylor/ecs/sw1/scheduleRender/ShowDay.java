@@ -45,7 +45,7 @@ public class ShowDay extends JPanel implements ActionListener {
 	public ShowDay(int day, Date dayDate, List<Event> e) {
 
 		numEvents = numMonth - 1;
-		events = new ArrayList<Event>(e);
+		events = (new Schedule(e)).getEventList(); //new ArrayList<Event>(e);
 		if(events.size() < numEvents) {
 			numEvents = events.size();
 		}
@@ -70,7 +70,7 @@ public class ShowDay extends JPanel implements ActionListener {
 	public ShowDay(int day, int month, Date dayDate, List<Event> e, Boolean isOtherMonth) {
 
 		isWeek = true;
-		events = new ArrayList<Event>(e);
+		events = (new Schedule(e)).getEventList(); //ArrayList<Event>(e);
 		numEvents = numWeek - 1;
 		if(events.size() < numEvents) {
 			numEvents = events.size();
@@ -104,6 +104,8 @@ public class ShowDay extends JPanel implements ActionListener {
 
 		JButton Eventlabel;
 
+		
+		
 		for (int i = 0; i < numEvents; i++) {
 			Event e = events.get(i);
 			if (isWeek) {
@@ -149,8 +151,8 @@ public class ShowDay extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 			
-		if(leftOver.equals(e.getActionCommand())) {
-				
+		
+		if(leftOver != null && leftOver.equals(e.getActionCommand())) {	
 			ExtraEvents viewExtra = new ExtraEvents(events);
 			currentSelected = viewExtra.getEvent();
 			
