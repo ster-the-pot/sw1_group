@@ -30,10 +30,5 @@ public class CanvasAgentAuth implements CanvasAgent {
 		return null;
 	}
 
-	@Override
-	public Set<String> getExams(String studentID, String courseID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }
