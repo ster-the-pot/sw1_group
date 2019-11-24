@@ -109,6 +109,7 @@ public class ShowDay extends JPanel implements ActionListener {
 		if ((num = events.size()) > numEvents) {
 			if (num - numEvents == 1) {
 				addEvent(new JButton(), numEvents);
+				numEvents++;
 			} else {
 				leftOver = " " + (num - numEvents) + " More Events";
 				JButton label1 = new JButton(leftOver);
@@ -160,8 +161,7 @@ public class ShowDay extends JPanel implements ActionListener {
 						|| (ev.getEventName() + " " + (new SimpleDateFormat("hh:mmaa").format(ev.getEndDate())))
 								.equals(e.getActionCommand())) {
 
-					Event EventTemp = new Event();
-					currentSelected = EventTemp;
+					currentSelected = ev;
 				}
 			}
 		}

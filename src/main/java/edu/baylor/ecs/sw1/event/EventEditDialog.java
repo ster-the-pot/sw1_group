@@ -85,7 +85,7 @@ public class EventEditDialog {
 	
 	private void displayOptions(Frame owner, Object[] message, Event event) {
 		Object[] options = {"Confirm","Cancel"};
-		int option = JOptionPane.showOptionDialog(owner, message,"Create Event",JOptionPane.OK_CANCEL_OPTION
+		int option = JOptionPane.showOptionDialog(owner, message,"Edit Event",JOptionPane.OK_CANCEL_OPTION
 				,JOptionPane.QUESTION_MESSAGE,new ImageIcon("empty.png"),options,options[0]);
 		if(option == JOptionPane.OK_OPTION) {
 			// info validation

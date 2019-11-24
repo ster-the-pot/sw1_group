@@ -13,6 +13,9 @@ import edu.baylor.ecs.sw1.View.View;
 import edu.baylor.ecs.sw1.View.WeekView;
 import edu.baylor.ecs.sw1.appCalendar.AppCalendar;
 import edu.baylor.ecs.sw1.event.Event;
+import edu.baylor.ecs.sw1.event.EventBuilder;
+import edu.baylor.ecs.sw1.event.EventBuilderImpl;
+import edu.baylor.ecs.sw1.event.EventPriority;
 
 
 public class ViewTester {
@@ -25,14 +28,20 @@ public class ViewTester {
 				List<Event> events = new ArrayList<Event>();
 				for(int i = 0; i < 2000; i++) {
 
-						Event e = new Event();
-						e.setEventName("test: " + i);
-	
+						EventBuilder e = new EventBuilderImpl();
+						e.setName("test: " + i);
+						
+						
 						date.set(Calendar.YEAR, 2019 + r.nextInt(2));
 						date.set(Calendar.MONTH, r.nextInt(12));
 						date.set(Calendar.DAY_OF_MONTH, 1 + r.nextInt(28));
 						e.setEndDate(date.getTime());	
-						events.add(e);
+						e.setEventCompleted(false);
+						e.setEventDescription(" " + i);
+						e.setStartDate(date.getTime());
+						//System.out.println(e.getEvent().getStartDate().toString());
+						
+						events.add(e.getEvent());
 					
 				}
 				View.setEvents(events);
