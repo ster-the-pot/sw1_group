@@ -31,12 +31,15 @@ public class EventEditDialog {
 
 	JTextField descriptionField;
 	JButton finishButton;
+	Event event;
 	
 	public EventEditDialog() {
 
 	}
 	
-	public void edit(Frame owner, Event event) {
+	public void edit(Frame owner, Event e) {
+		event = e;
+		
 		Date eventStartDate = event.getStartDate();
 		Date eventEndDate = event.getEndDate();
 		
@@ -83,7 +86,9 @@ public class EventEditDialog {
 		displayOptions(owner,message,event);
 	}
 	
-	private void displayOptions(Frame owner, Object[] message, Event event) {
+	private void displayOptions(Frame owner, Object[] message, Event e) {
+		event = e;
+		
 		Object[] options = {"Confirm","Cancel"};
 		int option = JOptionPane.showOptionDialog(owner, message,"Edit Event",JOptionPane.OK_CANCEL_OPTION
 				,JOptionPane.QUESTION_MESSAGE,new ImageIcon("empty.png"),options,options[0]);
@@ -161,5 +166,11 @@ public class EventEditDialog {
 		startTimeChooser.setRenderer(new DateFormattedListCellRenderer(new SimpleDateFormat("HH:mm")));
 		endTimeChooser.setRenderer(new DateFormattedListCellRenderer(new SimpleDateFormat("HH:mm")));
 	}
+	
+	public Event getEvent() {
+		return event;
+	}
+	
+	
 	
 }
