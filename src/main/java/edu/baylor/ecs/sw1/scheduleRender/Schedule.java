@@ -15,18 +15,23 @@ public class Schedule {
 		
 		events = new ArrayList<Event>(e);
 		
+		
+		
 		events.sort(Comparator.comparing(Event::getEventName));
+		
+		
+		
+		
 		
 		//reversed may or may not be correct - pretty sure its reversed
 		
 		//events.sort(Comparator.comparing(Event::getEventPriority).reversed());
-		
-		
-		
-		
-		
 	}
 
+	
+	
+	
+	
 	
 	
 	

@@ -6,6 +6,7 @@ public class EventBuilderImpl implements EventBuilder {
 	Event e;
 	
 	public EventBuilderImpl() {
+		//e = new Quiz();
 		e = new Assignment();
 	}
 	

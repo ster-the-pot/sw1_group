@@ -1,6 +1,9 @@
 package edu.baylor.ecs.sw1.event;
 
+import java.awt.Color;
 import java.util.Date;
+
+import edu.baylor.ecs.sw1.scheduleRender.ShowDay;
 
 
 /**
@@ -56,4 +59,6 @@ public abstract class Event {
 	}
 	
 	public abstract void accept(EventVisitor visitor);
+	
+	public abstract Color accept(ShowDay sd);
 }

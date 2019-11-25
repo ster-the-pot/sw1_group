@@ -16,7 +16,10 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import edu.baylor.ecs.sw1.View.View;
+import edu.baylor.ecs.sw1.event.Assignment;
+import edu.baylor.ecs.sw1.event.Course;
 import edu.baylor.ecs.sw1.event.Event;
+import edu.baylor.ecs.sw1.event.Quiz;
 
 /**
  * 
@@ -31,7 +34,11 @@ public class ShowDay extends JPanel implements ActionListener {
 	JLabel label;
 	static JPanel dayPanel;
 	Color blueColor = new Color(64, 143, 222);
-	Color redColor = new Color(180, 63, 63);
+	//Color redColor = new Color(180, 63, 63);
+	Color redColor = new Color(205,65,65);
+	Color purpleColor = new Color(186,85,211);
+	Color greenColor = new Color(50,205,50);
+	
 	// Schedule schedule;
 	List<Event> events;
 	Boolean isWeek = false;
@@ -43,7 +50,7 @@ public class ShowDay extends JPanel implements ActionListener {
 	public ShowDay(int day, Date dayDate, List<Event> e) {
 
 		numEvents = numMonth - 1;
-		events = (new Schedule(e)).getEventList(); // new ArrayList<Event>(e);
+		events = (new Schedule(e)).getEventList(); //new ArrayList<Event>(e);
 		if (events.size() < numEvents) {
 			numEvents = events.size();
 		}
@@ -133,13 +140,13 @@ public class ShowDay extends JPanel implements ActionListener {
 		// Change to suit priority level
 		// if(e.getEventPriority())
 		// if(new SimpleDateFormat("HH:mm a").format(e.getEndDate()) != "11:59 pm") {
-
-		if (e.getEventName().contains("2")) {
+		Eventlabel.setBackground(e.accept(this));
+		
+		if (e.getEventName().toLowerCase().contains("test") 
+				|| e.getEventName().toLowerCase().contains("exam") || e.getEventName().toLowerCase().contains("midterm")) {
 			Eventlabel.setBackground(redColor);
-			// Eventlabel.setForeground(Color.WHITE);
-		} else {
-			Eventlabel.setBackground(blueColor);
-		}
+			
+		} 
 
 		Eventlabel.addActionListener(this);
 		Eventlabel.setHorizontalAlignment(JLabel.CENTER);
@@ -171,6 +178,24 @@ public class ShowDay extends JPanel implements ActionListener {
 		View.setSelectedEvent(currentSelected);
 	}
 
+	
+	public Color getColor(Assignment a) {
+		return purpleColor;
+		//return redColor;
+		//return new Color(64, 143, 222);
+	}
+	public Color getColor(Course c) {
+		return blueColor;
+		//return new Color(64, 143, 222);
+	}
+	public Color getColor(Quiz q) {
+		 
+		return greenColor;
+	}
+	
+	
+	
+	
 	// returns the EventID of the currently selected Event
 	Event getCurrentEvent() {
 		return currentSelected;
