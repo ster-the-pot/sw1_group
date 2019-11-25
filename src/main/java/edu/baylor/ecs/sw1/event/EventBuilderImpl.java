@@ -6,7 +6,7 @@ public class EventBuilderImpl implements EventBuilder {
 	Event e;
 	
 	public EventBuilderImpl() {
-		e = new Event();
+		e = new Assignment();
 	}
 	
 	@Override

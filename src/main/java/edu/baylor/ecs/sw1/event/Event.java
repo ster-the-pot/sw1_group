@@ -8,7 +8,7 @@ import java.util.Date;
  * @author Par Wilkinson
  *
  */
-public class Event {
+public abstract class Event {
 	
 	String eventName;
 	String eventID;
@@ -55,4 +55,5 @@ public class Event {
 		this.completed = completed;
 	}
 	
+	public abstract void accept(EventVisitor visitor);
 }

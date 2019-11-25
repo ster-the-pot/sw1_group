@@ -116,7 +116,7 @@ public class EventCreationDialog {
 				
 				displayOptions(owner,message);
 			} else {
-				event = new Event();
+				event = new Assignment();
 				event.setEventName(eventName);
 				
 				Date startDate = (Date) startDValue; 
