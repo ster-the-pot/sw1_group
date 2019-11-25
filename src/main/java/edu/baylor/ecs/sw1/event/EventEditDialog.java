@@ -21,7 +21,7 @@ import edu.baylor.ecs.sw1.utils.DateLabelFormatter;
 
 public class EventEditDialog {
 	JTextField eventNameField;
-	JTextField eventPriorityField;
+//	JTextField eventPriorityField;
 	
 	JDatePickerImpl startDatePicker;
 	JDatePickerImpl endDatePicker;
@@ -31,20 +31,23 @@ public class EventEditDialog {
 
 	JTextField descriptionField;
 	JButton finishButton;
+	Event event;
 	
 	public EventEditDialog() {
 
 	}
 	
-	public void edit(Frame owner, Event event) {
+	public void edit(Frame owner, Event e) {
+		event = e;
+		
 		Date eventStartDate = event.getStartDate();
 		Date eventEndDate = event.getEndDate();
 		
 		eventNameField = new JTextField();
 		eventNameField.setText(event.getEventName());
 		
-		eventPriorityField = new JTextField();
-		eventPriorityField.setText(event.getEventPriority());
+//		eventPriorityField = new JTextField();
+//		eventPriorityField.setText(event.getEventPriority());
 
 		UtilDateModel model = new UtilDateModel();
 		UtilDateModel endModel = new UtilDateModel();
@@ -72,7 +75,7 @@ public class EventEditDialog {
 
 		Object[] message = {
 				"Enter Event Name",eventNameField,
-				"Enter Event Priority",eventPriorityField,
+//				"Enter Event Priority",eventPriorityField,
 				"Select Start Date",startDatePicker,
 				"Select End Date",endDatePicker,
 				"Select Start Time",startTimeChooser,
@@ -83,9 +86,11 @@ public class EventEditDialog {
 		displayOptions(owner,message,event);
 	}
 	
-	private void displayOptions(Frame owner, Object[] message, Event event) {
+	private void displayOptions(Frame owner, Object[] message, Event e) {
+		event = e;
+		
 		Object[] options = {"Confirm","Cancel"};
-		int option = JOptionPane.showOptionDialog(owner, message,"Create Event",JOptionPane.OK_CANCEL_OPTION
+		int option = JOptionPane.showOptionDialog(owner, message,"Edit Event",JOptionPane.OK_CANCEL_OPTION
 				,JOptionPane.QUESTION_MESSAGE,new ImageIcon("empty.png"),options,options[0]);
 		if(option == JOptionPane.OK_OPTION) {
 			// info validation
@@ -132,7 +137,7 @@ public class EventEditDialog {
 				
 				event.setStartDate(startDate);
 				event.setEndDate(endDate);
-				event.setEventPriority(eventPriorityField.getText());
+//				event.setEventPriority(eventPriorityField.getText());
 				event.setEventDescription(descriptionField.getText());
 			}
 		}
@@ -161,5 +166,11 @@ public class EventEditDialog {
 		startTimeChooser.setRenderer(new DateFormattedListCellRenderer(new SimpleDateFormat("HH:mm")));
 		endTimeChooser.setRenderer(new DateFormattedListCellRenderer(new SimpleDateFormat("HH:mm")));
 	}
+	
+	public Event getEvent() {
+		return event;
+	}
+	
+	
 	
 }

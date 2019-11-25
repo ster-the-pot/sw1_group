@@ -21,6 +21,7 @@ public class Sidebar extends JPanel {
 	public JButton displayEventDetails;
 	public JButton deleteEvent;
 	public JButton completeEvent;
+	public JButton connectEvent;
 	
 	private JButton initButton(String text) {
 		JButton button = new JButton(text);
@@ -46,5 +47,6 @@ public class Sidebar extends JPanel {
 		displayEventDetails = initButton("Display Event Details");
 		deleteEvent = initButton("Delete Event");
 		completeEvent = initButton("Complete Event");
+		connectEvent = initButton("Connect Canvas");
 	}
 }

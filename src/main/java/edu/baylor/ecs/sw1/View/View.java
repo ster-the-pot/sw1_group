@@ -39,7 +39,7 @@ public abstract class View extends JPanel implements ActionListener{
 	String[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September",
 			"October", "November", "December" };
 	
-	List<Event> events;
+	static List<Event> events = new ArrayList<Event>();
 	static Event selectedEvent = null;
 	
 	
@@ -59,15 +59,12 @@ public abstract class View extends JPanel implements ActionListener{
 	}
 
 	private void prepareGUI() {
-		events = new ArrayList<Event>();
 		
+		
+
 		//QUERY HERE!!!!!!
-		for(int i = 0; i < 10; i++) {
-			Event e = new Event();
-			e.setEventName("test: " + i);
-			e.setEndDate(new Date());
-			events.add(e);
-		}
+
+		
 		events.sort(Comparator.comparing(Event::getEndDate).reversed());
 		
 		
@@ -138,25 +135,28 @@ public abstract class View extends JPanel implements ActionListener{
 	}
 	
 	
-	public List<Event> getEvents() {
+	public static List<Event> getEvents() {
 		return events;
 	}
 
-	public void setEvents(List<Event> events) {
-		this.events = events;
+	public static void setEvents(List<Event> e) {
+		events = e;
 	}
 	
 	protected List<Event> getDayEvents(Date d) {
 			
 		Calendar calendar = Calendar.getInstance();
 		List<Event>  temp = new ArrayList<Event>();
-		
+		Boolean found1 = false;
 		for(Event e: events) {
 			
 			calendar.setTime(e.getEndDate());
 			if(d.getYear() == calendar.get(Calendar.YEAR) && d.getMonth() == calendar.get(Calendar.MONTH)
 					&& d.getDate() == calendar.get(Calendar.DAY_OF_MONTH)) {
 				temp.add(e);
+				found1 = true;
+			} else if (found1) {
+				break;
 			}
 		}
 		
