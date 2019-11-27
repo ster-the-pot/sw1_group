@@ -39,6 +39,7 @@ public class DatabaseConnector {
 	 * @param event
 	 */
 	void addUserEvent(String username, Document event){
+		Document d = new Document(username);
 		return;
 	}
 	
