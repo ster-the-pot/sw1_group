@@ -51,7 +51,7 @@ public class CanvasDBAdapter implements CanvasAgent {
 		}
 	}
 
-	public List<Map<String, Object>> getCourses(String studentID) {
+	public Map<String, String> getCourses(String studentID) {
 		return cAgent.getCourses(studentID);
 
 	}
@@ -81,23 +81,15 @@ public class CanvasDBAdapter implements CanvasAgent {
 	}
 
 	public void syncStudentCanvas(String studentID) {
-		Map<String, String> courses = courseIDExtraction(this.getCourses(studentID));
+		Map<String, String> courses = this.getCourses(studentID);
 		courses.forEach((k, v) -> {
 			this.getAssignments(studentID, v);
 		});
 
 	}
 
-	private Map<String, String> courseIDExtraction(List<Map<String, Object>> courseRequest) {
-		Map<String, String> courseID = new HashMap<>();
-		courseRequest.forEach(course -> {
-			if (course.containsKey("name") && course.containsKey("id")) {
-				courseID.put(course.get("name").toString(), course.get("id").toString());
-			}
-
-		});
-		return courseID;
-
-	}
+	
+	
+		
 
 }

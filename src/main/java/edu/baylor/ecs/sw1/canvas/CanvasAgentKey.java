@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -64,11 +65,11 @@ public class CanvasAgentKey implements CanvasAgent {
 	 * 
 	 * @param studentID
 	 */
-	public List<Map<String, Object>> getCourses(String studentID) {
+	public Map<String, String> getCourses(String studentID) {
 		if (studentID == null || this.key == null) {
 			return null;
 		}
-		ArrayList<Map<String, Object>> courseList = new ArrayList<>();
+		Map<String, String> courseList = new HashMap<>();
 		;
 		Set<String> studentCourses = new HashSet<String>();
 		// System.out.println(this.key);
@@ -81,30 +82,20 @@ public class CanvasAgentKey implements CanvasAgent {
 				for (JsonNode c : list) {
 					JSONArray course = c.getArray();
 
-					course.forEach(e -> {
-						if (!e.toString().contains("access_restricted_by_date")) {
-							studentCourses.add(e.toString());
-						}
-					});
-
 					for (int i = 0; i < course.length(); i++) {
 						if (!course.get(i).toString().contains("access_restricted_by_date")) {
-							courseList.add(course.getJSONObject(i).toMap());
+							courseList.put(course.getJSONObject(i).get("name").toString(),
+									course.getJSONObject(i).get("id").toString());
 						}
 					}
 				}
 			}
-			
-			//Check list of returned courses
-//			courseList.forEach(e -> e.forEach((k, v) -> {
-//				if (v != null) {
-//					System.out.println(k + ": " + v.getClass());
-//				}
-//			}));
-//			courseList.forEach(e -> {
-//				System.out.println(e.toString() + "\n");
+
+//			courseList.forEach((k,v)->{
+//				System.out.println(k + ": " + v);
 //			});
 			return courseList;
+//			
 
 		} catch (UnirestException err) {
 			log.severe("getCourse failed: " + err.toString());
@@ -141,13 +132,27 @@ public class CanvasAgentKey implements CanvasAgent {
 		Set<String> studentCourses = new HashSet<String>();
 		// System.out.println(this.key);
 		try {
-			PagedList<JsonNode> response = Unirest.get(host + "/"+ courseID+"/assignments").header("Authorization", "Bearer " + this.key)
+			PagedList<JsonNode> response = Unirest.get(host + "/" + courseID + "/assignments")
+					.header("Authorization", "Bearer " + this.key)
 					.asPaged(r -> r.asJson(), r -> getNextPage(r.getHeaders().get("Link")));
 			// Base JSON that holds all information on courses
 			for (HttpResponse<JsonNode> j : response) {
 				List<JsonNode> list = response.getBodies();
-				System.out.println(list.size());
-			}		
+				for (JsonNode c : list) {
+					JSONArray course = c.getArray();
+
+					for (int i = 0; i < course.length(); i++) {
+						assignmentList.add(course.getJSONObject(i).toMap());
+					}
+				}
+			}
+
+			assignmentList.forEach(assignment -> {
+				if (assignment.containsKey("due_at")) {
+					System.out.println(assignment.get("name") + " is due at " + assignment.get("due_at"));
+				}
+			});
+
 		} catch (UnirestException err) {
 			log.severe("getCourse failed: " + err.toString());
 		}
