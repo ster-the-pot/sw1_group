@@ -1,6 +1,7 @@
 package edu.baylor.ecs.sw1.canvas;
 
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -88,6 +89,11 @@ public class CanvasAgentKey implements CanvasAgent {
 							studentCourses.add(e.toString());
 						}
 					});
+					
+					HashSet<Map<String,Object>> courseList = new HashSet<>();
+					for(int i = 0; i < course.length();i++) {
+						courseList.add(course.getJSONObject(i).toMap());
+					}
 
 				}
 			}
