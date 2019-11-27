@@ -6,7 +6,7 @@ import java.util.Map;
 
 public interface CanvasAgent {
 	
-	public List<Map<String, Object>> getCourses(String studentID);
+	public Map<String, String> getCourses(String studentID);
 	public List<Map<String, Object>> getQuizes(String studentID, String courseID);
 	public List<Map<String, Object>> getAssignments(String studentID, String courseID);
 }
