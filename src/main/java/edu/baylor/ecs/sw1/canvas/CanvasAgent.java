@@ -1,19 +1,12 @@
 package edu.baylor.ecs.sw1.canvas;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
-import kong.unirest.HttpResponse;
-import kong.unirest.JsonNode;
-import kong.unirest.PagedList;
-import kong.unirest.Unirest;
-import kong.unirest.UnirestException;
-import kong.unirest.json.JSONArray;
+import java.util.List;
+import java.util.Map;
 
 public interface CanvasAgent {
 	
-	public JsonNode getCourses(String studentID);
-	public Set<String> getQuizes(String studentID, String courseID);
-	public Set<String> getAssignments(String studentID, String courseID);
+	public List<Map<String, Object>> getCourses(String studentID);
+	public List<Map<String, Object>> getQuizes(String studentID, String courseID);
+	public List<Map<String, Object>> getAssignments(String studentID, String courseID);
 }

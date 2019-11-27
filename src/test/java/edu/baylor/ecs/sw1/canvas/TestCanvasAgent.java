@@ -9,10 +9,10 @@ import java.io.IOException;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class testCanvasAgent {
-	CanvasAgentKey canvas = new CanvasAgentKey("");
+public class TestCanvasAgent {
+	CanvasAgentKey canvas = new CanvasAgentKey();
 
-	public testCanvasAgent() {
+	public TestCanvasAgent() {
 
 	}
 
@@ -26,13 +26,16 @@ public class testCanvasAgent {
 		String userKey;
 		try {
 			File keyF = new File("../canvas_api/key");
-			System.out.println(keyF.getAbsolutePath());
+			//System.out.println(keyF.getAbsolutePath());
 			BufferedReader key = new BufferedReader(new FileReader(keyF));
 			try {
 				userKey = key.readLine();
 				//System.out.println(userKey);
 				canvas.setKey(userKey);
-				canvas.getCourses("");
+				if(canvas.getCourses("") == null) {
+					Assert.fail("Request Failed to Issue");
+				}
+				
 			} catch (IOException e) {
 				Assert.fail("File Failed to be read.");
 			}
@@ -40,6 +43,10 @@ public class testCanvasAgent {
 			Assert.fail("File Not Found");
 		}
 	}
+	
+	
+	
+	
 
 
 }

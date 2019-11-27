@@ -30,14 +30,10 @@ public class CanvasAgentKey implements CanvasAgent {
 	private String host = "https://canvas.instructure.com/api/v1/courses/";
 	private String key;
 
-	public CanvasAgentKey(String key) {
-		System.out.println(key);
-		this.key = key;
-	}
-
 	public void setKey(String key) {
 		this.key = key;
 	}
+
 	/**
 	 * Responsible for determining if paginated list has a next link
 	 * 
@@ -45,7 +41,7 @@ public class CanvasAgentKey implements CanvasAgent {
 	 * @return
 	 */
 	private String getNextPage(List<String> links) {
-		if (links != null && links.size()!=0) {
+		if (links != null && links.size() != 0) {
 			links = Arrays.asList(links.get(0).split(","));
 			links = links.stream().filter(s -> s.contains("rel=\"next")).collect(Collectors.toList());
 			if (links.size() == 1) {
@@ -68,16 +64,17 @@ public class CanvasAgentKey implements CanvasAgent {
 	 * 
 	 * @param studentID
 	 */
-	public JsonNode getCourses(String studentID) {
-		if (studentID == null || studentID.length() != 69) {
+	public List<Map<String, Object>> getCourses(String studentID) {
+		if (studentID == null || this.key == null) {
 			return null;
 		}
+		ArrayList<Map<String, Object>> courseList = new ArrayList<>();
+		;
 		Set<String> studentCourses = new HashSet<String>();
-		System.out.println(this.key);
+		// System.out.println(this.key);
 		try {
 			PagedList<JsonNode> response = Unirest.get(host).header("Authorization", "Bearer " + this.key)
 					.asPaged(r -> r.asJson(), r -> getNextPage(r.getHeaders().get("Link")));
-			System.out.println(response.get(0).getStatusText());
 			// Base JSON that holds all information on courses
 			for (HttpResponse<JsonNode> j : response) {
 				List<JsonNode> list = response.getBodies();
@@ -89,15 +86,25 @@ public class CanvasAgentKey implements CanvasAgent {
 							studentCourses.add(e.toString());
 						}
 					});
-					
-					HashSet<Map<String,Object>> courseList = new HashSet<>();
-					for(int i = 0; i < course.length();i++) {
-						courseList.add(course.getJSONObject(i).toMap());
-					}
 
+					for (int i = 0; i < course.length(); i++) {
+						if (!course.get(i).toString().contains("access_restricted_by_date")) {
+							courseList.add(course.getJSONObject(i).toMap());
+						}
+					}
 				}
 			}
-			studentCourses.stream().forEach(e -> System.out.println(e));
+			
+			//Check list of returned courses
+//			courseList.forEach(e -> e.forEach((k, v) -> {
+//				if (v != null) {
+//					System.out.println(k + ": " + v.getClass());
+//				}
+//			}));
+//			courseList.forEach(e -> {
+//				System.out.println(e.toString() + "\n");
+//			});
+			return courseList;
 
 		} catch (UnirestException err) {
 			log.severe("getCourse failed: " + err.toString());
@@ -112,7 +119,7 @@ public class CanvasAgentKey implements CanvasAgent {
 	 * @param courseID
 	 * @return
 	 */
-	public Set<String> getQuizes(String studentID, String courseID) {
+	public List<Map<String, Object>> getQuizes(String studentID, String courseID) {
 		return null;
 
 	}
@@ -124,7 +131,26 @@ public class CanvasAgentKey implements CanvasAgent {
 	 * @param courseID
 	 * @return
 	 */
-	public Set<String> getAssignments(String studentID, String courseID) {
+	public List<Map<String, Object>> getAssignments(String studentID, String courseID) {
+		String hostloc = "https://canvas.instructure.com/api/v1/users/";
+		if (studentID == null || this.key == null) {
+			return null;
+		}
+		ArrayList<Map<String, Object>> assignmentList = new ArrayList<>();
+		;
+		Set<String> studentCourses = new HashSet<String>();
+		// System.out.println(this.key);
+		try {
+			PagedList<JsonNode> response = Unirest.get(host + "/"+ courseID+"/assignments").header("Authorization", "Bearer " + this.key)
+					.asPaged(r -> r.asJson(), r -> getNextPage(r.getHeaders().get("Link")));
+			// Base JSON that holds all information on courses
+			for (HttpResponse<JsonNode> j : response) {
+				List<JsonNode> list = response.getBodies();
+				System.out.println(list.size());
+			}		
+		} catch (UnirestException err) {
+			log.severe("getCourse failed: " + err.toString());
+		}
 		return null;
 
 	}
