@@ -198,7 +198,7 @@ public abstract class View extends JPanel implements ActionListener{
 	}
 	
 	public void refreshEvent(Event eOld, Event e) {
-		System.out.println(eOld.getEventName() + " " + e.getEventName());
+		
 		events.set(events.indexOf(eOld), e);
 		
 		updateCalendar();

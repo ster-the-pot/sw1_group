@@ -185,7 +185,6 @@ public class EventEditDialog {
 	}
 	
 	public Event getEvent() {
-		System.out.println(event.getEventName());
 		return event;
 	}
 	
