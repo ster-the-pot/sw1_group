@@ -2,7 +2,9 @@ package edu.baylor.ecs.sw1.View;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -41,8 +43,8 @@ public abstract class View extends JPanel implements ActionListener{
 	
 	static List<Event> events = new ArrayList<Event>();
 	static Event selectedEvent = null;
-	
-	
+	JPanel selectPanel;
+	JLabel selected;
 	JLabel mMonth, mDay;
 	JButton mLast, mNext;
 	JPanel mPanel;
@@ -117,21 +119,27 @@ public abstract class View extends JPanel implements ActionListener{
 		mPanel = new JPanel();
 		mPanel.setLayout(new BoxLayout(mPanel, BoxLayout.Y_AXIS));
 
+		
 		mPanel.add(menuPanel, BorderLayout.NORTH);
 		mPanel.add(dayOfWeekPanel, BorderLayout.NORTH);
 		
+
 		
 		initCalendar();
+		
+		
+		
 	}
 
 	
 	
-	public static Event getSelectedEvent() {
+	public Event getSelectedEvent() {
 		return selectedEvent;
 	}
 
-	public static void setSelectedEvent(Event selectedEvent) {
+	public void setSelectedEvent(Event selectedEvent) {
 		View.selectedEvent = selectedEvent;
+		initSelect();
 	}
 	
 	
@@ -161,6 +169,40 @@ public abstract class View extends JPanel implements ActionListener{
 		}
 		
 		return temp;
+	}
+	
+	protected void initSelect() {
+		
+		if(selected != null) {
+			selectPanel.setVisible(false);
+			selected.setVisible(false);
+		}
+		selectPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		//selectPanel = new JPanel();
+		if(selectedEvent != null)
+			selected = new JLabel("Selected Event: " + selectedEvent.getEventName() + ", due: " 
+					+ selectedEvent.getEndDate().toString(), SwingConstants.LEFT);
+		else 
+			selected = new JLabel("No Event Selected", SwingConstants.LEFT);
+		
+		selected.setVisible(true);
+		//selected.setOpaque(true);
+		//selected.setBackground(Color.WHITE);
+		selectPanel.add(selected);
+		
+		
+		selectPanel.setBackground(Color.WHITE);
+		
+		mPanel.add(selectPanel);
+		
+	}
+	
+	public void refreshEvent(Event eOld, Event e) {
+		System.out.println(eOld.getEventName() + " " + e.getEventName());
+		events.set(events.indexOf(eOld), e);
+		
+		updateCalendar();
+		
 	}
 	
 	

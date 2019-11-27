@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 
 public class EventDisplayer {
-	static Color blueColor = new Color(64, 143, 222);
+	static Color blueColor = new Color(230,230,250);
 	public static void display(Frame owner, Event event) {
 		JLabel nameLabel = new JLabel(event.getEventName());
 //		JLabel priorityLabel = new JLabel(event.getEventPriority());

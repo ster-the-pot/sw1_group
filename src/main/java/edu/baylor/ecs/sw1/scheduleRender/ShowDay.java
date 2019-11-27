@@ -33,32 +33,32 @@ public class ShowDay extends JPanel implements ActionListener {
 			"Dec" };
 	JLabel label;
 	static JPanel dayPanel;
-	Color blueColor = new Color(64, 143, 222);
-	//Color redColor = new Color(180, 63, 63);
-	Color redColor = new Color(205,65,65);
-	Color purpleColor = new Color(186,85,211);
-	Color greenColor = new Color(50,205,50);
-	
+	Color blueColor = new Color(23, 112, 171);
+	// Color blueColor = new Color(67, 99, 216);
+	// Color blueColor = new Color(64, 143, 222);
+	// Color redColor = new Color(180, 63, 63);
+	Color redColor = new Color(/* 205,65,65 */205, 65, 65/* 255, 39, 23 */);
+	Color purpleColor = new Color(/* 186,85,211 */143, 62, 151/* 146, 66, 166 */);
+	// Color greenColor = new Color(50,205,50);
+	Color greenColor = new Color(/* 0, 150, 6 */34,139,34/*60, 180, 75*/);
+
 	// Schedule schedule;
 	List<Event> events;
 	Boolean isWeek = false;
 	final int numMonth = 5, numWeek = 8;
 	int numEvents = 0;
 	String leftOver = null;
-
+	View parentV;
 	/* Month View Constructor */
-	public ShowDay(int day, Date dayDate, List<Event> e) {
-
+	public ShowDay(int day, Date dayDate, List<Event> e, View v) {
+		parentV = v;
 		numEvents = numMonth - 1;
-		events = (new Schedule(e)).getEventList(); //new ArrayList<Event>(e);
+		events = (new Schedule(e)).getEventList();
 		if (events.size() < numEvents) {
 			numEvents = events.size();
 		}
 
-		// Day of the Month
-		// label = new JLabel(" " + day);
 		this.setLayout(new GridLayout(numMonth, 0));
-		// this.add(label);
 
 		String title = " " + day;
 		Border border = BorderFactory.createLineBorder(Color.BLACK, -3);
@@ -70,8 +70,8 @@ public class ShowDay extends JPanel implements ActionListener {
 	}
 
 	/* Week View Constructor */
-	public ShowDay(int day, int month, Date dayDate, List<Event> e, Boolean isOtherMonth) {
-
+	public ShowDay(int day, int month, Date dayDate, List<Event> e, Boolean isOtherMonth, View v) {
+		parentV = v;
 		isWeek = true;
 		events = (new Schedule(e)).getEventList(); // ArrayList<Event>(e);
 		numEvents = numWeek - 1;
@@ -100,7 +100,7 @@ public class ShowDay extends JPanel implements ActionListener {
 
 	private void renderEvents() {
 
-		//this.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+		// this.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 
 		JButton Eventlabel = null;
 
@@ -137,20 +137,23 @@ public class ShowDay extends JPanel implements ActionListener {
 			Eventlabel = new JButton(e.getEventName());
 		}
 
-		// Change to suit priority level
-		// if(e.getEventPriority())
-		// if(new SimpleDateFormat("HH:mm a").format(e.getEndDate()) != "11:59 pm") {
 		Eventlabel.setBackground(e.accept(this));
-		
-		if (e.getEventName().toLowerCase().contains("test") 
-				|| e.getEventName().toLowerCase().contains("exam") || e.getEventName().toLowerCase().contains("midterm")) {
+
+		if (e.getEventName().toLowerCase().contains("test") || e.getEventName().toLowerCase().contains("exam")
+				|| e.getEventName().toLowerCase().contains("midterm")) {
 			Eventlabel.setBackground(redColor);
-			
-		} 
+
+		} else if (e.getEventName().substring(e.getEventName().length() - 1).equals("8")
+				|| e.getEventName().substring(e.getEventName().length() - 1).equals("9")) {
+			Eventlabel.setBackground(greenColor);
+		} else if (e.getEventName().substring(e.getEventName().length() - 1).equals("4")
+				|| e.getEventName().substring(e.getEventName().length() - 1).equals("5")) {
+			Eventlabel.setBackground(blueColor);
+		}
 
 		Eventlabel.addActionListener(this);
 		Eventlabel.setHorizontalAlignment(JLabel.CENTER);
-		Eventlabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		Eventlabel.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 
 		this.add(Eventlabel);
 	}
@@ -175,27 +178,25 @@ public class ShowDay extends JPanel implements ActionListener {
 
 		// Kinda bad to call View here - but it would make sure there is always only one
 		// selected event
-		View.setSelectedEvent(currentSelected);
+		parentV.setSelectedEvent(currentSelected);
 	}
 
-	
 	public Color getColor(Assignment a) {
 		return purpleColor;
-		//return redColor;
-		//return new Color(64, 143, 222);
+		// return redColor;
+		// return new Color(64, 143, 222);
 	}
+
 	public Color getColor(Course c) {
 		return blueColor;
-		//return new Color(64, 143, 222);
+		// return new Color(64, 143, 222);
 	}
+
 	public Color getColor(Quiz q) {
-		 
+
 		return greenColor;
 	}
-	
-	
-	
-	
+
 	// returns the EventID of the currently selected Event
 	Event getCurrentEvent() {
 		return currentSelected;

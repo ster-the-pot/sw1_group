@@ -1,5 +1,6 @@
 package edu.baylor.ecs.sw1.event;
 
+import java.awt.Color;
 import java.awt.Frame;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -65,8 +66,16 @@ public class EventEditDialog {
                 Integer.parseInt((new SimpleDateFormat("MM")).format(eventEndDate))-1,
                 Integer.parseInt((new SimpleDateFormat("dd")).format(eventEndDate)));	
 
+		
+
 		startDatePicker = new JDatePickerImpl(new JDatePanelImpl(model,datePickerProps), new DateLabelFormatter()); 
 		endDatePicker = new JDatePickerImpl(new JDatePanelImpl(endModel,datePickerProps), new DateLabelFormatter()); 
+
+		
+		startDatePicker.getJFormattedTextField().setBackground(Color.WHITE);
+		startDatePicker.getJFormattedTextField().setOpaque(true);
+		endDatePicker.getJFormattedTextField().setBackground(Color.WHITE);
+		endDatePicker.getJFormattedTextField().setOpaque(true);
 		
 		initTimeChoosers();
 		
@@ -95,12 +104,16 @@ public class EventEditDialog {
 		if(option == JOptionPane.OK_OPTION) {
 			// info validation
 			String eventName = eventNameField.getText();
-
+			
 			Object startDValue = startDatePicker.getModel().getValue();
 			Object endDValue = endDatePicker.getModel().getValue();
 			
 			Object startTValue = startTimeChooser.getSelectedItem();
 			Object endTValue = endTimeChooser.getSelectedItem();
+			
+			//ISSUE HERE***********************************************
+			event.setEventName(eventName);
+	
 			
 			
 			if(eventName.trim().equals("") || startDValue == null || endDValue == null || startTValue == null || endTValue == null) {
@@ -163,11 +176,17 @@ public class EventEditDialog {
 		startTimeChooser = new JComboBox<>(startModel);
 		endTimeChooser = new JComboBox<>(endModel);
 		
+		startTimeChooser.setBackground(Color.WHITE);
+		startTimeChooser.setOpaque(true);
+		endTimeChooser.setBackground(Color.WHITE);
+		endTimeChooser.setOpaque(true);
+		
 		startTimeChooser.setRenderer(new DateFormattedListCellRenderer(new SimpleDateFormat("HH:mm")));
 		endTimeChooser.setRenderer(new DateFormattedListCellRenderer(new SimpleDateFormat("HH:mm")));
 	}
 	
 	public Event getEvent() {
+		System.out.println(event.getEventName());
 		return event;
 	}
 	

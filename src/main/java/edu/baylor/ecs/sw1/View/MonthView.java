@@ -1,6 +1,7 @@
 package edu.baylor.ecs.sw1.View;
 
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -11,6 +12,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import edu.baylor.ecs.sw1.scheduleRender.ShowDay;
 
@@ -47,7 +49,7 @@ public class MonthView extends View {
 		panel.setBackground(Color.darkGray);
 		//panel.setSize(500, 700);
 		
-		panel.setPreferredSize(new Dimension(1100, 600));
+		panel.setPreferredSize(new Dimension(1100, 580));
 		//panel.setMaximumSize( panel.getPreferredSize() );
 		GridLayout layout = new GridLayout(0, 7);
 		layout.setHgap(1);
@@ -104,7 +106,7 @@ public class MonthView extends View {
 		}
 		for (; i <= (numDays + startMonth); i++) {
 			dayDate = new Date(currentYear, currentMonth, (i-startMonth));
-			panel.add(new ShowDay((i-startMonth), dayDate, getDayEvents(dayDate)));	
+			panel.add(new ShowDay((i-startMonth), dayDate, getDayEvents(dayDate), this));	
 		}
 		while(i != 43) {
 			panel.add(new JPanel());
@@ -115,6 +117,12 @@ public class MonthView extends View {
 		this.add(mPanel);
 		this.setBackground(Color.WHITE);
 		mPanel.setVisible(true);
+		
+		
+		
+		initSelect();
+		
+		
 	}
 	
 	@Override

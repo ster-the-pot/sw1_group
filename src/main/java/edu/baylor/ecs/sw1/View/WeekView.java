@@ -38,7 +38,7 @@ public class WeekView extends View {
 
 		panel.setBackground(Color.darkGray);
 		// panel.setSize(500, 700);
-		panel.setPreferredSize(new Dimension(1100, 600));
+		panel.setPreferredSize(new Dimension(1100, 580));
 		panel.setMaximumSize(panel.getPreferredSize());
 		GridLayout layout = new GridLayout(0, 7);
 		layout.setHgap(1);
@@ -96,22 +96,22 @@ public class WeekView extends View {
 			if (i > numDays) {
 				if (currentMonth != 11) {
 					dayDate = new Date(currentYear, currentMonth + 1, (i - numDays));
-					panel.add(new ShowDay((i - numDays), currentMonth + 1, dayDate, getDayEvents(dayDate), true));
+					panel.add(new ShowDay((i - numDays), currentMonth + 1, dayDate, getDayEvents(dayDate), true, this));
 				} else {
 					dayDate = new Date(currentYear + 1, 0, (i - numDays));
-					panel.add(new ShowDay((i - numDays), 0, dayDate, getDayEvents(dayDate), true));
+					panel.add(new ShowDay((i - numDays), 0, dayDate, getDayEvents(dayDate), true, this));
 				}
 			} else if (i <= 0) {
 				if (currentMonth != 0) {
 					dayDate = new Date(currentYear, currentMonth - 1, (i + lastMaxDay));
-					panel.add(new ShowDay((lastMaxDay + i), currentMonth - 1, dayDate, getDayEvents(dayDate), true));
+					panel.add(new ShowDay((lastMaxDay + i), currentMonth - 1, dayDate, getDayEvents(dayDate), true, this));
 				} else {
 					dayDate = new Date(currentYear-1, 11, (i + lastMaxDay));
-					panel.add(new ShowDay((lastMaxDay + i), 11, dayDate, getDayEvents(dayDate), true));
+					panel.add(new ShowDay((lastMaxDay + i), 11, dayDate, getDayEvents(dayDate), true, this));
 				}
 			} else {
 				dayDate = new Date(currentYear, currentMonth, (i));
-				panel.add(new ShowDay(i, currentMonth, dayDate, getDayEvents(dayDate), false));
+				panel.add(new ShowDay(i, currentMonth, dayDate, getDayEvents(dayDate), false, this));
 			}
 		}
 
@@ -119,6 +119,10 @@ public class WeekView extends View {
 		this.add(mPanel);
 		this.setBackground(Color.WHITE);
 		mPanel.setVisible(true);
+		
+		
+		initSelect();
+		
 	}
 
 	@Override

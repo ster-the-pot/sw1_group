@@ -119,20 +119,40 @@ public class AppCalendar extends JFrame implements ActionListener {
 			Event event = creator.getEvent();
 		} else if (act.equals("EDIT")) {
 
-			Event event = View.getSelectedEvent();
-
-			if (event != null) {
-				EventEditDialog ed = new EventEditDialog();
-				ed.edit(this, event);
-				//event = ed.getEvent();
+			Event oldEvent = null;
+			if(inMonthView) {
+				oldEvent = monthView.getSelectedEvent();	
+			} else {
+				oldEvent = weekView.getSelectedEvent();
 			}
+			
+			Event newEvent = null;
+			if (oldEvent != null) {
+				EventEditDialog ed = new EventEditDialog();
+				ed.edit(this, oldEvent);
+				
+				newEvent = ed.getEvent();
+			}
+			
+			if(inMonthView) {
+				monthView.refreshEvent(oldEvent, newEvent);	
+			} else {
+				weekView.refreshEvent(oldEvent, newEvent);
+			}
+			
 			//RE-RENDER Panel SOMEHOW HERE
 			
 
 		} else if (act.equals("DISPLAY")) {
 
-			Event event = View.getSelectedEvent();
-
+			Event event;
+			if(inMonthView) {
+				event = monthView.getSelectedEvent();	
+			} else {
+				event = weekView.getSelectedEvent();
+			}
+			
+			
 			if (event != null) {
 				EventDisplayer.display(this, event);
 			}
