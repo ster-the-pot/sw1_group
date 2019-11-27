@@ -111,10 +111,7 @@ public class EventEditDialog {
 			Object startTValue = startTimeChooser.getSelectedItem();
 			Object endTValue = endTimeChooser.getSelectedItem();
 			
-			//ISSUE HERE***********************************************
-			event.setEventName(eventName);
-	
-			
+
 			
 			if(eventName.trim().equals("") || startDValue == null || endDValue == null || startTValue == null || endTValue == null) {
 				
@@ -148,6 +145,8 @@ public class EventEditDialog {
 				endDate.setMinutes(endTime.getMinutes());
 				endDate.setSeconds(0);
 				
+				
+				event.setEventName(eventName);
 				event.setStartDate(startDate);
 				event.setEndDate(endDate);
 //				event.setEventPriority(eventPriorityField.getText());
