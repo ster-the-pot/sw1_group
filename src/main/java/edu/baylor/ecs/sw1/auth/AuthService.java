@@ -9,20 +9,29 @@ import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 /**
  * Authorization Service used to add accounts, sign in, and check account information
+ * also serves as a Singleton Design Pattern
  * @author strafford
  *
  */
 public class AuthService {
 
-static MongoClient client;
+	static MongoClient client;
+	private static AuthService self;
+
 	
-	Document upsertOptions = new Document().append("upsert", Boolean.TRUE);
-	
-	
-	public AuthService(String user, String db, char[] password) {
+	private AuthService(String user, String db, char[] password) {
 		
 		MongoCredential credential =  MongoCredential.createCredential(user,db,password);
 		client = new MongoClient(new ServerAddress("localhost",27017),Arrays.asList(credential));
+	}
+	
+	public AuthService getAuthService() {
+		if(self == null) {
+			self = new AuthService("java","userdata","cerny".toCharArray());
+			return self;
+		}else {
+			return self;
+		}
 	}
 	
 	public void close() {
