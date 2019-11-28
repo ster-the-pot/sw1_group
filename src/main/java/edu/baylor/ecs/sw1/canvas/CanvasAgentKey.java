@@ -140,18 +140,14 @@ public class CanvasAgentKey implements CanvasAgent {
 				List<JsonNode> list = response.getBodies();
 				for (JsonNode c : list) {
 					JSONArray course = c.getArray();
-
+					//conversion of pagination into individual assignment's
 					for (int i = 0; i < course.length(); i++) {
 						assignmentList.add(course.getJSONObject(i).toMap());
 					}
 				}
 			}
 
-			assignmentList.forEach(assignment -> {
-				if (assignment.containsKey("due_at")) {
-					System.out.println(assignment.get("name") + " is due at " + assignment.get("due_at"));
-				}
-			});
+			return assignmentList;
 
 		} catch (UnirestException err) {
 			log.severe("getCourse failed: " + err.toString());

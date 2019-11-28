@@ -82,8 +82,17 @@ public class CanvasDBAdapter implements CanvasAgent {
 
 	public void syncStudentCanvas(String studentID) {
 		Map<String, String> courses = this.getCourses(studentID);
+		Map<String,List<Map<String, Object>>> courseAssignments = new HashMap<>();
 		courses.forEach((k, v) -> {
-			this.getAssignments(studentID, v);
+			courseAssignments.put(v,this.getAssignments(studentID, v));
+		});
+		
+		courseAssignments.forEach((course,json) -> {
+			System.out.println("COURSE: " + course + "\n-------------");
+			System.out.println(json.size());
+			json.forEach(e->{
+				//System.out.println(e.toString());	
+			});
 		});
 
 	}

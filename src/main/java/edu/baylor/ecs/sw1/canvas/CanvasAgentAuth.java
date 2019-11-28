@@ -15,7 +15,7 @@ import kong.unirest.JsonNode;
 public class CanvasAgentAuth implements CanvasAgent {
 
 	@Override
-	public List<Map<String, Object>> getCourses(String studentID) {
+	public Map<String, String> getCourses(String studentID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
