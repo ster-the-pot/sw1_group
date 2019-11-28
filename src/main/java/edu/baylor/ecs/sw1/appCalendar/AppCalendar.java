@@ -132,13 +132,15 @@ public class AppCalendar extends JFrame implements ActionListener {
 				ed.edit(this, oldEvent);
 				
 				newEvent = ed.getEvent();
+				
+				if(inMonthView) {
+					monthView.refreshEvent(oldEvent, newEvent);	
+				} else {
+					weekView.refreshEvent(oldEvent, newEvent);
+				}
 			}
 			
-			if(inMonthView) {
-				monthView.refreshEvent(oldEvent, newEvent);	
-			} else {
-				weekView.refreshEvent(oldEvent, newEvent);
-			}
+			
 			
 			//RE-RENDER Panel SOMEHOW HERE
 			

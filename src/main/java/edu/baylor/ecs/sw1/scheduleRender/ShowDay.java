@@ -143,13 +143,13 @@ public class ShowDay extends JPanel implements ActionListener {
 				|| e.getEventName().toLowerCase().contains("midterm")) {
 			Eventlabel.setBackground(redColor);
 
-		} else if (e.getEventName().substring(e.getEventName().length() - 1).equals("8")
+		} /*else if (e.getEventName().substring(e.getEventName().length() - 1).equals("8")
 				|| e.getEventName().substring(e.getEventName().length() - 1).equals("9")) {
 			Eventlabel.setBackground(greenColor);
 		} else if (e.getEventName().substring(e.getEventName().length() - 1).equals("4")
 				|| e.getEventName().substring(e.getEventName().length() - 1).equals("5")) {
 			Eventlabel.setBackground(blueColor);
-		}
+		}*/
 
 		Eventlabel.addActionListener(this);
 		Eventlabel.setHorizontalAlignment(JLabel.CENTER);
