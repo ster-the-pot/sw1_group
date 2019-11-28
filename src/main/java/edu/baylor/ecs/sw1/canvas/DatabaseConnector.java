@@ -110,25 +110,27 @@ public class DatabaseConnector {
 	 * insertion that preserves dependencies in MongoDB if event does not exists
 	 */
 	private void insertNonExist(String username, Map<String,Object> event, MongoCollection<Document> userdata) {
-		System.out.println("Event Does not Exists, Insert");
+		//System.out.println("Event Does not Exists, Insert");
 		//Apply correct db conditions (due_at $$ ignore and Assignment type)
 		Document iVal = new Document("id",event.get("id")).append("ignore", Boolean.FALSE)
-				.append("name", event.get("name"));
+				.append("name", event.get("name")).append("course", event.get("course"));
 		iVal = this.formatEventInsertionDoc(event,iVal);
 		//insertion operation
 		Document insert = new Document("username", username);
 		Document eventPush = new Document ("$push", new Document("events",iVal));
 		UpdateResult result = userdata.updateOne(insert, eventPush);
-		System.out.println(result.toString());
+		//System.out.println(result.toString());
 	}
 	
 	private void insertExist(String username, Map<String,Object> event, MongoCollection<Document> userdata) {
 		//query
-		System.out.println("Exists, Insert");
+		//System.out.println("Exists, Insert");
+		//System.out.println(event.get("course"));
 		Bson filter = Filters.and(Filters.eq("username",username),Filters.eq("events.id",event.get("id")));
-		Bson setUpdate = Updates.combine(Updates.set("events.$.due_at",event.get("due_at")),Updates.set("events.$.name", event.get("name")));
+		Bson setUpdate = Updates.combine(Updates.set("events.$.due_at",event.get("due_at"))
+				,Updates.set("events.$.name", event.get("name")),Updates.set("events.$.course",event.get("course")));
 		UpdateResult result = userdata.updateOne(filter, setUpdate, new UpdateOptions().upsert(true));
-		System.out.println(result.getModifiedCount());
+		//System.out.println(result.getModifiedCount());
 
 	}
 	

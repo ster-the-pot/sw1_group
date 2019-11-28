@@ -30,6 +30,7 @@ import kong.unirest.json.JSONArray;
  */
 public class CanvasDBAdapter implements CanvasAgent {
 	private CanvasAgentKey cAgent;
+	private DatabaseConnector db = new DatabaseConnector("java","userdata","cerny".toCharArray());
 
 	public CanvasDBAdapter(CanvasAgentKey agent) {
 		cAgent = agent;
@@ -80,18 +81,28 @@ public class CanvasDBAdapter implements CanvasAgent {
 
 	}
 
-	public void syncStudentCanvas(String studentID) {
-		Map<String, String> courses = this.getCourses(studentID);
+	/**
+	 * Workflow of syncing all events from Canvas into User's db
+	 * @param studentID
+	 */
+	public void syncStudentCanvas(String username) {
+		Map<String, String> courses = this.getCourses(username);
 		Map<String,List<Map<String, Object>>> courseAssignments = new HashMap<>();
+		Map<String,String> revCoursesName = new HashMap<>();
+		for(Map.Entry<String, String> entry: courses.entrySet()) {
+			revCoursesName.put(entry.getValue(), entry.getKey());
+		}
 		courses.forEach((k, v) -> {
-			courseAssignments.put(v,this.getAssignments(studentID, v));
+
+			courseAssignments.put(v,this.getAssignments(username, v));
 		});
 		
 		courseAssignments.forEach((course,json) -> {
-			System.out.println("COURSE: " + course + "\n-------------");
-			System.out.println(json.size());
+			//System.out.println("COURSE: " + course + "\n-------------");
 			json.forEach(e->{
-				//System.out.println(e.toString());	
+
+				e.put("course",revCoursesName.get(course));
+				db.addUserEvent(username, e);
 			});
 		});
 
