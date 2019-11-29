@@ -11,6 +11,8 @@ import com.mongodb.ServerAddress;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 
 /**
  * Authorization Service used to add accounts, sign in, and check account
@@ -84,7 +86,8 @@ public class AuthService {
 		if (passwordStrength(password) == false) {
 			return false;
 		}
-		return null;
+		userdata.updateOne(Filters.eq("username", username),Updates.set("password", password));
+		return true;
 	}
 
 }

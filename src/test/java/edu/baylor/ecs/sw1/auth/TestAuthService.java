@@ -21,4 +21,9 @@ public class TestAuthService {
 		auth.createAccount("reneelovesu", "123456");
 		auth.deleteAccount("reneelovesu");
 	}
+	
+	@Test
+	public void changePassword() {
+		auth.changePassword("strafford", "reneesmith");
+	}
 }
