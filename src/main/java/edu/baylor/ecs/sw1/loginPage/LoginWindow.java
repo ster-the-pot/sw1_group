@@ -14,6 +14,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JTextField;
 
 import edu.baylor.ecs.sw1.appCalendar.AppCalendar;
+import edu.baylor.ecs.sw1.auth.AuthService;
 
 /**
  * Responsible only for rendering all Login Window UI elements.
@@ -76,15 +77,33 @@ public class LoginWindow extends JFrame implements Runnable, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getActionCommand().equals("LOGIN")) {
-			this.dispose();
-			javax.swing.SwingUtilities.invokeLater(new Runnable() {
-				@Override
-				public void run() {
-					AppCalendar appCalendar = new AppCalendar();
-					appCalendar.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-					appCalendar.setVisible(true);
+			String curUserName = username.getText();
+			String currPass = password.getText();
+			
+			AuthService auth = AuthService.getAuthService();
+			
+			if(auth.accountExists(curUserName)) {
+				// need to verify password
+				if(true) {
+					this.dispose();
+					javax.swing.SwingUtilities.invokeLater(new Runnable() {
+						@Override
+						public void run() {
+							AppCalendar appCalendar = new AppCalendar();
+							appCalendar.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+							appCalendar.setVisible(true);
+						}
+					});
+				} else {
+					// wrong password
 				}
-			});
+				
+			} else {
+				// account not found
+				
+			}
+			
+			
 		}
 	}
 
