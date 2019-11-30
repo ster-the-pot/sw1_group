@@ -8,20 +8,22 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
-
+import edu.baylor.ecs.sw1.View.MonthView;
 import edu.baylor.ecs.sw1.View.View;
+import edu.baylor.ecs.sw1.View.WeekView;
 import edu.baylor.ecs.sw1.event.Assignment;
 import edu.baylor.ecs.sw1.event.Course;
 import edu.baylor.ecs.sw1.event.Event;
 import edu.baylor.ecs.sw1.event.Quiz;
 
 /**
+ * ShowDay is called for each specific day. It takes a list of the Events on that specific day
+ * and displays the number of Events the Month/Week view is able to display. 
  * 
  * @author Elizabeth Brighton
  *
@@ -31,76 +33,75 @@ public class ShowDay extends JPanel implements ActionListener {
 	static int num;
 	static String[] monthsAbv = { "Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov",
 			"Dec" };
-	JLabel label;
 	static JPanel dayPanel;
-	Color blueColor = new Color(23, 112, 171);
-	// Color blueColor = new Color(67, 99, 216);
-	// Color blueColor = new Color(64, 143, 222);
-	// Color redColor = new Color(180, 63, 63);
-	Color redColor = new Color(/* 205,65,65 */205, 65, 65/* 255, 39, 23 */);
-	Color purpleColor = new Color(/* 186,85,211 */143, 62, 151/* 146, 66, 166 */);
-	// Color greenColor = new Color(50,205,50);
-	Color greenColor = new Color(/* 0, 150, 6 */34,139,34/*60, 180, 75*/);
-
-	// Schedule schedule;
+	//Color blueColor = new Color(23, 112, 171);
+	//Color redColor = new Color(/* 205,65,65 */205, 65, 65/* 255, 39, 23 */);
+	//Color purpleColor = new Color(/* 186,85,211 */143, 62, 151/* 146, 66, 166 */);
+	//Color greenColor = new Color(/* 0, 150, 6 */34,139,34/*60, 180, 75*/);
+	
+	Color blueColor = new Color(31, 97, 141);
+	Color redColor = new Color(176, 58, 46);
+	Color purpleColor = new Color(118, 68, 138);
+	Color greenColor = new Color(20, 143, 119);
 	List<Event> events;
 	Boolean isWeek = false;
 	final int numMonth = 5, numWeek = 8;
 	int numEvents = 0;
 	String leftOver = null;
 	View parentV;
-	/* Month View Constructor */
-	public ShowDay(int day, Date dayDate, List<Event> e, View v) {
+	
+	
+	/**
+	 * The Constructor takes a list of Events for each day and displays the 
+	 * amount of Events each day can handle, depending on the specific implementation 
+	 * of View (Month or Week). This is determined by a visitor using the accept function
+	 * on View. Sorting the events is done using the Schedule class before the events are given 
+	 * to the ShowDay class.
+	 * 
+	 * @param dayDate Gives the date of the current day
+	 * @param e Gives all the Events that are scheduled for that day. Already scheduled using the Schedule class
+	 * @param isOtherMonth Is used when a specific day of the week is in the next/last Month.
+	 * @param v Gives the specific type of view (this) in order to update the Current Selected Event and use the visitor
+	 * @return
+	 */
+	public ShowDay(Date dayDate, List<Event> e, Boolean isOtherMonth, View v) {
+		
 		parentV = v;
-		numEvents = numMonth - 1;
-		events = (new Schedule(e)).getEventList();
-		if (events.size() < numEvents) {
+		
+		events = new ArrayList<Event>(e);
+		
+		numEvents = v.accept(this) - 1;
+		if (events.size() < numEvents) { 
 			numEvents = events.size();
 		}
 
-		this.setLayout(new GridLayout(numMonth, 0));
+		String title = " " + dayDate.getDate();
+		if (isOtherMonth) { 
+			title = " " + monthsAbv[dayDate.getMonth()] + ": " + dayDate.getDate();
+		} 
 
-		String title = " " + day;
+		
+		this.setLayout(new GridLayout(v.accept(this), 0)); 
+
+		
 		Border border = BorderFactory.createLineBorder(Color.BLACK, -3);
 		Border border2 = BorderFactory.createTitledBorder(border, title);
 		this.setBorder(border2);
 
 		renderEvents();
-
+		
 	}
 
-	/* Week View Constructor */
-	public ShowDay(int day, int month, Date dayDate, List<Event> e, Boolean isOtherMonth, View v) {
-		parentV = v;
-		isWeek = true;
-		events = (new Schedule(e)).getEventList(); // ArrayList<Event>(e);
-		numEvents = numWeek - 1;
-		if (events.size() < numEvents) {
-			numEvents = events.size();
-		}
-
-		String title = " " + day;
-		// Day of the Week
-		if (isOtherMonth) {
-			label = new JLabel(" " + monthsAbv[month] + ": " + day);
-			title = " " + monthsAbv[month] + ": " + day;
-		} else {
-			label = new JLabel(" " + day);
-		}
-
-		this.setLayout(new GridLayout(numWeek, 0));
-		// this.add(label);
-
-		Border border = BorderFactory.createLineBorder(Color.BLACK, -3);
-		Border border2 = BorderFactory.createTitledBorder(border, title);
-		this.setBorder(border2);
-
-		renderEvents();
-	}
-
+	
+	
+	
+	/**
+	 * RenderEvents adds the number of Events needed for the specific view to the day panel
+	 * 
+	 * @param
+	 * @return
+	 */
 	private void renderEvents() {
-
-		// this.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 
 		JButton Eventlabel = null;
 
@@ -112,6 +113,16 @@ public class ShowDay extends JPanel implements ActionListener {
 
 	}
 
+	
+	
+	/**
+	 * checkEventSize compares the max display number of Month/Week with the
+	 * number of Events for each day. If the number of events is greater than
+	 * the ExtraEvents class is called which creates the option of viewing all 
+	 * Events for the specific day. 
+	 * @param
+	 * @return
+	 */
 	private void checkEventSize() {
 		if ((num = events.size()) > numEvents) {
 			if (num - numEvents == 1) {
@@ -128,6 +139,13 @@ public class ShowDay extends JPanel implements ActionListener {
 		}
 	}
 
+	/**
+	 * addEvent is called for each Event to be displayed on the day
+	 * It gets the event information needed, including the color for each
+	 * Type of event using a Visitor. 
+	 * @param Eventlabel
+	 * @param i
+	 */
 	private void addEvent(JButton Eventlabel, int i) {
 
 		Event e = events.get(i);
@@ -143,7 +161,9 @@ public class ShowDay extends JPanel implements ActionListener {
 				|| e.getEventName().toLowerCase().contains("midterm")) {
 			Eventlabel.setBackground(redColor);
 
-		} /*else if (e.getEventName().substring(e.getEventName().length() - 1).equals("8")
+		} 
+		//For testing purposes 
+		/*else if (e.getEventName().substring(e.getEventName().length() - 1).equals("8")
 				|| e.getEventName().substring(e.getEventName().length() - 1).equals("9")) {
 			Eventlabel.setBackground(greenColor);
 		} else if (e.getEventName().substring(e.getEventName().length() - 1).equals("4")
@@ -158,6 +178,12 @@ public class ShowDay extends JPanel implements ActionListener {
 		this.add(Eventlabel);
 	}
 
+	
+	/**
+	 * This is called when an event is selected or when a request to view all events
+	 * for that day is made
+	 * 
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
@@ -181,24 +207,68 @@ public class ShowDay extends JPanel implements ActionListener {
 		parentV.setSelectedEvent(currentSelected);
 	}
 
+	
+	
+	/**
+	 * Visitor Method with Event - Subtype: Assignment 
+	 * @param a
+	 * @return
+	 */
 	public Color getColor(Assignment a) {
 		return purpleColor;
 		// return redColor;
 		// return new Color(64, 143, 222);
 	}
 
+	/**
+	 * Visitor Method with Event - Subtype: Course
+	 * @param a
+	 * @return
+	 */
 	public Color getColor(Course c) {
 		return blueColor;
 		// return new Color(64, 143, 222);
 	}
 
+	/**
+	 * Visitor Method with Event - Subtype: Quiz
+	 * @param a
+	 * @return
+	 */
 	public Color getColor(Quiz q) {
 
 		return greenColor;
 	}
 
-	// returns the EventID of the currently selected Event
-	Event getCurrentEvent() {
+	/**
+	 * Visitor Method with View - Subtype: MonthView
+	 * @param v
+	 * @return
+	 */
+	public int numGrid(MonthView v) {
+		return numMonth;
+	}
+	
+	
+	/**
+	 * Visitor Method with View - Subtype: WeekView
+	 * @param v
+	 * @return
+	 */
+	public int numGrid(WeekView v) {
+		isWeek = true;
+		return numWeek;
+	}
+	
+	
+	
+	
+	/**
+	 * Returns the currently selected event. This is called by the action performed override 
+	 * 
+	 * @return currentSelected The currently selected event 
+	 */
+	public Event getCurrentEvent() {
 		return currentSelected;
 	}
 

@@ -17,6 +17,7 @@ import edu.baylor.ecs.sw1.event.Event;
  * Contains buttons allowing the user to interact with the application.
  * 
  * @author Par Wilkinson
+ * @author Elizabeth Brighton
  *
  */
 public class Sidebar extends JPanel {
@@ -31,16 +32,15 @@ public class Sidebar extends JPanel {
 	public JPanel legend;
 	public JPanel legend2;
 
-	/*Color blue = new Color(64, 143, 222);
-	//178,34,34
-	Color red = new Color(205,65,65);
-	Color purple = new Color(186,85,211);
-	Color green = new Color(50,205,50);*/
+	Color blue = new Color(31, 97, 141);
+	Color red = new Color(176, 58, 46);
+	Color purple = new Color(118, 68, 138);
+	Color green = new Color(20, 143, 119);
 	
-	Color blue = new Color(23, 112, 171);
+/*	Color blue = new Color(23, 112, 171);
 	Color red = new Color(205, 65, 65);
 	Color purple = new Color(143, 62, 151);
-	Color green = new Color(34,139,34);
+	Color green = new Color(34,139,34);*/
 
 	
 	private JButton initButton(String text) {
@@ -50,8 +50,8 @@ public class Sidebar extends JPanel {
 		return button;
 	}
 
+	
 	public Sidebar() {
-		// this.setBackground(Color.GRAY);
 		GridLayout layout = new GridLayout(12, 0);
 		layout.setHgap(1);
 		layout.setVgap(1);

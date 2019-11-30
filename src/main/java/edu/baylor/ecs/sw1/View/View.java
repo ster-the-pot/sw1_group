@@ -2,23 +2,18 @@ package edu.baylor.ecs.sw1.View;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -27,11 +22,13 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import edu.baylor.ecs.sw1.event.Event;
+import edu.baylor.ecs.sw1.scheduleRender.Schedule;
+import edu.baylor.ecs.sw1.scheduleRender.ShowDay;
 
 
 /**
- * This is for ShowDay and its children. It is the panel for each
- * specific day on the different views (Month or Week)
+ * View is parent to MonthView and WeekView (Template Method). Each child
+ * uses ShowDay in order to render events for a specific day
  * 
  * @author Elizabeth Brighton
  *
@@ -42,7 +39,7 @@ public abstract class View extends JPanel implements ActionListener{
 			"October", "November", "December" };
 	
 	static List<Event> events = new ArrayList<Event>();
-	static Event selectedEvent = null;
+	Event selectedEvent = null;
 	JPanel selectPanel;
 	JLabel selected;
 	JLabel mMonth, mDay;
@@ -55,22 +52,28 @@ public abstract class View extends JPanel implements ActionListener{
 	GregorianCalendar cal;
 	Font loginBold = new Font(Font.SANS_SERIF, Font.BOLD, 18);
 	
-	
+	/**
+	 * Constructor calls the prepareGUI method
+	 * @param 
+	 * @return
+	 */
 	public View() {
 		prepareGUI();
 	}
 
+	
+	/**
+	 * prepareGUI() gets the Events for the specific student
+	 * and creates the basic Calendar view outline
+	 * @param 
+	 * @return
+	 */
 	private void prepareGUI() {
 		
-		
-
 		//QUERY HERE!!!!!!
 
 		
 		events.sort(Comparator.comparing(Event::getEndDate).reversed());
-		
-		
-		
 		
 		
 		
@@ -137,8 +140,14 @@ public abstract class View extends JPanel implements ActionListener{
 		return selectedEvent;
 	}
 
-	public void setSelectedEvent(Event selectedEvent) {
-		View.selectedEvent = selectedEvent;
+	/**
+	 * setSelectedEvent gets the current selected event and
+	 * renders it using the initSelect Method
+	 * 
+	 * @param e Is the new selected Event to replace the old selected Event
+	 */
+	public void setSelectedEvent(Event e) {
+		selectedEvent = e;
 		initSelect();
 	}
 	
@@ -150,6 +159,13 @@ public abstract class View extends JPanel implements ActionListener{
 	public static void setEvents(List<Event> e) {
 		events = e;
 	}
+	
+	/**
+	 * getDayEvents returns the events specifically the day given.
+	 * This is used by ShowDay to display the events.
+	 * @param d Date used to find the Events specifically on that day. 
+	 * @return
+	 */
 	
 	protected List<Event> getDayEvents(Date d) {
 			
@@ -168,9 +184,16 @@ public abstract class View extends JPanel implements ActionListener{
 			}
 		}
 		
+		temp = (new Schedule(temp)).getEventList();
+		
 		return temp;
 	}
 	
+	/**
+	 * Displays the currently selected Event below the Calendar
+	 * @param 
+	 * @return
+	 */
 	protected void initSelect() {
 		
 		if(selected != null) {
@@ -197,6 +220,12 @@ public abstract class View extends JPanel implements ActionListener{
 		
 	}
 	
+	/**
+	 * Is called when an Event is edited, created or deleted
+	 * 
+	 * @param eOld Old Event that is no longer up do date.
+	 * @param e New Event to replace the old Event
+	 */
 	public void refreshEvent(Event eOld, Event e) {
 		
 		events.set(events.indexOf(eOld), e);
@@ -214,4 +243,7 @@ public abstract class View extends JPanel implements ActionListener{
 	
 	@Override
 	public abstract void actionPerformed(ActionEvent e);
+	
+	
+	public abstract int accept(ShowDay sd);
 }

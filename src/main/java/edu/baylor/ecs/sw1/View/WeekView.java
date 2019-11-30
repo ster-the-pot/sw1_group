@@ -1,26 +1,17 @@
 package edu.baylor.ecs.sw1.View;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-
 import edu.baylor.ecs.sw1.scheduleRender.ShowDay;
 
 /**
- * WeekView class creates the week view for the calendar. It uses a JPanel as
+ * WeekView class creates the week view for the calendar. It uses View as
  * the calendar base. The main differences between this and the MonthView class
  * is how the tables are made and updated, as well as the Action performed
  * Override.
@@ -33,11 +24,17 @@ public class WeekView extends View {
 	static int realYear, realMonth, realDay, currentDay, lastYear, lastMonth, lastMaxDay, dayOfWeek;
 	static JPanel panel;
 
+	
+	/**
+	 * InitCalendar initializes the Calendar with the Week View. This also sets
+	 * the first day to be the current day, and the first Week to be the current week
+	 * @param 
+	 * @return
+	 */
 	protected void initCalendar() {
 		panel = new JPanel();
 
 		panel.setBackground(Color.darkGray);
-		// panel.setSize(500, 700);
 		panel.setPreferredSize(new Dimension(1100, 580));
 		panel.setMaximumSize(panel.getPreferredSize());
 		GridLayout layout = new GridLayout(0, 7);
@@ -58,6 +55,7 @@ public class WeekView extends View {
 
 		mMonth.setText(months[currentMonth] + " " + currentYear);
 
+		//Get the number of days in the month
 		int numDays;
 		numDays = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
 		if (currentDay - 7 < 0) {
@@ -71,6 +69,12 @@ public class WeekView extends View {
 
 	}
 
+	/**
+	 * updateCalendar is used when an Event has been changed or a new week is selected
+	 * using the Last/Next options. It refreshes the entire Week using the addPanels function below
+	 * @param 
+	 * @return
+	 */
 	public void updateCalendar() {
 
 		mMonth.setText(months[currentMonth] + " " + currentYear);
@@ -79,12 +83,18 @@ public class WeekView extends View {
 
 		// Function that adds all the Panels
 		addPanels();
-		// initCalendar();
 
 		panel.revalidate();
 		panel.repaint();
 	}
 
+	
+	/**
+	 * addPanels goes day by day adding the Events for each day. Each day to be added calls
+	 * the ShowDay class, which correctly implements each Events for the day.
+	 * @param 
+	 * @return 
+	 */
 	protected void addPanels() {
 
 		int numDays;
@@ -96,22 +106,22 @@ public class WeekView extends View {
 			if (i > numDays) {
 				if (currentMonth != 11) {
 					dayDate = new Date(currentYear, currentMonth + 1, (i - numDays));
-					panel.add(new ShowDay((i - numDays), currentMonth + 1, dayDate, getDayEvents(dayDate), true, this));
+					panel.add(new ShowDay(dayDate, getDayEvents(dayDate), true, this));
 				} else {
 					dayDate = new Date(currentYear + 1, 0, (i - numDays));
-					panel.add(new ShowDay((i - numDays), 0, dayDate, getDayEvents(dayDate), true, this));
+					panel.add(new ShowDay(dayDate, getDayEvents(dayDate), true, this));
 				}
 			} else if (i <= 0) {
 				if (currentMonth != 0) {
 					dayDate = new Date(currentYear, currentMonth - 1, (i + lastMaxDay));
-					panel.add(new ShowDay((lastMaxDay + i), currentMonth - 1, dayDate, getDayEvents(dayDate), true, this));
+					panel.add(new ShowDay(dayDate, getDayEvents(dayDate), true, this));
 				} else {
 					dayDate = new Date(currentYear-1, 11, (i + lastMaxDay));
-					panel.add(new ShowDay((lastMaxDay + i), 11, dayDate, getDayEvents(dayDate), true, this));
+					panel.add(new ShowDay(dayDate, getDayEvents(dayDate), true, this));
 				}
 			} else {
 				dayDate = new Date(currentYear, currentMonth, (i));
-				panel.add(new ShowDay(i, currentMonth, dayDate, getDayEvents(dayDate), false, this));
+				panel.add(new ShowDay(dayDate, getDayEvents(dayDate), false, this));
 			}
 		}
 
@@ -120,15 +130,23 @@ public class WeekView extends View {
 		this.setBackground(Color.WHITE);
 		mPanel.setVisible(true);
 		
-		
+		//The default Selected Event is null or none
 		initSelect();
 		
 	}
 
+	/**
+	 * When an action is performed (Last/Next). The current week/month/year must be changed.
+	 * The WeekView version of this is a bit more complicated than the month view. 
+	 * @param 
+	 * @return
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if ("Last".equals(e.getActionCommand())) {
+			//If the current day goes into the last month - the month must be changed
 			if (currentDay - 7 <= 0) {
+				//If its not January then this is fairly easy. 
 				if (currentMonth != 0) {
 					currentMonth--;
 					lastMonth--;
@@ -136,7 +154,7 @@ public class WeekView extends View {
 
 					cal = new GregorianCalendar(currentYear, currentMonth, 1);
 					currentDay = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH) - 7 + currentDay;
-
+					//If it is January then the month and year must be changed
 				} else {
 					lastMonth = 0;
 					lastYear = currentYear;
@@ -148,12 +166,16 @@ public class WeekView extends View {
 					currentDay = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH) - 7 + currentDay;
 
 				}
+				//If it does not change Months, then just minus 7 from the current day
 			} else {
 				currentDay = currentDay - 7;
 			}
-			// If the calendar is moving forward we don't have to worry about last month
+			
+			//If the Next button is Hit
 		} else if ("Next".equals(e.getActionCommand())) {
+			//If the current day goes into the next Month
 			if (currentDay + 7 > cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH)) {
+				//If the month is not December then add a month
 				if (currentMonth != 11) {
 					lastMonth = currentMonth;
 					currentMonth++;
@@ -164,7 +186,7 @@ public class WeekView extends View {
 					cal = new GregorianCalendar(currentYear, currentMonth, 1);
 
 					currentDay = 7 - currentDisp;
-
+					//If the month is December then manually change the month and year
 				} else {
 					lastMonth = currentMonth;
 					lastYear = currentYear;
@@ -179,11 +201,18 @@ public class WeekView extends View {
 					currentDay = 7 - currentDisp;
 
 				}
+				//If the month does not change then just add 7 to the current day
 			} else {
 				currentDay = currentDay + 7;
 			}
 		}
 		updateCalendar();
+	}
+	
+	
+	@Override
+	public int accept(ShowDay sd) {
+		return sd.numGrid(this);
 	}
 
 }
