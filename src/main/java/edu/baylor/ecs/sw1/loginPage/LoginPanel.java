@@ -112,6 +112,12 @@ public class LoginPanel extends JPanel {
 		gbc_btnCreateAccount.gridy = 14;
 		add(btnCreateAccount, gbc_btnCreateAccount);
 		
+		btnCreateAccount.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 	}
 
 }
