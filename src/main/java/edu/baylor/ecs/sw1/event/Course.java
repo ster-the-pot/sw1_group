@@ -4,6 +4,12 @@ import java.awt.Color;
 
 import edu.baylor.ecs.sw1.scheduleRender.ShowDay;
 
+/**
+ * Subclass of Event pertaining specifically to time spent in class
+ * 
+ * @author Par Wilkinson
+ *
+ */
 public class Course extends Event {
 	@Override
 	public void accept(EventVisitor visitor) {

@@ -4,8 +4,13 @@ import java.awt.Color;
 
 import edu.baylor.ecs.sw1.scheduleRender.ShowDay;
 
+/**
+ * Subclass of Event pertaining to most events
+ * 
+ * @author Par Wilkinson
+ *
+ */
 public class Assignment extends Event {
-
 	@Override
 	public void accept(EventVisitor visitor) {
 		visitor.visit(this);

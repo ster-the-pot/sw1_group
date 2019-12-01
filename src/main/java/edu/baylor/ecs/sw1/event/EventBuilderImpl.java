@@ -2,6 +2,11 @@ package edu.baylor.ecs.sw1.event;
 
 import java.util.Date;
 
+/**
+ * Implementation of EventBuilder that creates new Assignments
+ * @author Par Wilkinson
+ *
+ */
 public class EventBuilderImpl implements EventBuilder {
 	Event e;
 	

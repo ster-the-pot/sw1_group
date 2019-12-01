@@ -9,6 +9,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 
+/**
+ * This class displays a dialog with the event information.
+ * @author Par Wilkinson
+ *
+ */
 public class EventDisplayer {
 	static Color blueColor = new Color(230,230,250);
 	public static void display(Frame owner, Event event) {

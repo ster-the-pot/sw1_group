@@ -84,7 +84,7 @@ public class LoginWindow extends JFrame implements Runnable, ActionListener {
 			
 			if(auth.accountExists(curUserName)) {
 				// need to verify password
-				if(true) {
+				if(auth.authenticate(curUserName, currPass)) {
 					this.dispose();
 					javax.swing.SwingUtilities.invokeLater(new Runnable() {
 						@Override
@@ -100,7 +100,6 @@ public class LoginWindow extends JFrame implements Runnable, ActionListener {
 				
 			} else {
 				// account not found
-				
 			}
 			
 			

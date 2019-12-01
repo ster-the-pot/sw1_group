@@ -43,6 +43,11 @@ public class Sidebar extends JPanel {
 	Color green = new Color(34,139,34);*/
 
 	
+	/**
+	 * Creates and returns a visible added JButton. FACTORY METHOD dp 
+	 * @param text
+	 * @return
+	 */
 	private JButton initButton(String text) {
 		JButton button = new JButton(text);
 		button.setVisible(true);
@@ -50,7 +55,9 @@ public class Sidebar extends JPanel {
 		return button;
 	}
 
-	
+	/**
+	 * Constructs and populates the Sidebar
+	 */
 	public Sidebar() {
 		GridLayout layout = new GridLayout(12, 0);
 		layout.setHgap(1);
@@ -80,8 +87,15 @@ public class Sidebar extends JPanel {
 	}
 
 	
-	
-	
+	/**
+	 * Constructs the legend panel
+	 * @param text
+	 * @param c
+	 * @param text2
+	 * @param c2
+	 * @param first
+	 * @return
+	 */
 	private JPanel initPanel(String text, Color c, String text2, Color c2, Boolean first) {
 		JPanel button = new JPanel();
 		GridLayout layout = new GridLayout(3, 0);
@@ -103,7 +117,12 @@ public class Sidebar extends JPanel {
 	}
 
 	
-	
+	/**
+	 * Constructs and returns a JLabel fitting the Sidebar's design.
+	 * @param text
+	 * @param c
+	 * @return
+	 */
 	private JLabel initLabel(String text, Color c) {
 		JLabel label = new JLabel(text);
 
