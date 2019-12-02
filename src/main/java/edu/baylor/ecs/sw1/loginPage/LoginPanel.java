@@ -3,6 +3,7 @@ package edu.baylor.ecs.sw1.loginPage;
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,10 +17,16 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
+
+import edu.baylor.ecs.sw1.auth.AuthService;
+
 import javax.swing.JPasswordField;
 
 /**
@@ -112,6 +119,42 @@ public class LoginPanel extends JPanel {
 		gbc_btnCreateAccount.gridy = 14;
 		add(btnCreateAccount, gbc_btnCreateAccount);
 		
+		
+		JFrame owner = (JFrame) SwingUtilities.getWindowAncestor(this);
+		
+		btnCreateAccount.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JTextField dUsernameField = new JTextField();
+				JTextField dPasswordField = new JPasswordField();
+				
+				Object message[] = {
+					"Username: ", dUsernameField,
+					"Password: ", dPasswordField,
+				};
+				
+				Object[] options = {"Confirm","Cancel"};
+				
+				int option = JOptionPane.showOptionDialog(owner, message,"Create Account",JOptionPane.OK_CANCEL_OPTION
+						,JOptionPane.QUESTION_MESSAGE,new ImageIcon("empty.png"),options,options[0]);
+				
+				if(option == JOptionPane.OK_OPTION) {
+					String curUserName = dUsernameField.getText();
+					String currPass = dPasswordField.getText();
+					
+					AuthService auth = AuthService.getAuthService();
+					if(auth.accountExists(curUserName)) {
+						// account already exists
+						JOptionPane.showMessageDialog(owner, "That username is already registered.", "Error", JOptionPane.ERROR_MESSAGE);
+					} else if(!auth.passwordStrength(currPass)) {
+						// password too weak
+						JOptionPane.showMessageDialog(owner, "Password is too short.", "Error", JOptionPane.ERROR_MESSAGE);
+					} else {
+						auth.createAccount(curUserName, currPass);
+					}
+				}
+			}
+		});
 	}
 
 }

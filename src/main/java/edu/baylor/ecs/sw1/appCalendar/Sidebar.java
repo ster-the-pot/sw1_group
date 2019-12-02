@@ -17,6 +17,7 @@ import edu.baylor.ecs.sw1.event.Event;
  * Contains buttons allowing the user to interact with the application.
  * 
  * @author Par Wilkinson
+ * @author Elizabeth Brighton
  *
  */
 public class Sidebar extends JPanel {
@@ -31,18 +32,22 @@ public class Sidebar extends JPanel {
 	public JPanel legend;
 	public JPanel legend2;
 
-	/*Color blue = new Color(64, 143, 222);
-	//178,34,34
-	Color red = new Color(205,65,65);
-	Color purple = new Color(186,85,211);
-	Color green = new Color(50,205,50);*/
+	Color blue = new Color(31, 97, 141);
+	Color red = new Color(176, 58, 46);
+	Color purple = new Color(118, 68, 138);
+	Color green = new Color(20, 143, 119);
 	
-	Color blue = new Color(23, 112, 171);
+/*	Color blue = new Color(23, 112, 171);
 	Color red = new Color(205, 65, 65);
 	Color purple = new Color(143, 62, 151);
-	Color green = new Color(34,139,34);
+	Color green = new Color(34,139,34);*/
 
 	
+	/**
+	 * Creates and returns a visible added JButton. FACTORY METHOD dp 
+	 * @param text
+	 * @return
+	 */
 	private JButton initButton(String text) {
 		JButton button = new JButton(text);
 		button.setVisible(true);
@@ -50,8 +55,10 @@ public class Sidebar extends JPanel {
 		return button;
 	}
 
+	/**
+	 * Constructs and populates the Sidebar
+	 */
 	public Sidebar() {
-		// this.setBackground(Color.GRAY);
 		GridLayout layout = new GridLayout(12, 0);
 		layout.setHgap(1);
 		layout.setVgap(1);
@@ -80,8 +87,15 @@ public class Sidebar extends JPanel {
 	}
 
 	
-	
-	
+	/**
+	 * Constructs the legend panel
+	 * @param text
+	 * @param c
+	 * @param text2
+	 * @param c2
+	 * @param first
+	 * @return
+	 */
 	private JPanel initPanel(String text, Color c, String text2, Color c2, Boolean first) {
 		JPanel button = new JPanel();
 		GridLayout layout = new GridLayout(3, 0);
@@ -103,7 +117,12 @@ public class Sidebar extends JPanel {
 	}
 
 	
-	
+	/**
+	 * Constructs and returns a JLabel fitting the Sidebar's design.
+	 * @param text
+	 * @param c
+	 * @return
+	 */
 	private JLabel initLabel(String text, Color c) {
 		JLabel label = new JLabel(text);
 

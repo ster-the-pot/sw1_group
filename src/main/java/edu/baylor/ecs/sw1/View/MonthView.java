@@ -1,18 +1,13 @@
 package edu.baylor.ecs.sw1.View;
 
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
-
 import javax.swing.BorderFactory;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import edu.baylor.ecs.sw1.scheduleRender.ShowDay;
 
@@ -20,7 +15,7 @@ import edu.baylor.ecs.sw1.scheduleRender.ShowDay;
 
 /**
  * MonthView class creates the month view for the calendar. 
- * It uses a JPanel as the calendar base 
+ * It uses a View as the calendar base 
  * 
  * @author Elizabeth Brighton
  *
@@ -32,34 +27,26 @@ public class MonthView extends View {
 	static JPanel panel;
 	
 
-
+	/**
+	 * InitCalendar initializes the Calendar with the Month View. This also sets
+	 * the first day to be the current day, and the first Month to be the current Month
+	 * @param 
+	 * @return
+	 */
 	protected void initCalendar() {
-		/*this.setBackground(Color.darkGray);
-		this.setSize(500, 700);
-		GridLayout layout = new GridLayout(0, 7);
-	
-		layout.setHgap(1);
-		layout.setVgap(1);
-		this.setLayout(layout);*/
-	
 		
-
+		//Create the base panel 
 		panel = new JPanel();
-		
 		panel.setBackground(Color.darkGray);
-		//panel.setSize(500, 700);
-		
 		panel.setPreferredSize(new Dimension(1100, 580));
-		//panel.setMaximumSize( panel.getPreferredSize() );
+		//Make it a grid layout - 7 days per row
 		GridLayout layout = new GridLayout(0, 7);
 		layout.setHgap(1);
 		layout.setVgap(1);
-		
 		panel.setLayout(layout);
 		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		
 		
-		//this.setPreferredSize(new Dimension(500, 500));
 		
 		// Get current day
 		GregorianCalendar cal = new GregorianCalendar(); // Create calendar
@@ -69,7 +56,7 @@ public class MonthView extends View {
 		currentMonth = realMonth; // Match month and year
 		currentYear = realYear;
 
-
+		//put the current month and year in the panel
 		mMonth.setText(months[currentMonth] + " " + currentYear);
 
 
@@ -77,24 +64,33 @@ public class MonthView extends View {
 		addPanels();
 	}
 
+	/**
+	 * updateCalendar is used when an Event has been changed or a new month is selected
+	 * using the Last/Next options. It refreshes the entire Month using the addPanels function below
+	 * @param 
+	 * @return
+	 */
 	public void updateCalendar() {
 
 		mMonth.setText(months[currentMonth] + " " + currentYear);
 
 		panel.removeAll();
 	
-		
-		
 		//Function that adds all the Panels
 		addPanels();
-		//initCalendar();
 		
 		panel.revalidate();
 		panel.repaint();
 	}
 
+	
+	/**
+	 * addPanels goes day by day adding the Events for each day. Each day to be added calls
+	 * the ShowDay class, which correctly implements each Events for the day.
+	 * @param 
+	 * @return 
+	 */
 	protected void addPanels() {
-		
 		
 		int numDays, startMonth;
 		cal = new GregorianCalendar(currentYear, currentMonth, 1);
@@ -106,7 +102,7 @@ public class MonthView extends View {
 		}
 		for (; i <= (numDays + startMonth); i++) {
 			dayDate = new Date(currentYear, currentMonth, (i-startMonth));
-			panel.add(new ShowDay((i-startMonth), dayDate, getDayEvents(dayDate), this));	
+			panel.add(new ShowDay(dayDate, getDayEvents(dayDate), false, this));	
 		}
 		while(i != 43) {
 			panel.add(new JPanel());
@@ -118,13 +114,17 @@ public class MonthView extends View {
 		this.setBackground(Color.WHITE);
 		mPanel.setVisible(true);
 		
-		
-		
+		//Display null when no event has been selected
 		initSelect();
-		
-		
+
 	}
 	
+	
+	/**
+	 * When an action is performed (Last/Next). The current month/year must be changed
+	 * @param 
+	 * @return
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
@@ -144,6 +144,11 @@ public class MonthView extends View {
 			}
 		}
 		updateCalendar();
+	}
+
+	@Override
+	public int accept(ShowDay sd) {
+		return sd.numGrid(this);
 	}
 	
 

@@ -49,6 +49,10 @@ public class AuthService {
 	public void close() {
 		client.close();
 	}
+	
+	public Boolean authenticate(String username, String password) {
+		return true;
+	}
 
 	public Boolean accountExists(String username) {
 		FindIterable<Document> result = userdata.find(new Document("username", username));

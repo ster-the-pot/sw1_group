@@ -20,6 +20,11 @@ import org.jdatepicker.impl.*;
 import edu.baylor.ecs.sw1.utils.DateFormattedListCellRenderer;
 import edu.baylor.ecs.sw1.utils.DateLabelFormatter;
 
+/**
+ * This dialog displays an event's information and allows it to be edited.
+ * @author Par Wilkinson
+ *
+ */
 public class EventEditDialog {
 	JTextField eventNameField;
 //	JTextField eventPriorityField;
