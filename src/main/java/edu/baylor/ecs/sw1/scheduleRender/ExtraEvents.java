@@ -36,9 +36,6 @@ public class ExtraEvents {
 		}
 		
 
-		JFrame frame = new JFrame();
-		
-		
 		//ISSUES WITH DUPLICATE NAMES
 	   /* String name = (String) JOptionPane.showInputDialog(frame, "Which event would you like?",
 	    		"Select event, then select option from side panel", JOptionPane.PLAIN_MESSAGE,

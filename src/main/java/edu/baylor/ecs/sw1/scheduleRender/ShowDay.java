@@ -34,15 +34,29 @@ public class ShowDay extends JPanel implements ActionListener {
 	static String[] monthsAbv = { "Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov",
 			"Dec" };
 	static JPanel dayPanel;
-	//Color blueColor = new Color(23, 112, 171);
-	//Color redColor = new Color(/* 205,65,65 */205, 65, 65/* 255, 39, 23 */);
-	//Color purpleColor = new Color(/* 186,85,211 */143, 62, 151/* 146, 66, 166 */);
-	//Color greenColor = new Color(/* 0, 150, 6 */34,139,34/*60, 180, 75*/);
+
+	Color currentColor;
+	Color currentColor2;
+	/*Color blue = new Color(31, 97, 141);
+	Color red = new Color(176, 58, 46);
+	Color purple = new Color(118, 68, 138);
+	Color green = new Color(20, 143, 119);*/
 	
-	Color blueColor = new Color(31, 97, 141);
-	Color redColor = new Color(176, 58, 46);
-	Color purpleColor = new Color(118, 68, 138);
-	Color greenColor = new Color(20, 143, 119);
+	
+	
+	//NEWEST OLD
+	
+	Color blueColor = new Color(0, 112, 192);
+	Color redColor = new Color(192, 0, 0);
+	Color purpleColor = new Color(112, 48, 160);
+	Color greenColor = new Color(79, 98, 40);
+	
+	Color blueColor2 = new Color(218, 238, 243);
+	Color redColor2 = new Color(242,220,219);
+	Color purpleColor2 = new Color(204, 192, 218);
+	Color greenColor2 = new Color(216, 228, 188);
+
+	
 	List<Event> events;
 	Boolean isWeek = false;
 	final int numMonth = 5, numWeek = 8;
@@ -155,20 +169,26 @@ public class ShowDay extends JPanel implements ActionListener {
 			Eventlabel = new JButton(e.getEventName());
 		}
 
-		Eventlabel.setBackground(e.accept(this));
 
+		Eventlabel.setForeground(e.accept(this));
+		Eventlabel.setBackground(currentColor2);
+		
+		//Eventlabel.setBackground(Color.WHITE);
 		if (e.getEventName().toLowerCase().contains("test") || e.getEventName().toLowerCase().contains("exam")
 				|| e.getEventName().toLowerCase().contains("midterm")) {
-			Eventlabel.setBackground(redColor);
-
+			Eventlabel.setBackground(redColor2);
+			Eventlabel.setForeground(redColor);
 		} 
 		//For testing purposes 
 		/*else if (e.getEventName().substring(e.getEventName().length() - 1).equals("8")
 				|| e.getEventName().substring(e.getEventName().length() - 1).equals("9")) {
-			Eventlabel.setBackground(greenColor);
+			Eventlabel.setBackground(greenColor2);
+			Eventlabel.setForeground(greenColor);
+			
 		} else if (e.getEventName().substring(e.getEventName().length() - 1).equals("4")
 				|| e.getEventName().substring(e.getEventName().length() - 1).equals("5")) {
-			Eventlabel.setBackground(blueColor);
+			Eventlabel.setBackground(blueColor2);
+			Eventlabel.setForeground(blueColor);
 		}*/
 
 		Eventlabel.addActionListener(this);
@@ -215,9 +235,9 @@ public class ShowDay extends JPanel implements ActionListener {
 	 * @return
 	 */
 	public Color getColor(Assignment a) {
+		currentColor = purpleColor;
+		currentColor2 = purpleColor2;
 		return purpleColor;
-		// return redColor;
-		// return new Color(64, 143, 222);
 	}
 
 	/**
@@ -226,8 +246,9 @@ public class ShowDay extends JPanel implements ActionListener {
 	 * @return
 	 */
 	public Color getColor(Course c) {
+		currentColor = blueColor;
+		currentColor2 = blueColor2;
 		return blueColor;
-		// return new Color(64, 143, 222);
 	}
 
 	/**
@@ -236,7 +257,8 @@ public class ShowDay extends JPanel implements ActionListener {
 	 * @return
 	 */
 	public Color getColor(Quiz q) {
-
+		currentColor = greenColor;
+		currentColor2 = greenColor2;
 		return greenColor;
 	}
 
