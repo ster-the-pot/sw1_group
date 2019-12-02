@@ -16,7 +16,7 @@ public class TestCanvasDBAdapter {
 	
 	@Test
 	public void courseIDExtraction() {
-		db.syncStudentCanvas("reneelovesu");
+		db.syncStudentCanvas("strafford");
 	}
 
 }

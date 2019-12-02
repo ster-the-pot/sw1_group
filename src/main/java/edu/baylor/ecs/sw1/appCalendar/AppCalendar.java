@@ -36,6 +36,9 @@ public class AppCalendar extends JFrame implements ActionListener {
 	Color labelColor = new Color(64, 143, 222);
 	JPanel topLabel;
 
+	/**
+	 * clears the JFrame and readds the appropriate components in the current view
+	 */
 	private void render() {
 		this.getContentPane().removeAll();
 
@@ -64,11 +67,19 @@ public class AppCalendar extends JFrame implements ActionListener {
 		this.getContentPane().repaint();
 	}
 
+	/**
+	 * This method sets a button's action listener to this object, and its command to the string passed in.
+	 * @param button
+	 * @param command
+	 */
 	private void connectButton(JButton button, String command) {
 		button.setActionCommand(command);
 		button.addActionListener(this);
 	}
 
+	/**
+	 * Constructs the AppCalendar's components and connects the buttons to the listener
+	 */
 	public AppCalendar() {
 
 		inMonthView = true;
@@ -104,6 +115,9 @@ public class AppCalendar extends JFrame implements ActionListener {
 		render();
 	}
 
+	/**
+	 * Listens for all events and responds appropriately
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String act = e.getActionCommand();

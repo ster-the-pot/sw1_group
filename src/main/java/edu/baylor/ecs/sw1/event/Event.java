@@ -7,7 +7,7 @@ import edu.baylor.ecs.sw1.scheduleRender.ShowDay;
 
 
 /**
- * 
+ * Abstract Event class that holds data about events, and accepts some visitors
  * @author Par Wilkinson
  *
  */

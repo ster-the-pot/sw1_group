@@ -22,6 +22,12 @@ import org.jdatepicker.impl.*;
 import edu.baylor.ecs.sw1.utils.DateFormattedListCellRenderer;
 import edu.baylor.ecs.sw1.utils.DateLabelFormatter;
 
+/**
+ * This class displays a dialog that gets information for the creation of an event,
+ * and validates the info before returning the event.
+ * @author Par Wilkinson
+ *
+ */
 public class EventCreationDialog {
 	JTextField eventNameField;
 	//JTextField eventPriorityField;

@@ -32,7 +32,7 @@ public class AuthService {
 	private AuthService(String user, String db, char[] password) {
 
 		MongoCredential credential = MongoCredential.createCredential(user, db, password);
-		client = new MongoClient(new ServerAddress("localhost", 27017), Arrays.asList(credential));
+		client = new MongoClient(new ServerAddress("18.224.202.17", 27017), Arrays.asList(credential));
 		this.db = client.getDatabase("userdata");
 		this.userdata = this.db.getCollection("userdata");
 	}
@@ -48,6 +48,10 @@ public class AuthService {
 
 	public void close() {
 		client.close();
+	}
+	
+	public Boolean authenticate(String username, String password) {
+		return true;
 	}
 
 	public Boolean accountExists(String username) {
