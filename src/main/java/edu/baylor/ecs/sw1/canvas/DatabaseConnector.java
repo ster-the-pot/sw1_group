@@ -81,7 +81,7 @@ public class DatabaseConnector {
 		return count;
 	}
 
-	ArrayList<Document> getUserEvents(String username) {		
+	public ArrayList<Document> getUserEvents(String username) {		
 		AggregateIterable<Document> result = userdata.aggregate(
 				Arrays.asList(Aggregates.match(Filters.eq("username", username)), Aggregates.unwind("$events"),
 						Aggregates.match(Filters.not(new Document("events.ignore", true)))));
@@ -102,6 +102,12 @@ public class DatabaseConnector {
 
 
 	}
+	
+	public Map<String,Object> convertEventMap(Event e) {
+		Map<String,Object> ret = new HashMap<>();
+		
+		return null;
+	}
 
 	/**
 	 * takes username and adds given event into the database
@@ -109,6 +115,7 @@ public class DatabaseConnector {
 	 * @param username
 	 * @param event
 	 */
+	
 	void addUserEvent(String username, Map<String, Object> event) {
 		// Document to insert
 		Document ev = new Document(event);
