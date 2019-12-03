@@ -66,7 +66,7 @@ public class CanvasAgentKey implements CanvasAgent {
 	 * @param studentID
 	 */
 	public Map<String, String> getCourses(String studentID) {
-		if (studentID == null || this.key == null) {
+		if (studentID == null || this.key == null || this.key == "") {
 			return null;
 		}
 		Map<String, String> courseList = new HashMap<>();

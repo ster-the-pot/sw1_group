@@ -12,6 +12,8 @@ import java.util.Map;
 
 import org.junit.Assert;
 
+import edu.baylor.ecs.sw1.auth.AuthService;
+
 /**
  * CanvasDB Adapter that adapts external event's to our internal db format
  * 
@@ -21,25 +23,13 @@ import org.junit.Assert;
 public class CanvasDBAdapter implements CanvasAgent {
 	private CanvasAgentKey cAgent;
 	private DatabaseConnector db = new DatabaseConnector("java","userdata","cerny");
+	private AuthService auth = AuthService.getAuthService();
 
-	public CanvasDBAdapter(CanvasAgentKey agent) {
+	public CanvasDBAdapter(CanvasAgentKey agent, String username) {
 		cAgent = agent;
-		String userKey;
-		try {
-			File keyF = new File("../canvas_api/key");
-			// System.out.println(keyF.getAbsolutePath());
-			BufferedReader key = new BufferedReader(new FileReader(keyF));
-			try {
-				userKey = key.readLine();
-				// System.out.println(userKey);
-				cAgent.setKey(userKey);
-
-			} catch (IOException e) {
-				Assert.fail("File Failed to be read.");
-			}
-		} catch (FileNotFoundException err) {
-			Assert.fail("File Not Found");
-		}
+		String userKey = auth.getCanvasToken(username);	
+		cAgent.setKey(userKey);
+		
 	}
 
 	public Map<String, String> getCourses(String studentID) {
@@ -75,10 +65,13 @@ public class CanvasDBAdapter implements CanvasAgent {
 	 * Workflow of syncing all events from Canvas into User's db
 	 * @param studentID
 	 */
-	public void syncStudentCanvas(String username) {
+	public Boolean syncStudentCanvas(String username) {
 		Map<String, String> courses = this.getCourses(username);
 		Map<String,List<Map<String, Object>>> courseAssignments = new HashMap<>();
 		Map<String,String> revCoursesName = new HashMap<>();
+		if(courses == null) {
+			return false;
+		}
 		for(Map.Entry<String, String> entry: courses.entrySet()) {
 			revCoursesName.put(entry.getValue(), entry.getKey());
 		}
@@ -95,6 +88,7 @@ public class CanvasDBAdapter implements CanvasAgent {
 			});
 		});
 
+		return true;
 	}
 
 	

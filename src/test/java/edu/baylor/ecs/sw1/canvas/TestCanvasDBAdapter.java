@@ -12,11 +12,13 @@ import org.junit.Test;
 public class TestCanvasDBAdapter {
 		
 	private CanvasAgentKey canvas = new CanvasAgentKey();
-	private CanvasDBAdapter db = new CanvasDBAdapter(canvas);
+	private CanvasDBAdapter db = new CanvasDBAdapter(canvas,"strafford");
 	
 	@Test
 	public void courseIDExtraction() {
-		db.syncStudentCanvas("strafford");
+		if(!db.syncStudentCanvas("strafford")) {
+			Assert.fail("Canvas Key Invalid, Failed to Sync");
+		}
 	}
 
 }
