@@ -100,7 +100,6 @@ public class CanvasDBAdapter implements CanvasAgent {
 		courseAssignments.forEach((course,json) -> {
 			//System.out.println("COURSE: " + course + "\n-------------");
 			json.forEach(e->{
-
 				e.put("course",revCoursesName.get(course));
 				db.addUserEvent(username, e);
 			});

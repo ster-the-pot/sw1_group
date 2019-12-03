@@ -56,7 +56,8 @@ public class DatabaseConnector {
 	 */
 
 	/**
-	 * Get all event for a user as a MongoCollection
+	 * Get all event for a user as an ArrayList of MongoDocuments
+	 * will not return ignored events, but will continue to return completed events
 	 * 
 	 * @param username
 	 * @return
@@ -98,7 +99,6 @@ public class DatabaseConnector {
 //		                       {$match: {'events.ignore': {$ne: false}}},
 //		                   ])
 
-		return null;
 
 	}
 
