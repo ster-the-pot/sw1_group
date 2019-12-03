@@ -33,6 +33,9 @@ public class ExtraEvents {
 		
 		for(int i = 0; i < events.size(); i++) {
 			eventName[i] = events.get(i).getEventName();
+			if(events.get(i).getCompleted()) {
+				eventName[i] = "Complete! " + eventName[i];
+			}
 		}
 		
 

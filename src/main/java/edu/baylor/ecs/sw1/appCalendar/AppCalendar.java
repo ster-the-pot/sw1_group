@@ -90,11 +90,12 @@ public class AppCalendar extends JFrame implements ActionListener {
 	 * Constructs the AppCalendar's components and connects the buttons to the
 	 * listener
 	 */
-	public AppCalendar() {
+	public AppCalendar(String str) {
 
 		inMonthView = true;
 
-		sidebar = new Sidebar();
+		
+		sidebar = new Sidebar(str);
 		sidebar.setVisible(true);
 
 		sidebar.viewSwitcher.setActionCommand("SWAP");
@@ -131,6 +132,16 @@ public class AppCalendar extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String act = e.getActionCommand();
+		
+		
+		Event event;
+		if (inMonthView) {
+			event = monthView.getSelectedEvent();
+		} else {
+			event = weekView.getSelectedEvent();
+		}
+		
+		
 		if (act.equals("SWAP")) {
 			if (((String) sidebar.viewSwitcher.getSelectedItem()).equals("Month View")) {
 				inMonthView = true;
@@ -140,85 +151,89 @@ public class AppCalendar extends JFrame implements ActionListener {
 			render();
 		} else if (act.equals("CREATE")) {
 			EventCreationDialog creator = new EventCreationDialog(this);
-			Event event = creator.getEvent();
+			event = creator.getEvent();
+			
+			
 		} else if (act.equals("EDIT")) {
 
-			Event oldEvent = null;
-			if (inMonthView) {
-				oldEvent = monthView.getSelectedEvent();
-			} else {
-				oldEvent = weekView.getSelectedEvent();
-			}
-
 			Event newEvent = null;
-			if (oldEvent != null) {
+			if (event != null) {
 				EventEditDialog ed = new EventEditDialog();
-				ed.edit(this, oldEvent);
+				ed.edit(this, event);
 
 				newEvent = ed.getEvent();
 
 				if (inMonthView) {
-					monthView.refreshEvent(oldEvent, newEvent);
+					monthView.refreshEvent(event, newEvent);
 				} else {
-					weekView.refreshEvent(oldEvent, newEvent);
+					weekView.refreshEvent(event, newEvent);
 				}
 			}
 
-			// RE-RENDER Panel SOMEHOW HERE
 
 		} else if (act.equals("DISPLAY")) {
-
-			Event event;
-			if (inMonthView) {
-				event = monthView.getSelectedEvent();
-			} else {
-				event = weekView.getSelectedEvent();
-			}
 
 			if (event != null) {
 				EventDisplayer.display(this, event);
 			}
 
+			
 		} else if (act.equals("DELETE")) {
 
-			Event event = null;
-			if (inMonthView) {
-				event = monthView.getSelectedEvent();
-			} else {
-				event = weekView.getSelectedEvent();
-			}
+
 			if (event != null) {
 				int a = JOptionPane.showConfirmDialog(this, "Delete " + event.getEventName() + "?", "Delete Event",
 						JOptionPane.YES_NO_OPTION);
 				
 				if (a == JOptionPane.YES_OPTION) {
-					System.out.println("DELETE HERE!!!!!!!!");
+					
+					//event.setIgnore(true);
+					
+					
+					if (inMonthView) {
+						monthView.removeEvent(event);
+					} else {
+						weekView.removeEvent(event);
+					}
+					
 				}
+				
+				
+				
 			}
 
 		} else if (act.equals("COMPLETE")) {
-
-			Event event = null;
-			if (inMonthView) {
-				event = monthView.getSelectedEvent();
-			} else {
-				event = weekView.getSelectedEvent();
-			}
 
 
 			if (event != null) {
 				int a = JOptionPane.showConfirmDialog(this, "Complete " + event.getEventName() + "?", "Complete Event",
 						JOptionPane.YES_NO_OPTION);
 				
-				
-				
 				if (a == JOptionPane.YES_OPTION) {
 					System.out.println("COMPLETE HERE!!!!!!!!");
+					Event newEvent = null;
+					newEvent = event;
+					
+					newEvent.setCompleted(true);
+					
+					if (inMonthView) {
+						monthView.refreshEvent(event, newEvent);
+					} else {
+						weekView.refreshEvent(event, newEvent);
+					}
 				}
+				
+				
+				
 			}
+			
+			
 			
 		} else if (act.equals("CONNECT")) {
 			// box with canvas code spot
+			
+			
+			
 		}
 	}
 }

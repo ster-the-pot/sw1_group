@@ -19,10 +19,11 @@ import edu.baylor.ecs.sw1.event.Quiz;
  */
 public class Schedule {
 	List<Event> events;
-	List<Event> tests;
-	List<Event> quizes;
-	List<Event> assign;
-	List<Event> course;
+	List<Event> tests = new ArrayList<Event>();
+	List<Event> quizes = new ArrayList<Event>();
+	List<Event> assign = new ArrayList<Event>();
+	List<Event> course = new ArrayList<Event>();
+	List<Event> completed = new ArrayList<Event>();
 
 	/**
 	 * Constructor takes list of events and sorts them by priority
@@ -33,23 +34,22 @@ public class Schedule {
 
 
 		events = new ArrayList<Event>(e);
-		tests = new ArrayList<Event>();
-		quizes = new ArrayList<Event>();
-		assign = new ArrayList<Event>();
-		course = new ArrayList<Event>();
 
+		
 		checkPriority();
 		
 		tests.sort(Comparator.comparing(Event::getEndDate));
 		quizes.sort(Comparator.comparing(Event::getEndDate));
 		assign.sort(Comparator.comparing(Event::getEndDate));
 		course.sort(Comparator.comparing(Event::getEndDate));
-
+		completed.sort(Comparator.comparing(Event::getEndDate));
+		
 		
 		events = new ArrayList<Event>(tests);
 		events.addAll(quizes);
 		events.addAll(assign);
 		events.addAll(course);
+		events.addAll(completed);
 		
 		
 		// events.sort(Comparator.comparing(Event::getEventName));
@@ -62,7 +62,12 @@ public class Schedule {
 
 	public void checkPriority() {
 		for (Event e : events) {
-			if (e.getEventName().toLowerCase().contains("test") || e.getEventName().toLowerCase().contains("exam")
+
+
+			if (e.getCompleted()) {
+				completed.add(e);
+			}
+			else if (e.getEventName().toLowerCase().contains("test") || e.getEventName().toLowerCase().contains("exam")
 					|| e.getEventName().toLowerCase().contains("midterm")) {
 				tests.add(e);
 				
