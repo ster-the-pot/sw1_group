@@ -71,7 +71,7 @@ public class Sidebar extends JPanel {
 		this.setLayout(layout);
 		this.setBackground(Color.WHITE);
 
-		userName = initLabel("Welcome: STERLING", Color.BLACK, Color.WHITE );
+		userName = initLabel("Welcome: " + str, Color.BLACK, Color.WHITE );
 		this.add(userName);
 		
 		String[] viewChoices = { "Month View", "Week View" };
