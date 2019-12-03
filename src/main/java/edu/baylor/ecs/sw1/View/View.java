@@ -184,8 +184,9 @@ public abstract class View extends JPanel implements ActionListener{
 			}
 		}
 		
-		temp = (new Schedule(temp)).getEventList();
+		Schedule s = new Schedule(temp);
 		
+		temp = s.getEventList();
 		return temp;
 	}
 	
@@ -234,6 +235,7 @@ public abstract class View extends JPanel implements ActionListener{
 		
 	}
 	
+
 	
 	protected abstract void initCalendar();
 	

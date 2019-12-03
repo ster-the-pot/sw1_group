@@ -5,15 +5,22 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 import edu.baylor.ecs.sw1.View.MonthView;
 import edu.baylor.ecs.sw1.View.View;
@@ -35,7 +42,7 @@ public class AppCalendar extends JFrame implements ActionListener {
 	Font loginBold = new Font(Font.SANS_SERIF, Font.BOLD, 26);
 	Color labelColor = new Color(64, 143, 222);
 	JPanel topLabel;
-
+	
 	/**
 	 * clears the JFrame and readds the appropriate components in the current view
 	 */
@@ -68,7 +75,9 @@ public class AppCalendar extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * This method sets a button's action listener to this object, and its command to the string passed in.
+	 * This method sets a button's action listener to this object, and its command
+	 * to the string passed in.
+	 * 
 	 * @param button
 	 * @param command
 	 */
@@ -78,7 +87,8 @@ public class AppCalendar extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * Constructs the AppCalendar's components and connects the buttons to the listener
+	 * Constructs the AppCalendar's components and connects the buttons to the
+	 * listener
 	 */
 	public AppCalendar() {
 
@@ -96,7 +106,7 @@ public class AppCalendar extends JFrame implements ActionListener {
 		connectButton(sidebar.deleteEvent, "DELETE");
 		connectButton(sidebar.completeEvent, "COMPLETE");
 		connectButton(sidebar.connectEvent, "CONNECT");
-		
+
 		monthView = new MonthView();
 		monthView.setVisible(true);
 
@@ -134,51 +144,81 @@ public class AppCalendar extends JFrame implements ActionListener {
 		} else if (act.equals("EDIT")) {
 
 			Event oldEvent = null;
-			if(inMonthView) {
-				oldEvent = monthView.getSelectedEvent();	
+			if (inMonthView) {
+				oldEvent = monthView.getSelectedEvent();
 			} else {
 				oldEvent = weekView.getSelectedEvent();
 			}
-			
+
 			Event newEvent = null;
 			if (oldEvent != null) {
 				EventEditDialog ed = new EventEditDialog();
 				ed.edit(this, oldEvent);
-				
+
 				newEvent = ed.getEvent();
-				
-				if(inMonthView) {
-					monthView.refreshEvent(oldEvent, newEvent);	
+
+				if (inMonthView) {
+					monthView.refreshEvent(oldEvent, newEvent);
 				} else {
 					weekView.refreshEvent(oldEvent, newEvent);
 				}
 			}
-			
-			
-			
-			//RE-RENDER Panel SOMEHOW HERE
-			
+
+			// RE-RENDER Panel SOMEHOW HERE
 
 		} else if (act.equals("DISPLAY")) {
 
 			Event event;
-			if(inMonthView) {
-				event = monthView.getSelectedEvent();	
+			if (inMonthView) {
+				event = monthView.getSelectedEvent();
 			} else {
 				event = weekView.getSelectedEvent();
 			}
-			
-			
+
 			if (event != null) {
 				EventDisplayer.display(this, event);
 			}
 
 		} else if (act.equals("DELETE")) {
 
-		} else if (act.equals("COMPLTE")) {
+			Event event = null;
+			if (inMonthView) {
+				event = monthView.getSelectedEvent();
+			} else {
+				event = weekView.getSelectedEvent();
+			}
+			if (event != null) {
+				int a = JOptionPane.showConfirmDialog(this, "Delete " + event.getEventName() + "?", "Delete Event",
+						JOptionPane.YES_NO_OPTION);
+				
+				if (a == JOptionPane.YES_OPTION) {
+					System.out.println("DELETE HERE!!!!!!!!");
+				}
+			}
 
-		} else if (act.equals("CONNECT")) {
+		} else if (act.equals("COMPLETE")) {
+
+			Event event = null;
+			if (inMonthView) {
+				event = monthView.getSelectedEvent();
+			} else {
+				event = weekView.getSelectedEvent();
+			}
+
+
+			if (event != null) {
+				int a = JOptionPane.showConfirmDialog(this, "Complete " + event.getEventName() + "?", "Complete Event",
+						JOptionPane.YES_NO_OPTION);
+				
+				
+				
+				if (a == JOptionPane.YES_OPTION) {
+					System.out.println("COMPLETE HERE!!!!!!!!");
+				}
+			}
 			
+		} else if (act.equals("CONNECT")) {
+			// box with canvas code spot
 		}
 	}
 }

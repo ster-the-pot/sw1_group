@@ -143,7 +143,9 @@ public class ShowDay extends JPanel implements ActionListener {
 				addEvent(new JButton(), numEvents);
 				numEvents++;
 			} else {
+				
 				leftOver = " " + (num - numEvents) + " More Events";
+				
 				JButton label1 = new JButton(leftOver);
 				this.add(label1);
 				label1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
