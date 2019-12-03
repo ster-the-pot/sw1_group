@@ -13,27 +13,33 @@ import edu.baylor.ecs.sw1.scheduleRender.ShowDay;
  *
  */
 public abstract class Event {
-	
 	String eventName;
 	String eventID;
 	String eventDescription;
-	EventPriority Priority;
 	Date startDate;
 	Date endDate;
 	Boolean completed;
+	Boolean ignored;
 
+	public String getEventID() {
+		return eventID;
+	}
+	public void setEventID(String eventID) {
+		this.eventID = eventID;
+	}
+	public Boolean getIgnored() {
+		return ignored;
+	}
+	public void setIgnored(Boolean ignored) {
+		this.ignored = ignored;
+	}
 	public String getEventName() {
 		return eventName;
 	}
 	public void setEventName(String eventName) {
 		this.eventName = eventName;
 	}
-	public EventPriority getEventPriority() {
-		return Priority;
-	}
-	public void setEventPriority(EventPriority eventPriority) {
-		this.Priority = eventPriority;
-	}
+
 	public Date getStartDate() {
 		return startDate;
 	}

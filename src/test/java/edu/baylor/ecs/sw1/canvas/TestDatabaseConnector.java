@@ -42,4 +42,13 @@ public class TestDatabaseConnector {
 	public void testRetrieval() {
 		db.getUserEvents("strafford");
 	}
+	
+	@Test
+	public void testCount() {
+		int count = 0;
+		count = db.getManagedEvents();
+		if(count == 0 || count < 0) {
+			Assert.fail("");
+		}
+	}
 }

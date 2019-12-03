@@ -20,10 +20,6 @@ public class EventBuilderImpl implements EventBuilder {
 		e.setEventName(eventName);
 	}
 
-	@Override
-	public void setEventPriority(EventPriority eventPriority) {
-		e.setEventPriority(eventPriority);
-	}
 
 	@Override
 	public void setStartDate(Date startDate) {
@@ -48,6 +44,16 @@ public class EventBuilderImpl implements EventBuilder {
 	@Override
 	public Event getEvent() {
 		return e;
+	}
+
+	@Override
+	public void setEventID(String eventID) {
+		e.setEventID(eventID);
+	}
+
+	@Override
+	public void setEventIgnored(Boolean ignored) {
+		e.setIgnored(ignored);
 	}
 
 }
