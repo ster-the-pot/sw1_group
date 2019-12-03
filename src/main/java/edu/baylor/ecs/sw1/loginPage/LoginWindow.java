@@ -25,8 +25,9 @@ public class LoginWindow extends JFrame implements Runnable, ActionListener {
 	
 	Font loginBold = new Font(Font.SANS_SERIF, Font.BOLD, 26);
 	Color labelColor = new Color(64, 143, 222);
-	JTextField username, password;
 	JLabel uLabel, pLabel;
+	LoginPanel loginPanel;
+	
 	public LoginWindow(){
 		//init box layout to display all components
 		getContentPane().setLayout(new BoxLayout(this.getContentPane(),BoxLayout.Y_AXIS));
@@ -50,7 +51,7 @@ public class LoginWindow extends JFrame implements Runnable, ActionListener {
 		
 
 		//Import loginPanel to render buttons and control userInput
-		LoginPanel loginPanel = new LoginPanel();
+		loginPanel = new LoginPanel();
 		loginPanel.setBackground(Color.WHITE);
 		loginPanel.btnLogin.setActionCommand("LOGIN");
 		loginPanel.btnLogin.addActionListener(this);
@@ -77,8 +78,9 @@ public class LoginWindow extends JFrame implements Runnable, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getActionCommand().equals("LOGIN")) {
-			String curUserName = username.getText();
-			String currPass = password.getText();
+			
+			String curUserName = loginPanel.getUsername();
+			String currPass = loginPanel.getPassword();
 			
 			AuthService auth = AuthService.getAuthService();
 			
