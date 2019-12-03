@@ -165,6 +165,7 @@ public class ShowDay extends JPanel implements ActionListener {
 	private void addEvent(JButton Eventlabel, int i) {
 
 		Event e = events.get(i);
+
 		if (isWeek) {
 			Eventlabel = new JButton(e.getEventName() + " " + (new SimpleDateFormat("hh:mmaa").format(e.getEndDate())));
 		} else {
@@ -180,7 +181,12 @@ public class ShowDay extends JPanel implements ActionListener {
 				|| e.getEventName().toLowerCase().contains("midterm")) {
 			Eventlabel.setBackground(redColor2);
 			Eventlabel.setForeground(redColor);
-		} 
+		} else if (e.getCompleted()) {
+			
+			Eventlabel = new JButton("Complete! " + e.getEventName());
+			Eventlabel.setBackground(Color.LIGHT_GRAY);
+			Eventlabel.setForeground(Color.BLACK);
+		}
 		//For testing purposes 
 		/*else if (e.getEventName().substring(e.getEventName().length() - 1).equals("8")
 				|| e.getEventName().substring(e.getEventName().length() - 1).equals("9")) {

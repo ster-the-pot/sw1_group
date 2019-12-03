@@ -64,14 +64,14 @@ public class Sidebar extends JPanel {
 	/**
 	 * Constructs and populates the Sidebar
 	 */
-	public Sidebar() {
+	public Sidebar(String str) {
 		GridLayout layout = new GridLayout(12, 0);
 		layout.setHgap(1);
 		layout.setVgap(1);
 		this.setLayout(layout);
 		this.setBackground(Color.WHITE);
 
-		userName = initLabel("Welcome: STERLING", Color.BLACK, Color.WHITE );
+		userName = initLabel("Welcome: " + str, Color.BLACK, Color.WHITE );
 		this.add(userName);
 		
 		String[] viewChoices = { "Month View", "Week View" };

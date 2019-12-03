@@ -40,6 +40,14 @@ public class LoginPanel extends JPanel {
 	
 	public JButton btnLogin;
 	
+	public String getUsername() {
+		return txtusername.getText();
+	}
+	
+	public String getPassword() {
+		return passwordField.getText();
+	}
+	
 	public LoginPanel()  {
 		
 
