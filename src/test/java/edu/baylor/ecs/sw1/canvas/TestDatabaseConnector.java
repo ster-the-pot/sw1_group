@@ -37,4 +37,9 @@ public class TestDatabaseConnector {
 		testEvent.put("name","Software Lab Assignment 11 Modified 2.0");
 		db.addUserEvent("carlos", testEvent);
 	}
+	
+	@Test
+	public void testRetrieval() {
+		db.getUserEvents("strafford");
+	}
 }
