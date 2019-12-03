@@ -40,7 +40,10 @@ public class TestAuthService {
 	@Test
 	public void canvasTokenGetSet() {
 		auth.createAccount("reneelovesu", "123456");
-		Boolean pass = auth.authenticate("reneelovesu", "123456");
+		auth.setCanvasToken("reneelovesu", "testTokenWooHoo!");
+		if(!auth.getCanvasToken("reneelovesu").equals("testTokenWooHoo!")) {
+			Assert.fail();
+		}
 		auth.deleteAccount("reneelovesu");
 	}
 }

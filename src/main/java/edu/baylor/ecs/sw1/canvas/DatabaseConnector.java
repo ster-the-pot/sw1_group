@@ -23,6 +23,7 @@ import com.mongodb.MongoClientOptions;
 import java.awt.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.bson.Document;
@@ -137,7 +138,8 @@ public class DatabaseConnector {
 	 * @param event
 	 */
 	public void changeEventDetails(String username, Event event) {
-	//TODO	
+		Map<String,Object> eventParse = new HashMap<String,Object>();
+		this.insertExist(username, eventParse, userdata);	
 	}
 
 	public String getDBName() {
@@ -190,7 +192,8 @@ public class DatabaseConnector {
 		// System.out.println(event.get("course"));
 		Bson filter = Filters.and(Filters.eq("username", username), Filters.eq("events.id", event.get("id")));
 		Bson setUpdate = Updates.combine(Updates.set("events.$.due_at", event.get("due_at")),
-				Updates.set("events.$.name", event.get("name")), Updates.set("events.$.course", event.get("course")));
+				Updates.set("events.$.name", event.get("name")), Updates.set("events.$.course", event.get("course")),
+				Updates.set("events.$.ignore", event.get("ignore")));
 		UpdateResult result = userdata.updateOne(filter, setUpdate, new UpdateOptions().upsert(true));
 		// System.out.println(result.getModifiedCount());
 

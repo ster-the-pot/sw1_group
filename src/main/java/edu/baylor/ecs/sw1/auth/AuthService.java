@@ -1,6 +1,5 @@
 package edu.baylor.ecs.sw1.auth;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import org.bson.Document;
