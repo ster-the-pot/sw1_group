@@ -44,9 +44,9 @@ public class DatabaseConnector {
 	MongoDatabase db;
 	MongoCollection<Document> userdata;
 
-	public DatabaseConnector(String user, String db, char[] password) {
+	public DatabaseConnector(String user, String db, String password) {
 
-		MongoCredential credential = MongoCredential.createCredential(user, db, password);
+		MongoCredential credential = MongoCredential.createCredential(user, db, password.toCharArray());
 		client = new MongoClient(new ServerAddress("18.224.202.17", 27017), Arrays.asList(credential));
 		this.db = client.getDatabase("userdata");
 		userdata = this.db.getCollection("userdata");
