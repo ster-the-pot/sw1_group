@@ -7,7 +7,6 @@ import edu.baylor.ecs.sw1.event.*;
 public class EditEventTest {
 	public static void printEvent(Event event) {
 		System.out.println("Event Name: " + event.getEventName());
-		System.out.println("Event Priority: " + event.getEventPriority());
 		System.out.println("Event Start Date: " + event.getStartDate().toString());
 		System.out.println("Event End Date: " + event.getEndDate().toString());
 		System.out.println("Event Description: " + event.getEventDescription());

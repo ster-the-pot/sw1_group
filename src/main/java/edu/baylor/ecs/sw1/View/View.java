@@ -71,7 +71,7 @@ public abstract class View extends JPanel implements ActionListener{
 	private void prepareGUI() {
 		
 		//QUERY HERE!!!!!!
-
+		
 		
 		events.sort(Comparator.comparing(Event::getEndDate).reversed());
 		
