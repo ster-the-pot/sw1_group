@@ -14,6 +14,9 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.UpdateResult;
+
+import edu.baylor.ecs.sw1.event.Event;
+
 import com.mongodb.MongoCredential;
 import com.mongodb.MongoClientOptions;
 
@@ -37,11 +40,15 @@ public class DatabaseConnector {
 	static MongoClient client;
 
 	Document upsertOptions = new Document().append("upsert", Boolean.TRUE);
+	MongoDatabase db;
+	MongoCollection<Document> userdata;
 
 	public DatabaseConnector(String user, String db, char[] password) {
 
 		MongoCredential credential = MongoCredential.createCredential(user, db, password);
 		client = new MongoClient(new ServerAddress("18.224.202.17", 27017), Arrays.asList(credential));
+		this.db = client.getDatabase("userdata");
+		userdata = this.db.getCollection("userdata");
 	}
 
 	public void close() {
@@ -62,25 +69,18 @@ public class DatabaseConnector {
 	 * @param username
 	 * @return
 	 */
+	
+	public Integer getManagedEvents() {
+		Integer count = 0;
+		AggregateIterable<Document> result = userdata.aggregate(
+				Arrays.asList(Aggregates.unwind("$events")));
+		for(Document i : result) {
+			count++;
+		}
+		return count;
+	}
 
-	ArrayList<Document> getUserEvents(String username) {
-		MongoDatabase db = client.getDatabase("userdata");
-		MongoCollection<Document> userdata = db.getCollection("userdata");
-
-//		Document query = new Document("username",username);
-//		Document projection = new Document("events",new Document("$elemMatch",
-//				new Document("ignore", new Document("$ne",Boolean.TRUE))));
-//		
-
-//		FindIterable<Document> result = userdata.find(query).projection(projection);
-		Document m = new Document("$match", new Document("username", username));
-		Document un = new Document("$unwind", "$events");
-		Document match = new Document("$match", new Document("events.ignore", new Document("$ne", Boolean.TRUE)));
-		ArrayList<Document> docList = new ArrayList<>();
-		docList.add(m);
-		docList.add(match);
-		docList.add(un);
-
+	ArrayList<Document> getUserEvents(String username) {		
 		AggregateIterable<Document> result = userdata.aggregate(
 				Arrays.asList(Aggregates.match(Filters.eq("username", username)), Aggregates.unwind("$events"),
 						Aggregates.match(Filters.not(new Document("events.ignore", true)))));
@@ -114,8 +114,6 @@ public class DatabaseConnector {
 		// Document to Query
 		// Document d = new Document().append("username", username).append("event", );
 
-		MongoDatabase db = client.getDatabase("userdata");
-		MongoCollection<Document> userdata = db.getCollection("userdata");
 		// check if event currently exists
 		Document checkInsertion = new Document("username", username).append("events",
 				new Document("$elemMatch", new Document("id", event.get("id"))));
@@ -130,6 +128,16 @@ public class DatabaseConnector {
 		}
 		// userdata.updateOne(, update, updateOptions)
 		return;
+	}
+	
+	 
+	/**
+	 * Allows modification of a user's event details 
+	 * @param username
+	 * @param event
+	 */
+	public void changeEventDetails(String username, Event event) {
+	//TODO	
 	}
 
 	public String getDBName() {
@@ -166,6 +174,7 @@ public class DatabaseConnector {
 		// System.out.println("Event Does not Exists, Insert");
 		// Apply correct db conditions (due_at $$ ignore and Assignment type)
 		Document iVal = new Document("id", event.get("id")).append("ignore", Boolean.FALSE)
+				.append("completed", Boolean.FALSE)
 				.append("name", event.get("name")).append("course", event.get("course"));
 		iVal = this.formatEventInsertionDoc(event, iVal);
 		// insertion operation

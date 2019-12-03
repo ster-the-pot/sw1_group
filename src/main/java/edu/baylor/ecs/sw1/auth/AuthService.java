@@ -51,9 +51,29 @@ public class AuthService {
 	}
 	
 	public Boolean authenticate(String username, String password) {
-		return true;
+		FindIterable<Document> result = userdata.find(new Document("username",username).append("password", password));
+		if(result.first()!= null) {
+			return true;
+		}
+		return false;
 	}
-
+	
+	public void setCanvasToken(String username, String token) {
+		userdata.findOneAndUpdate(new Document("username",username), new Document("$set",new Document("token",token)));
+	}
+	/**
+	 * Returns for a user their canvas token, if null the string "" is returned
+	 * @param username
+	 * @return
+	 */
+	public String getCanvasToken(String username) {
+		Document user = userdata.find(new Document("username",username)).first();
+		if(user.containsKey("token")) {
+			return user.getString("token");
+		}else {
+			return "";
+		}
+	}
 	public Boolean accountExists(String username) {
 		FindIterable<Document> result = userdata.find(new Document("username", username));
 		if (result.first() == null) {
@@ -92,6 +112,15 @@ public class AuthService {
 		}
 		userdata.updateOne(Filters.eq("username", username),Updates.set("password", password));
 		return true;
+	}
+	
+	public Integer accountCount() {
+		Integer count = 0;
+		FindIterable<Document> result = userdata.find();
+		for(Document i : result) {
+			count++;
+		}
+		return count;
 	}
 
 }
