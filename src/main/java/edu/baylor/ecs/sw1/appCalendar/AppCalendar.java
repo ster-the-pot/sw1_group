@@ -25,6 +25,7 @@ import javax.swing.UIManager;
 import edu.baylor.ecs.sw1.View.MonthView;
 import edu.baylor.ecs.sw1.View.View;
 import edu.baylor.ecs.sw1.View.WeekView;
+import edu.baylor.ecs.sw1.canvas.DatabaseConnector;
 import edu.baylor.ecs.sw1.event.*;
 
 /**
@@ -42,7 +43,8 @@ public class AppCalendar extends JFrame implements ActionListener {
 	Font loginBold = new Font(Font.SANS_SERIF, Font.BOLD, 26);
 	Color labelColor = new Color(64, 143, 222);
 	JPanel topLabel;
-	
+	String userName;
+	DatabaseConnector db;
 	/**
 	 * clears the JFrame and readds the appropriate components in the current view
 	 */
@@ -91,9 +93,10 @@ public class AppCalendar extends JFrame implements ActionListener {
 	 * listener
 	 */
 	public AppCalendar(String str) {
-
+		userName = str;
 		inMonthView = true;
 
+		db = new DatabaseConnector("Java", "userdata", "cerny");
 		
 		sidebar = new Sidebar(str);
 		sidebar.setVisible(true);
@@ -152,8 +155,9 @@ public class AppCalendar extends JFrame implements ActionListener {
 		} else if (act.equals("CREATE")) {
 			EventCreationDialog creator = new EventCreationDialog(this);
 			event = creator.getEvent();
-			
-			
+			//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			//db.changeEventDetails(userName, event);
+			//db.addUserEvent()
 		} else if (act.equals("EDIT")) {
 
 			Event newEvent = null;
@@ -168,6 +172,7 @@ public class AppCalendar extends JFrame implements ActionListener {
 				} else {
 					weekView.refreshEvent(event, newEvent);
 				}
+				db.changeEventDetails(userName, event);
 			}
 
 
@@ -196,6 +201,7 @@ public class AppCalendar extends JFrame implements ActionListener {
 						weekView.removeEvent(event);
 					}
 					
+					db.changeEventDetails(userName, event);
 				}
 				
 				
@@ -221,6 +227,8 @@ public class AppCalendar extends JFrame implements ActionListener {
 					} else {
 						weekView.refreshEvent(event, newEvent);
 					}
+					
+					db.changeEventDetails(userName, newEvent);
 				}
 				
 				
