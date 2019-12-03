@@ -14,7 +14,7 @@ public class TestDatabaseConnector {
 	
 	@Before
 	public void setUp() {
-		db = new DatabaseConnector("java","userdata","cerny".toCharArray());
+		db = new DatabaseConnector("java","userdata","cerny");
 	}
 	
 	@After

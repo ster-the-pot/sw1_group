@@ -1,26 +1,16 @@
 package edu.baylor.ecs.sw1.canvas;
 
-import java.awt.RenderingHints.Key;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.junit.Assert;
-
-import kong.unirest.HttpResponse;
-import kong.unirest.JsonNode;
-import kong.unirest.PagedList;
-import kong.unirest.Unirest;
-import kong.unirest.UnirestException;
-import kong.unirest.json.JSONArray;
 
 /**
  * CanvasDB Adapter that adapts external event's to our internal db format
@@ -30,7 +20,7 @@ import kong.unirest.json.JSONArray;
  */
 public class CanvasDBAdapter implements CanvasAgent {
 	private CanvasAgentKey cAgent;
-	private DatabaseConnector db = new DatabaseConnector("java","userdata","cerny".toCharArray());
+	private DatabaseConnector db = new DatabaseConnector("java","userdata","cerny");
 
 	public CanvasDBAdapter(CanvasAgentKey agent) {
 		cAgent = agent;

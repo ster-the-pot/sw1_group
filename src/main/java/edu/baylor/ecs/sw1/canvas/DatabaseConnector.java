@@ -57,13 +57,6 @@ public class DatabaseConnector {
 	}
 
 	/**
-	 * given a username, returns all events as MongoCollection
-	 * 
-	 * @param username
-	 * @return
-	 */
-
-	/**
 	 * Get all event for a user as an ArrayList of MongoDocuments
 	 * will not return ignored events, but will continue to return completed events
 	 * 
@@ -103,14 +96,32 @@ public class DatabaseConnector {
 
 	}
 	
+	
+	/**
+	 * used to convert an event into a json-like object for placement into the database
+	 * @param e
+	 * @return
+	 */
 	public Map<String,Object> convertEventMap(Event e) {
 		Map<String,Object> ret = new HashMap<>();
-		
-		return null;
+		ret.put("id", e.getEventID());
+		ret.put("ignore",e.getIgnored());
+		ret.put("completed",e.getCompleted());
+		ret.put("name", e.getEventName());
+		ret.put("description",e.getEventDescription());
+		return ret;
+	}
+	/**
+	 * Takes username and Event object and adds event into the database
+	 * @param username
+	 * @param event
+	 */
+	void addUserEvent(String username, Event event) {
+		this.addUserEvent(username, this.convertEventMap(event));
 	}
 
 	/**
-	 * takes username and adds given event into the database
+	 * takes username and adds given event into the database (json form)
 	 * 
 	 * @param username
 	 * @param event
@@ -154,15 +165,6 @@ public class DatabaseConnector {
 		return db.getName();
 	}
 
-	/**
-	 * Take HTTP Map<String,Object> json type and convert into relevant Document for
-	 * insertion
-	 * 
-	 * @return
-	 */
-	public Document prepareEventInsertion() {
-		return null;
-	}
 
 	private Document formatEventInsertionDoc(Map<String, Object> event, Document iVal) {
 		if (event.containsKey("due_at")) {
