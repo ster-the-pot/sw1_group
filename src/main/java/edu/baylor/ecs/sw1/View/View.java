@@ -235,6 +235,20 @@ public abstract class View extends JPanel implements ActionListener{
 		
 	}
 	
+	public void createEvent(Event e) {
+		
+		events.add(e);
+		
+		updateCalendar();
+		
+	}
+	
+	public void removeEvent(Event e) {
+		events.remove(e);
+		
+		updateCalendar();
+		
+	}
 
 	
 	protected abstract void initCalendar();

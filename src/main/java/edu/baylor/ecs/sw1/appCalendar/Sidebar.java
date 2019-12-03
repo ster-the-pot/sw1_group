@@ -64,7 +64,7 @@ public class Sidebar extends JPanel {
 	/**
 	 * Constructs and populates the Sidebar
 	 */
-	public Sidebar() {
+	public Sidebar(String str) {
 		GridLayout layout = new GridLayout(12, 0);
 		layout.setHgap(1);
 		layout.setVgap(1);
