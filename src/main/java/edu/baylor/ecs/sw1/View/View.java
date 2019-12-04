@@ -272,8 +272,6 @@ public abstract class View extends JPanel implements ActionListener{
 			selected = new JLabel("No Event Selected", SwingConstants.LEFT);
 		
 		selected.setVisible(true);
-		//selected.setOpaque(true);
-		//selected.setBackground(Color.WHITE);
 		selectPanel.add(selected);
 		
 		
@@ -289,9 +287,25 @@ public abstract class View extends JPanel implements ActionListener{
 	 * @param eOld Old Event that is no longer up do date.
 	 * @param e New Event to replace the old Event
 	 */
-	public void refreshEvent(Event eOld, Event e) {
+	public void refreshEvent(/*Event eOld, Event e*/) {
 		
-		events.set(events.indexOf(eOld), e);
+		//events.set(events.indexOf(eOld), e);
+		if(events.indexOf(selectedEvent) != -1) {
+			System.out.println("Selected Event in List!!!");
+		}
+		for(Event e: events) {
+			if(e.getEventID().equals(selectedEvent.getEventID())) {
+				e.setEventName(selectedEvent.getEventName());
+				e.setCompleted(selectedEvent.getCompleted());
+				e.setEndDate(selectedEvent.getEndDate());
+				e.setEventDescription(selectedEvent.getEventDescription());
+				e.setIgnored(selectedEvent.getIgnored());
+				e.setStartDate(selectedEvent.getStartDate());
+			}
+		}
+		if(events.indexOf(selectedEvent) != -1) {
+			System.out.println("Selected Event in List!!!");
+		}
 		
 		updateCalendar();
 		
@@ -306,6 +320,8 @@ public abstract class View extends JPanel implements ActionListener{
 	}
 	
 	public void removeEvent(Event e) {
+		
+		
 		events.remove(e);
 		
 		updateCalendar();
