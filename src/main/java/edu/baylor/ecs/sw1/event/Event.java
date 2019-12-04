@@ -1,8 +1,10 @@
 package edu.baylor.ecs.sw1.event;
 
 import java.awt.Color;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import edu.baylor.ecs.sw1.scheduleRender.Schedule;
 import edu.baylor.ecs.sw1.scheduleRender.ShowDay;
@@ -70,21 +72,49 @@ public abstract class Event {
 		return completed;
 	}
 	public void setCompleted(Boolean completed) {
-		this.completed = completed;
+		if(completed == null) {
+			this.completed = false;
+		} else {
+			this.completed = completed;
+		}
 	}
 	
 	public String getStartDateAsString() {
 		if(startDate == null) return null; 
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-		return formatter.format(startDate);
+		formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+		SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		formatter2.setTimeZone(TimeZone.getTimeZone("CST"));
+		
+	
+		Date date = null;
+		try {
+			String d = formatter2.format(startDate);
+			date = formatter2.parse(d);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return formatter.format(date);
 	}
 	
 	public String getEndDateAsString() {
 		if(endDate == null) return null;
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-		return formatter.format(endDate);
+		formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+		SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		formatter2.setTimeZone(TimeZone.getTimeZone("CST"));
+		
+	
+		Date date = null;
+		try {
+			String d = formatter2.format(endDate);
+			date = formatter2.parse(d);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return formatter.format(date);
 	}
 	
 	public abstract void accept(EventVisitor visitor);

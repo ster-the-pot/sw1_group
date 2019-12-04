@@ -16,6 +16,8 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
+
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -35,7 +37,7 @@ import edu.baylor.ecs.sw1.scheduleRender.Schedule;
 import edu.baylor.ecs.sw1.scheduleRender.ShowDay;
 
 
-/**
+/** DESIGN PATTERN TEMPLATE METHOD
  * View is parent to MonthView and WeekView (Template Method). Each child
  * uses ShowDay in order to render events for a specific day
  * 
@@ -86,6 +88,11 @@ public abstract class View extends JPanel implements ActionListener{
 		List<Event> events = new ArrayList<>();
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+		
+		SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		formatter2.setTimeZone(TimeZone.getTimeZone("CST"));
+		
 		
 		for(Document eventDoc : userEvents) {
 			String eventName = (String) eventDoc.get("name");
@@ -101,7 +108,7 @@ public abstract class View extends JPanel implements ActionListener{
 				eventDescription = (String) eventDoc.get("description");
 			}
 			
-			if(eventName == null || eventID == null || completed == null || dueTimeStamp == null) {
+			if(eventName == null || eventID == null || dueTimeStamp == null) {
 				continue;
 			}
 			
@@ -123,6 +130,8 @@ public abstract class View extends JPanel implements ActionListener{
 			Date dueDate = null;
 			try {
 				dueDate = formatter.parse(dueTimeStamp);
+				String d = formatter2.format(dueDate);
+				dueDate = formatter2.parse(d);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}

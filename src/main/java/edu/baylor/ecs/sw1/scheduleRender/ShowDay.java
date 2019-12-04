@@ -21,9 +21,10 @@ import edu.baylor.ecs.sw1.event.Course;
 import edu.baylor.ecs.sw1.event.Event;
 import edu.baylor.ecs.sw1.event.Quiz;
 
-/**
+/** DESIGN PATTERN VISITOR
  * ShowDay is called for each specific day. It takes a list of the Events on that specific day
- * and displays the number of Events the Month/Week view is able to display. 
+ * and displays the number of Events the Month/Week view is able to display. ShowDay uses visitor
+ * in order to determine Which View is being used and What Event subtype is used for the color 
  * 
  * @author Elizabeth Brighton
  *
@@ -37,14 +38,7 @@ public class ShowDay extends JPanel implements ActionListener {
 
 	Color currentColor;
 	Color currentColor2;
-	/*Color blue = new Color(31, 97, 141);
-	Color red = new Color(176, 58, 46);
-	Color purple = new Color(118, 68, 138);
-	Color green = new Color(20, 143, 119);*/
 	
-	
-	
-	//NEWEST OLD
 	
 	Color blueColor = new Color(0, 112, 192);
 	Color redColor = new Color(192, 0, 0);
