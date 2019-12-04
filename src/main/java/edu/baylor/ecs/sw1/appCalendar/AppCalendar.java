@@ -256,7 +256,7 @@ public class AppCalendar extends JFrame implements ActionListener {
 			CanvasAgentKey canvas = new CanvasAgentKey();
 			CanvasDBAdapter db = new CanvasDBAdapter(canvas,userName);
 			
-			if(!db.syncStudentCanvas(userName)) {
+			if(authService.getCanvasToken(userName).equals("")) {
 				JTextField canvasTokenField = new JTextField();
 				
 				Object message[] = {
@@ -273,10 +273,16 @@ public class AppCalendar extends JFrame implements ActionListener {
 					
 					if(!db.syncStudentCanvas(userName)) {
 						JOptionPane.showMessageDialog(this, "Canvas Token Failure", "Error", JOptionPane.ERROR_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(this, "Canvas Synced", "Success", JOptionPane.PLAIN_MESSAGE);
 					}
 				}
 			} else {
-				JOptionPane.showMessageDialog(this, "Canvas Synced", "Success", JOptionPane.PLAIN_MESSAGE);
+				if(!db.syncStudentCanvas(userName)) {
+					JOptionPane.showMessageDialog(this, "Canvas Token Failure", "Error", JOptionPane.ERROR_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(this, "Canvas Synced", "Success", JOptionPane.PLAIN_MESSAGE);
+				}
 			}
 		}
 	}
