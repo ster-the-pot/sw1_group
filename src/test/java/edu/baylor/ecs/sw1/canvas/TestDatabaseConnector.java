@@ -42,6 +42,10 @@ public class TestDatabaseConnector {
 	public void testRetrieval() {
 		db.getUserEvents("strafford");
 	}
+	@Test
+	public void testCreateEvent() {
+		
+	}
 	
 	@Test
 	public void testCount() {
