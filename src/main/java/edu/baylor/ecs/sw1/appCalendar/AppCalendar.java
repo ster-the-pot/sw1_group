@@ -20,11 +20,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 import edu.baylor.ecs.sw1.View.MonthView;
 import edu.baylor.ecs.sw1.View.View;
 import edu.baylor.ecs.sw1.View.WeekView;
+import edu.baylor.ecs.sw1.auth.AuthService;
+import edu.baylor.ecs.sw1.canvas.CanvasAgentKey;
+import edu.baylor.ecs.sw1.canvas.CanvasDBAdapter;
 import edu.baylor.ecs.sw1.canvas.DatabaseConnector;
 import edu.baylor.ecs.sw1.event.*;
 
@@ -246,7 +251,32 @@ public class AppCalendar extends JFrame implements ActionListener {
 
 		} else if (act.equals("CONNECT")) {
 			// box with canvas code spot
-
+			AuthService authService = AuthService.getAuthService();
+			CanvasAgentKey canvas = new CanvasAgentKey();
+			CanvasDBAdapter db = new CanvasDBAdapter(canvas,userName);
+			
+			if(!db.syncStudentCanvas(userName)) {
+				JTextField canvasTokenField = new JTextField();
+				
+				Object message[] = {
+					"Canvas Token: ", canvasTokenField,
+				};
+				
+				Object[] options = {"Confirm","Cancel"};
+				
+				int option = JOptionPane.showOptionDialog(this, message,"Enter Canvas Token",JOptionPane.OK_CANCEL_OPTION
+						,JOptionPane.QUESTION_MESSAGE,new ImageIcon("empty.png"),options,options[0]);
+				
+				if(option == JOptionPane.OK_OPTION) {
+					authService.setCanvasToken(userName, canvasTokenField.getText());
+					
+					if(!db.syncStudentCanvas(userName)) {
+						JOptionPane.showMessageDialog(this, "Canvas Token Failure", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			} else {
+				JOptionPane.showMessageDialog(this, "Canvas Synced", "Success", JOptionPane.PLAIN_MESSAGE);
+			}
 		}
 	}
 }
