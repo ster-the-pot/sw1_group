@@ -27,7 +27,7 @@ import edu.baylor.ecs.sw1.utils.DateLabelFormatter;
  */
 public class EventEditDialog {
 	JTextField eventNameField;
-//	JTextField eventPriorityField;
+	JTextField courseField;
 
 	JDatePickerImpl startDatePicker;
 	JDatePickerImpl endDatePicker;
@@ -52,8 +52,8 @@ public class EventEditDialog {
 		eventNameField = new JTextField();
 		eventNameField.setText(event.getEventName());
 
-//		eventPriorityField = new JTextField();
-//		eventPriorityField.setText(event.getEventPriority());
+		courseField = new JTextField();
+		courseField.setText(event.getCourse());
 
 		UtilDateModel model = new UtilDateModel();
 		UtilDateModel endModel = new UtilDateModel();
@@ -88,7 +88,7 @@ public class EventEditDialog {
 		descriptionField.setText(event.getEventDescription());
 
 		Object[] message = { "Enter Event Name", eventNameField,
-//				"Enter Event Priority",eventPriorityField,
+				"Enter Course",courseField,
 				"Select Start Date", startDatePicker, "Select End Date", endDatePicker, "Select Start Time",
 				startTimeChooser, "Select End Time", endTimeChooser, "Enter Description", descriptionField, };
 
@@ -147,6 +147,7 @@ public class EventEditDialog {
 				event.setEventName(eventName);
 				event.setStartDate(startDate);
 				event.setEndDate(endDate);
+				event.setCourse(courseField.getText());
 //				event.setEventPriority(eventPriorityField.getText());
 				event.setEventDescription(descriptionField.getText());
 			}

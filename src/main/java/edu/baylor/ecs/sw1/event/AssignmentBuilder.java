@@ -62,4 +62,10 @@ public class AssignmentBuilder implements EventBuilder {
 		return this;
 	}
 
+	@Override
+	public EventBuilder setCourse(String course) {
+		e.setCourse(course);
+		return this;
+	}
+
 }

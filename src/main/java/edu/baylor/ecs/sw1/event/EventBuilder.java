@@ -14,6 +14,7 @@ public interface EventBuilder {
 	public EventBuilder setEventDescription(String eventDescription);
 	public EventBuilder setEventCompleted(Boolean completed);
 	public EventBuilder setEventID(String eventID);
+	public EventBuilder setCourse(String course);
 	public EventBuilder setEventIgnored(Boolean ignored);
 	
 	public Event getEvent();

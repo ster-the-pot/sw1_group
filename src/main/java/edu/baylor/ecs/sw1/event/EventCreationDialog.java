@@ -32,7 +32,7 @@ import edu.baylor.ecs.sw1.utils.DateLabelFormatter;
  */
 public class EventCreationDialog {
 	JTextField eventNameField;
-	//JTextField eventPriorityField;
+	JTextField courseField;
 	
 	JDatePickerImpl startDatePicker;
 	JDatePickerImpl endDatePicker;
@@ -48,7 +48,7 @@ public class EventCreationDialog {
 
 	public EventCreationDialog(Frame owner) {
 		eventNameField = new JTextField();
-	//	eventPriorityField = new JTextField();
+		courseField = new JTextField();
 
 		
 		Calendar cal = Calendar.getInstance();
@@ -84,7 +84,7 @@ public class EventCreationDialog {
 
 		Object[] message = {
 				"Enter Event Name",eventNameField,
-	//			"Enter Event Priority",eventPriorityField,
+				"Enter Course",courseField,
 				"Select Start Date",startDatePicker,
 				"Select End Date",endDatePicker,
 				"Select Start Time",startTimeChooser,
@@ -163,6 +163,7 @@ public class EventCreationDialog {
 				endDate.setMinutes(endTime.getMinutes());
 				endDate.setSeconds(0);
 				
+				builder.setCourse(courseField.getText());
 				builder.setStartDate(startDate);
 				builder.setEndDate(endDate);
 				builder.setEventDescription(descriptionField.getText());

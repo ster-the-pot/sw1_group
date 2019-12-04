@@ -17,6 +17,7 @@ public abstract class Event {
 	String eventName;
 	String eventID;
 	String eventDescription;
+	String course;
 	Date startDate;
 	Date endDate;
 	Boolean completed;
@@ -27,6 +28,12 @@ public abstract class Event {
 	}
 	public void setEventID(String eventID) {
 		this.eventID = eventID;
+	}
+	public String getCourse() {
+		return course;
+	}
+	public void setCourse(String course) {
+		this.course = course;
 	}
 	public Boolean getIgnored() {
 		return ignored;

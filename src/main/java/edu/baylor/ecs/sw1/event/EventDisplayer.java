@@ -7,6 +7,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 /**
@@ -15,9 +16,7 @@ import javax.swing.border.Border;
  *
  */
 public class EventDisplayer {
-	static JLabel startDateLabel, endDateLabel, descriptionLabel;
-	
-	
+	static JLabel startDateLabel, endDateLabel, descriptionLabel, courseLabel;
 	
 	static Color blueColor = new Color(230,230,250);
 	public static void display(Frame owner, Event event) {
@@ -27,6 +26,12 @@ public class EventDisplayer {
 			startDateLabel = new JLabel(event.getStartDate().toString());
 		} else {
 			startDateLabel = new JLabel("No Start Date");
+		}
+		
+		if(event.getCourse() != null) {
+			courseLabel = new JLabel(event.getCourse());
+		} else {
+			courseLabel = new JLabel("No associated course");
 		}
 		
 		if(event.getEndDate() != null) {
@@ -56,11 +61,14 @@ public class EventDisplayer {
 		descriptionLabel.setBackground(blueColor);
 		descriptionLabel.setBorder(border);
 		descriptionLabel.setOpaque(true);
-		
+		courseLabel.setBackground(blueColor);
+		courseLabel.setBorder(border);
+		courseLabel.setOpaque(true);
+	
 		
 		Object[] message = {
 				"Event Name:",nameLabel,
-	//			"Event Priority",priorityLabel,
+				"Course: ",courseLabel,
 				"Start Date:",startDateLabel,
 				"End Date:",endDateLabel,
 				"Description:",descriptionLabel,
