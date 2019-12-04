@@ -11,8 +11,9 @@ import edu.baylor.ecs.sw1.event.Course;
 import edu.baylor.ecs.sw1.event.Event;
 import edu.baylor.ecs.sw1.event.Quiz;
 
-/**
- * Schedule is used to sort the Events for each day in a specific order.
+/** DESIGN PATTERN VISITOR
+ * Schedule is used to sort the Events for each day in a specific order. Uses the
+ * Visitor Design pattern to assign Events to specific lists
  * 
  * @author Elizabeth Brighton
  *

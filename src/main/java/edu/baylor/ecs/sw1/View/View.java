@@ -95,7 +95,9 @@ public abstract class View extends JPanel implements ActionListener{
 			Boolean ignored = (Boolean) eventDoc.get("ignore");
 			Boolean completed = (Boolean) eventDoc.get("completed");
 			String dueTimeStamp = (String) eventDoc.get("due_at");
-					
+			String course = (String) eventDoc.get("course");
+			
+			
 			String eventDescription = "";
 			if(eventDoc.containsKey("description")) {
 				eventDescription = (String) eventDoc.get("description");
@@ -119,7 +121,7 @@ public abstract class View extends JPanel implements ActionListener{
 			.setEventCompleted(completed)
 			.setEventIgnored(ignored)
 			.setEventDescription(eventDescription)
-			.setEventID(eventID);
+			.setEventID(eventID).setCourse(course);
 					
 			Date dueDate = null;
 			try {

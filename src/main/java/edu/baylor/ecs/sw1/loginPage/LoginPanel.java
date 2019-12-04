@@ -100,6 +100,7 @@ public class LoginPanel extends JPanel {
 		add(lblPassword, gbc_lblPassword);
 		
 		passwordField = new JPasswordField();
+		passwordField.setHorizontalAlignment(JPasswordField.CENTER);
 		GridBagConstraints gbc_passwordField = new GridBagConstraints();
 		gbc_passwordField.gridwidth = 3;
 		gbc_passwordField.insets = new Insets(0, 100, 20, 100);
