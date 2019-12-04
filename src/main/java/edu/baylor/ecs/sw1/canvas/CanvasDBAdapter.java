@@ -66,15 +66,12 @@ public class CanvasDBAdapter implements CanvasAgent {
 	 * @param studentID
 	 */
 	public Boolean syncStudentCanvas(String username) {
-		if(this.cAgent.getKey() == null) {
-			return false;
-		}
 		Map<String, String> courses = this.getCourses(username);
-		if(courses==null) {
-			return false;
-		}
 		Map<String,List<Map<String, Object>>> courseAssignments = new HashMap<>();
 		Map<String,String> revCoursesName = new HashMap<>();
+		if(courses == null) {
+			return false;
+		}
 		for(Map.Entry<String, String> entry: courses.entrySet()) {
 			revCoursesName.put(entry.getValue(), entry.getKey());
 		}

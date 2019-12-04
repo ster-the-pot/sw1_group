@@ -136,6 +136,7 @@ public class DatabaseConnector {
 		// Document to Query
 		// Document d = new Document().append("username", username).append("event", );
 
+		
 		// check if event currently exists
 		Document checkInsertion = new Document("username", username).append("events",
 				new Document("$elemMatch", new Document("id", event.get("id"))));
@@ -205,7 +206,8 @@ public class DatabaseConnector {
 		Bson filter = Filters.and(Filters.eq("username", username), Filters.eq("events.id", event.get("id")));
 		Bson setUpdate = Updates.combine(Updates.set("events.$.due_at", event.get("due_at")),
 				Updates.set("events.$.name", event.get("name")), Updates.set("events.$.course", event.get("course")),
-				Updates.set("events.$.ignore", event.get("ignore")));
+				Updates.set("events.$.ignore", event.get("ignore")),
+				Updates.set("events.$.completed", event.get("completed")));
 		UpdateResult result = userdata.updateOne(filter, setUpdate, new UpdateOptions().upsert(true));
 		// System.out.println(result.getModifiedCount());
 

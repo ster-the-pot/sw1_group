@@ -34,10 +34,6 @@ public class CanvasAgentKey implements CanvasAgent {
 	public void setKey(String key) {
 		this.key = key;
 	}
-	
-	public String getKey() {
-		return this.key = key;
-	}
 
 	/**
 	 * Responsible for determining if paginated list has a next link
@@ -66,7 +62,6 @@ public class CanvasAgentKey implements CanvasAgent {
 
 	/**
 	 * Given a student key, retrieves a list of all classes for said student
-	 * returns null if failed
 	 * 
 	 * @param studentID
 	 */
@@ -83,9 +78,6 @@ public class CanvasAgentKey implements CanvasAgent {
 					.asPaged(r -> r.asJson(), r -> getNextPage(r.getHeaders().get("Link")));
 			// Base JSON that holds all information on courses
 			for (HttpResponse<JsonNode> j : response) {
-				if(j.getStatus()!=200) {
-					return null;
-				}
 				List<JsonNode> list = response.getBodies();
 				for (JsonNode c : list) {
 					JSONArray course = c.getArray();
