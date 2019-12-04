@@ -159,8 +159,8 @@ public class DatabaseConnector {
 	 * @param event
 	 */
 	public void changeEventDetails(String username, Event event) {
-		Map<String,Object> eventParse = new HashMap<String,Object>();
-		this.insertExist(username, eventParse, userdata);	
+		//Map<String,Object> eventParse = new HashMap<String,Object>();
+		this.insertExist(username, this.convertEventMap(event), userdata);	
 	}
 
 	public String getDBName() {
