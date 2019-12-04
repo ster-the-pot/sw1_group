@@ -3,15 +3,15 @@ package edu.baylor.ecs.sw1.event;
 import java.util.Date;
 
 /**
- * Implementation of EventBuilder that creates new Assignments
+ * Implementation of EventBuilder that creates new Quizzes
  * @author Par Wilkinson
  *
  */
-public class AssignmentBuilder implements EventBuilder {
+public class QuizBuilder implements EventBuilder {
 	Event e;
 	
-	public AssignmentBuilder() {
-		e = new Assignment();
+	public QuizBuilder() {
+		e = new Quiz();
 	}
 	
 	@Override
