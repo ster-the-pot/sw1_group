@@ -178,7 +178,7 @@ public class ShowDay extends JPanel implements ActionListener {
 		
 		//Eventlabel.setBackground(Color.WHITE);
 		if (e.getEventName().toLowerCase().contains("test") || e.getEventName().toLowerCase().contains("exam")
-				|| e.getEventName().toLowerCase().contains("midterm")) {
+				|| e.getEventName().toLowerCase().contains("midterm") || e.getEventName().toLowerCase().contains("mid-term")) {
 			Eventlabel.setBackground(redColor2);
 			Eventlabel.setForeground(redColor);
 		} else if (e.getCompleted()) {
