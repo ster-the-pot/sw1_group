@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
+import java.util.Random;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -19,6 +20,7 @@ import javax.swing.plaf.ColorUIResource;
 
 import org.jdatepicker.impl.*;
 
+import edu.baylor.ecs.sw1.View.View;
 import edu.baylor.ecs.sw1.utils.DateFormattedListCellRenderer;
 import edu.baylor.ecs.sw1.utils.DateLabelFormatter;
 
@@ -127,8 +129,26 @@ public class EventCreationDialog {
 				
 				displayOptions(owner,message);
 			} else {
-				event = new Assignment();
-				event.setEventName(eventName);
+				EventBuilder builder = new AssignmentBuilder();
+				builder.setName(eventName);
+				
+				Boolean validID = false;
+				String eventID = "";
+				Random random = new Random(System.currentTimeMillis());
+				
+				while(!validID) {
+					eventID = Integer.valueOf(random.nextInt()).toString();
+					validID = true;
+					
+					for(Event otherEvent : View.getEvents()) {
+						if(otherEvent.getEventID().equals(eventID)) {
+							validID = false;
+							break;
+						}
+					}
+				}
+				
+				builder.setEventID(eventID);
 				
 				Date startDate = (Date) startDValue; 
 				Date endDate = (Date) endDValue; 
@@ -143,12 +163,12 @@ public class EventCreationDialog {
 				endDate.setMinutes(endTime.getMinutes());
 				endDate.setSeconds(0);
 				
-				event.setStartDate(startDate);
-				event.setEndDate(endDate);
-				//event.setEventPriority(eventPriorityField.getText());
-				event.setEventDescription(descriptionField.getText());
+				builder.setStartDate(startDate);
+				builder.setEndDate(endDate);
+				builder.setEventDescription(descriptionField.getText());
+				builder.setEventCompleted(false);
 				
-				event.setCompleted(false);
+				event = builder.getEvent();
 			}
 		}
 	}
