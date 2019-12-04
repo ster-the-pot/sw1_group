@@ -43,6 +43,12 @@ public class EventEditDialog {
 
 	}
 
+	/**
+	 * Takes a passed Event and given owner Frame, pops up a dialog
+	 * that allows the user to edit info about the event.
+	 * @param owner
+	 * @param e
+	 */
 	public void edit(Frame owner, Event e) {
 		event = e;
 

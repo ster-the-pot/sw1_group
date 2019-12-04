@@ -46,6 +46,11 @@ public class EventCreationDialog {
 	Color labelColor = new Color(64, 143, 222);
 	Event event;
 
+	/**
+	 * Creates a dialog pop up so that the user can enter info about an event, with a given
+	 * owner Frame.
+	 * @param owner
+	 */
 	public EventCreationDialog(Frame owner) {
 		eventNameField = new JTextField();
 		courseField = new JTextField();

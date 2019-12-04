@@ -134,7 +134,7 @@ public class Sidebar extends JPanel {
 	 * @param c
 	 * @return
 	 */
-private JLabel initLabel(String text, Color c, Color c2) {
+	private JLabel initLabel(String text, Color c, Color c2) {
 		JLabel label = new JLabel(text);
 
 		label.setVisible(true);
