@@ -44,9 +44,9 @@ public class AppCalendar extends JFrame implements ActionListener {
 	Color labelColor = new Color(64, 143, 222);
 	JPanel topLabel;
 	DatabaseConnector db;
-	
+
 	public static String userName;
-	
+
 	/**
 	 * clears the JFrame and readds the appropriate components in the current view
 	 */
@@ -98,8 +98,8 @@ public class AppCalendar extends JFrame implements ActionListener {
 		userName = str;
 		inMonthView = true;
 
-		db = new DatabaseConnector("Java", "userdata", "cerny");
-		
+		db = new DatabaseConnector("java", "userdata", "cerny");
+
 		sidebar = new Sidebar(str);
 		sidebar.setVisible(true);
 
@@ -137,16 +137,14 @@ public class AppCalendar extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String act = e.getActionCommand();
-		
-		
+
 		Event event;
 		if (inMonthView) {
 			event = monthView.getSelectedEvent();
 		} else {
 			event = weekView.getSelectedEvent();
 		}
-		
-		
+
 		if (act.equals("SWAP")) {
 			if (((String) sidebar.viewSwitcher.getSelectedItem()).equals("Month View")) {
 				inMonthView = true;
@@ -157,9 +155,23 @@ public class AppCalendar extends JFrame implements ActionListener {
 		} else if (act.equals("CREATE")) {
 			EventCreationDialog creator = new EventCreationDialog(this);
 			event = creator.getEvent();
-			//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			//db.changeEventDetails(userName, event);
-			//db.addUserEvent()
+			
+			if (event != null) {
+				
+				
+				
+				db.addUserEvent(userName, event);
+
+				if (inMonthView) {
+					monthView.createEvent(event);
+				} else {
+					weekView.createEvent(event);
+				}
+				
+				
+				
+			}
+
 		} else if (act.equals("EDIT")) {
 
 			Event newEvent = null;
@@ -168,15 +180,15 @@ public class AppCalendar extends JFrame implements ActionListener {
 				ed.edit(this, event);
 
 				newEvent = ed.getEvent();
-
-				if (inMonthView) {
-					monthView.refreshEvent(event, newEvent);
-				} else {
-					weekView.refreshEvent(event, newEvent);
+				if (newEvent != null) {
+					if (inMonthView) {
+						monthView.refreshEvent(event, newEvent);
+					} else {
+						weekView.refreshEvent(event, newEvent);
+					}
+					db.changeEventDetails(userName, event);
 				}
-				db.changeEventDetails(userName, event);
 			}
-
 
 		} else if (act.equals("DISPLAY")) {
 
@@ -184,66 +196,54 @@ public class AppCalendar extends JFrame implements ActionListener {
 				EventDisplayer.display(this, event);
 			}
 
-			
 		} else if (act.equals("DELETE")) {
-
 
 			if (event != null) {
 				int a = JOptionPane.showConfirmDialog(this, "Delete " + event.getEventName() + "?", "Delete Event",
 						JOptionPane.YES_NO_OPTION);
-				
+
 				if (a == JOptionPane.YES_OPTION) {
-					
-					//event.setIgnore(true);
-					
-					
+
+					// event.setIgnore(true);
+
 					if (inMonthView) {
 						monthView.removeEvent(event);
 					} else {
 						weekView.removeEvent(event);
 					}
-					
+
 					db.changeEventDetails(userName, event);
 				}
-				
-				
-				
+
 			}
 
 		} else if (act.equals("COMPLETE")) {
 
-
 			if (event != null) {
 				int a = JOptionPane.showConfirmDialog(this, "Complete " + event.getEventName() + "?", "Complete Event",
 						JOptionPane.YES_NO_OPTION);
-				
+
 				if (a == JOptionPane.YES_OPTION) {
 					System.out.println("COMPLETE HERE!!!!!!!!");
 					Event newEvent = null;
 					newEvent = event;
-					
+
 					newEvent.setCompleted(true);
-					
+
 					if (inMonthView) {
 						monthView.refreshEvent(event, newEvent);
 					} else {
 						weekView.refreshEvent(event, newEvent);
 					}
-					
+
 					db.changeEventDetails(userName, newEvent);
 				}
-				
-				
-				
+
 			}
-			
-			
-			
+
 		} else if (act.equals("CONNECT")) {
 			// box with canvas code spot
-			
-			
-			
+
 		}
 	}
 }

@@ -116,7 +116,7 @@ public class DatabaseConnector {
 	 * @param username
 	 * @param event
 	 */
-	void addUserEvent(String username, Event event) {
+	public void addUserEvent(String username, Event event) {
 		this.addUserEvent(username, this.convertEventMap(event));
 	}
 
