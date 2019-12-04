@@ -15,7 +15,7 @@ import edu.baylor.ecs.sw1.scheduleRender.ShowDay;
  */
 public abstract class Event {
 	String eventName;
-	String eventID;
+	Double eventID;
 	String eventDescription;
 	String course;
 	Date startDate;
@@ -23,10 +23,10 @@ public abstract class Event {
 	Boolean completed;
 	Boolean ignored;
 
-	public String getEventID() {
+	public Double getEventID() {
 		return eventID;
 	}
-	public void setEventID(String eventID) {
+	public void setEventID(Double eventID) {
 		this.eventID = eventID;
 	}
 	public String getCourse() {

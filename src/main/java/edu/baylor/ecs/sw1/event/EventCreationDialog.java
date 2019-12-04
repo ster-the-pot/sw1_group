@@ -133,11 +133,11 @@ public class EventCreationDialog {
 				builder.setName(eventName);
 				
 				Boolean validID = false;
-				String eventID = "";
+				Double eventID;
 				Random random = new Random(System.currentTimeMillis());
 				
 				while(!validID) {
-					eventID = Integer.valueOf(random.nextInt()).toString();
+					eventID = Double.valueOf(random.nextInt())
 					validID = true;
 					
 					for(Event otherEvent : View.getEvents()) {

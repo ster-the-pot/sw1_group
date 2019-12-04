@@ -51,7 +51,7 @@ public class QuizBuilder implements EventBuilder {
 	}
 
 	@Override
-	public EventBuilder setEventID(String eventID) {
+	public EventBuilder setEventID(Double eventID) {
 		e.setEventID(eventID);
 		return this;
 	}

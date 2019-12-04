@@ -13,7 +13,7 @@ public interface EventBuilder {
 	public EventBuilder setEndDate(Date endDate);
 	public EventBuilder setEventDescription(String eventDescription);
 	public EventBuilder setEventCompleted(Boolean completed);
-	public EventBuilder setEventID(String eventID);
+	public EventBuilder setEventID(Double eventID);
 	public EventBuilder setCourse(String course);
 	public EventBuilder setEventIgnored(Boolean ignored);
 	
