@@ -7,6 +7,12 @@ import java.text.DateFormat;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
 
+/**
+ * Used in showing dates in the DatePicker portion of the EventEditDialog
+ * @author Par Wilkinson
+ *
+ */
+
 public class DateFormattedListCellRenderer extends DefaultListCellRenderer {
 	private DateFormat format;
 	

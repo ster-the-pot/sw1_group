@@ -72,6 +72,73 @@ public abstract class View extends JPanel implements ActionListener{
 		prepareGUI();
 	}
 
+	public static void pullEventsFromDatabase() {
+		//QUERY HERE!!!!!!
+		DatabaseConnector database = new DatabaseConnector("java","userdata","cerny");
+		ArrayList<Document> userEvents = database.getUserEvents(AppCalendar.userName);
+				
+		events = new ArrayList<>();
+				
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+		
+		SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		formatter2.setTimeZone(TimeZone.getTimeZone("CST"));
+		
+		
+
+		for(Document eventDoc : userEvents) {
+			String eventName = (String) eventDoc.get("name");
+					
+
+			Double eventID = (Double) eventDoc.get("id");
+			Boolean ignored = (Boolean) eventDoc.get("ignore");
+			Boolean completed = (Boolean) eventDoc.get("completed");
+			String dueTimeStamp = (String) eventDoc.get("due_at");
+					
+			String eventDescription = "";
+			if(eventDoc.containsKey("description")) {
+				eventDescription = (String) eventDoc.get("description");
+			}
+					
+			if(eventName == null || eventID == null || dueTimeStamp == null) {
+
+				continue;
+			}
+					
+			String lowered = eventName.toLowerCase();
+					
+			EventBuilder eventBuilder = null;
+			if(lowered.contains("exam") || lowered.contains("midterm") || lowered.contains("quiz")) {
+				eventBuilder = new QuizBuilder();
+			} else {
+				eventBuilder = new AssignmentBuilder();
+			}
+					
+			eventBuilder.setName(eventName)
+			.setEventCompleted(completed)
+			.setEventIgnored(ignored)
+			.setEventDescription(eventDescription)
+			.setEventID(eventID);
+					
+			Date dueDate = null;
+			try {
+				dueDate = formatter.parse(dueTimeStamp);
+				String d = formatter2.format(dueDate);
+				dueDate = formatter2.parse(d);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+					
+			eventBuilder.setEndDate(dueDate);
+					
+			Event event = eventBuilder.getEvent();
+			events.add(event);
+		}
+				
+		events.sort(Comparator.comparing(Event::getEndDate).reversed());
+	}
+	
 	
 	/**
 	 * prepareGUI() gets the Events for the specific student
@@ -81,70 +148,7 @@ public abstract class View extends JPanel implements ActionListener{
 	 */
 	private void prepareGUI() {
 		
-		//QUERY HERE!!!!!!
-		DatabaseConnector database = new DatabaseConnector("java","userdata","cerny");
-		ArrayList<Document> userEvents = database.getUserEvents(AppCalendar.userName);
 		
-		List<Event> events = new ArrayList<>();
-		
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-		formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-		
-		SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-		formatter2.setTimeZone(TimeZone.getTimeZone("CST"));
-		
-		
-		for(Document eventDoc : userEvents) {
-			String eventName = (String) eventDoc.get("name");
-			
-
-			Double eventID = (Double) eventDoc.get("id");
-			Boolean ignored = (Boolean) eventDoc.get("ignore");
-			Boolean completed = (Boolean) eventDoc.get("completed");
-			String dueTimeStamp = (String) eventDoc.get("due_at");
-			
-			String eventDescription = "";
-			if(eventDoc.containsKey("description")) {
-				eventDescription = (String) eventDoc.get("description");
-			}
-			
-			if(eventName == null || eventID == null || dueTimeStamp == null) {
-				continue;
-			}
-			
-			String lowered = eventName.toLowerCase();
-			
-			EventBuilder eventBuilder = null;
-			if(lowered.contains("exam") || lowered.contains("midterm") || lowered.contains("quiz")) {
-				eventBuilder = new QuizBuilder();
-			} else {
-				eventBuilder = new AssignmentBuilder();
-			}
-			
-			eventBuilder.setName(eventName)
-			.setEventCompleted(completed)
-			.setEventIgnored(ignored)
-			.setEventDescription(eventDescription)
-			.setEventID(eventID);
-			
-			Date dueDate = null;
-			try {
-				dueDate = formatter.parse(dueTimeStamp);
-				String d = formatter2.format(dueDate);
-				dueDate = formatter2.parse(d);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-			
-			eventBuilder.setEndDate(dueDate);
-			
-			Event event = eventBuilder.getEvent();
-			events.add(event);
-		}
-		
-		View.setEvents(events);
-		
-		events.sort(Comparator.comparing(Event::getEndDate).reversed());
 		
 		
 		
@@ -334,7 +338,7 @@ public abstract class View extends JPanel implements ActionListener{
 	
 	protected abstract void initCalendar();
 	
-	protected abstract void updateCalendar();
+	public abstract void updateCalendar();
 	
 	protected abstract void addPanels();
 	

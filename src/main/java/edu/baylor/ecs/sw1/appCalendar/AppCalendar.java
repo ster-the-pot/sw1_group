@@ -2,27 +2,17 @@ package edu.baylor.ecs.sw1.appCalendar;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JButton;
-import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 
 import edu.baylor.ecs.sw1.View.MonthView;
 import edu.baylor.ecs.sw1.View.View;
@@ -118,6 +108,8 @@ public class AppCalendar extends JFrame implements ActionListener {
 		connectButton(sidebar.completeEvent, "COMPLETE");
 		connectButton(sidebar.connectEvent, "CONNECT");
 
+		View.pullEventsFromDatabase();
+		
 		monthView = new MonthView();
 		monthView.setVisible(true);
 
@@ -275,6 +267,9 @@ public class AppCalendar extends JFrame implements ActionListener {
 						JOptionPane.showMessageDialog(this, "Canvas Token Failure", "Error", JOptionPane.ERROR_MESSAGE);
 					} else {
 						JOptionPane.showMessageDialog(this, "Canvas Synced", "Success", JOptionPane.PLAIN_MESSAGE);
+						View.pullEventsFromDatabase();
+						monthView.updateCalendar();
+						weekView.updateCalendar();
 					}
 				}
 			} else {
@@ -282,6 +277,9 @@ public class AppCalendar extends JFrame implements ActionListener {
 					JOptionPane.showMessageDialog(this, "Canvas Token Failure", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
 					JOptionPane.showMessageDialog(this, "Canvas Synced", "Success", JOptionPane.PLAIN_MESSAGE);
+					View.pullEventsFromDatabase();
+					monthView.updateCalendar();
+					weekView.updateCalendar();
 				}
 			}
 		}

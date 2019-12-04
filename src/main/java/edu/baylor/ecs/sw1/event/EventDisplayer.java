@@ -19,6 +19,12 @@ public class EventDisplayer {
 	static JLabel startDateLabel, endDateLabel, descriptionLabel, courseLabel;
 	
 	static Color blueColor = new Color(230,230,250);
+	
+	/**
+	 * Displays the passed Event given an owner Frame in a dialog pop-up
+	 * @param owner
+	 * @param event
+	 */
 	public static void display(Frame owner, Event event) {
 		JLabel nameLabel = new JLabel(event.getEventName());
 //		JLabel priorityLabel = new JLabel(event.getEventPriority());
