@@ -155,9 +155,18 @@ public class AppCalendar extends JFrame implements ActionListener {
 		} else if (act.equals("CREATE")) {
 			EventCreationDialog creator = new EventCreationDialog(this);
 			event = creator.getEvent();
-			//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			//db.changeEventDetails(userName, event);
-			//db.addUserEvent()
+			
+			
+			db.addUserEvent(userName, event);
+			
+			if (inMonthView) {
+				monthView.createEvent(event);
+			} else {
+				weekView.createEvent(event);
+			}
+			
+			
+		
 		} else if (act.equals("EDIT")) {
 
 			Event newEvent = null;
