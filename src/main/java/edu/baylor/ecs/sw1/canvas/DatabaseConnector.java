@@ -105,7 +105,9 @@ public class DatabaseConnector {
 	public Map<String,Object> convertEventMap(Event e) {
 		Map<String,Object> ret = new HashMap<>();
 		ret.put("id", e.getEventID());
+		System.out.println(e.getEventID());
 		ret.put("ignore",e.getIgnored());
+		System.out.println(e.getIgnored() + " ignored");
 		ret.put("completed",e.getCompleted());
 		ret.put("name", e.getEventName());
 		ret.put("description",e.getEventDescription());
