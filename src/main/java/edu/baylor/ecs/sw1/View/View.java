@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
@@ -21,7 +23,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import org.bson.Document;
+
+import edu.baylor.ecs.sw1.appCalendar.AppCalendar;
+import edu.baylor.ecs.sw1.canvas.DatabaseConnector;
+import edu.baylor.ecs.sw1.event.AssignmentBuilder;
 import edu.baylor.ecs.sw1.event.Event;
+import edu.baylor.ecs.sw1.event.EventBuilder;
+import edu.baylor.ecs.sw1.event.QuizBuilder;
 import edu.baylor.ecs.sw1.scheduleRender.Schedule;
 import edu.baylor.ecs.sw1.scheduleRender.ShowDay;
 
@@ -71,7 +80,58 @@ public abstract class View extends JPanel implements ActionListener{
 	private void prepareGUI() {
 		
 		//QUERY HERE!!!!!!
+		DatabaseConnector database = new DatabaseConnector("java","userdata","cerny");
+		ArrayList<Document> userEvents = database.getUserEvents(AppCalendar.userName);
 		
+		List<Event> events = new ArrayList<>();
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		
+		for(Document eventDoc : userEvents) {
+			String eventName = (String) eventDoc.get("name");
+			String eventID = ((Double) eventDoc.get("id")).toString();
+			Boolean ignored = (Boolean) eventDoc.get("ignore");
+			Boolean completed = (Boolean) eventDoc.get("completed");
+			String dueTimeStamp = (String) eventDoc.get("due_at");
+			
+			String eventDescription = "";
+			if(eventDoc.containsKey("description")) {
+				eventDescription = (String) eventDoc.get("description");
+			}
+			
+			if(eventName == null || eventID == null || completed == null || dueTimeStamp == null) {
+				continue;
+			}
+			
+			String lowered = eventName.toLowerCase();
+			
+			EventBuilder eventBuilder = null;
+			if(lowered.contains("exam") || lowered.contains("midterm") || lowered.contains("quiz")) {
+				eventBuilder = new QuizBuilder();
+			} else {
+				eventBuilder = new AssignmentBuilder();
+			}
+			
+			eventBuilder.setName(eventName)
+			.setEventCompleted(completed)
+			.setEventIgnored(ignored)
+			.setEventDescription(eventDescription)
+			.setEventID(eventID);
+			
+			Date dueDate = null;
+			try {
+				dueDate = formatter.parse(dueTimeStamp);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+			eventBuilder.setEndDate(dueDate);
+			
+			Event event = eventBuilder.getEvent();
+			events.add(event);
+		}
+		
+		View.setEvents(events);
 		
 		events.sort(Comparator.comparing(Event::getEndDate).reversed());
 		
