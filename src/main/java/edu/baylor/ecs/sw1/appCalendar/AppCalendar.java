@@ -43,8 +43,10 @@ public class AppCalendar extends JFrame implements ActionListener {
 	Font loginBold = new Font(Font.SANS_SERIF, Font.BOLD, 26);
 	Color labelColor = new Color(64, 143, 222);
 	JPanel topLabel;
-	String userName;
 	DatabaseConnector db;
+	
+	public static String userName;
+	
 	/**
 	 * clears the JFrame and readds the appropriate components in the current view
 	 */

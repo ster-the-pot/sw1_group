@@ -10,7 +10,7 @@ import edu.baylor.ecs.sw1.View.View;
 import edu.baylor.ecs.sw1.appCalendar.AppCalendar;
 import edu.baylor.ecs.sw1.event.Event;
 import edu.baylor.ecs.sw1.event.EventBuilder;
-import edu.baylor.ecs.sw1.event.EventBuilderImpl;
+import edu.baylor.ecs.sw1.event.AssignmentBuilder;
 
 
 /**
@@ -36,7 +36,7 @@ public class ViewTester {
 				List<Event> events = new ArrayList<Event>();
 				for (int i = 0; i < 2000; i++) {
 
-					EventBuilder e = new EventBuilderImpl();
+					EventBuilder e = new AssignmentBuilder();
 					if (i < 500) {
 						e.setName("test:" + i);	
 					} else {
