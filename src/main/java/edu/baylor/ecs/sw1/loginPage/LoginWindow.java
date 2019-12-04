@@ -2,6 +2,8 @@ package edu.baylor.ecs.sw1.loginPage;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -98,10 +100,12 @@ public class LoginWindow extends JFrame implements Runnable, ActionListener {
 					});
 				} else {
 					// wrong password
+					JOptionPane.showMessageDialog(this, "Incorrect password", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			} else {
 				// account not found
+				JOptionPane.showMessageDialog(this, "Username " + curUserName + " is not registered", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			
 			

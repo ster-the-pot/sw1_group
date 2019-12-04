@@ -118,6 +118,8 @@ public class AppCalendar extends JFrame implements ActionListener {
 		connectButton(sidebar.completeEvent, "COMPLETE");
 		connectButton(sidebar.connectEvent, "CONNECT");
 
+		View.pullEventsFromDatabase();
+		
 		monthView = new MonthView();
 		monthView.setVisible(true);
 
@@ -275,6 +277,9 @@ public class AppCalendar extends JFrame implements ActionListener {
 						JOptionPane.showMessageDialog(this, "Canvas Token Failure", "Error", JOptionPane.ERROR_MESSAGE);
 					} else {
 						JOptionPane.showMessageDialog(this, "Canvas Synced", "Success", JOptionPane.PLAIN_MESSAGE);
+						View.pullEventsFromDatabase();
+						monthView.updateCalendar();
+						weekView.updateCalendar();
 					}
 				}
 			} else {
@@ -282,6 +287,9 @@ public class AppCalendar extends JFrame implements ActionListener {
 					JOptionPane.showMessageDialog(this, "Canvas Token Failure", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
 					JOptionPane.showMessageDialog(this, "Canvas Synced", "Success", JOptionPane.PLAIN_MESSAGE);
+					View.pullEventsFromDatabase();
+					monthView.updateCalendar();
+					weekView.updateCalendar();
 				}
 			}
 		}
