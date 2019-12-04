@@ -208,10 +208,13 @@ public class AppCalendar extends JFrame implements ActionListener {
 
 					if (inMonthView) {
 						monthView.removeEvent(event);
+						monthView.setSelectedEvent(null);
 					} else {
 						weekView.removeEvent(event);
+						weekView.setSelectedEvent(null);
 					}
 
+					
 					db.changeEventDetails(userName, event);
 				}
 
@@ -224,7 +227,7 @@ public class AppCalendar extends JFrame implements ActionListener {
 						JOptionPane.YES_NO_OPTION);
 
 				if (a == JOptionPane.YES_OPTION) {
-					System.out.println("COMPLETE HERE!!!!!!!!");
+
 					Event newEvent = null;
 					newEvent = event;
 

@@ -73,6 +73,7 @@ public class EventEditDialog {
 					Integer.parseInt((new SimpleDateFormat("MM")).format(eventEndDate)) - 1,
 					Integer.parseInt((new SimpleDateFormat("dd")).format(eventEndDate)));
 		}
+		
 		startDatePicker = new JDatePickerImpl(new JDatePanelImpl(model, datePickerProps), new DateLabelFormatter());
 		endDatePicker = new JDatePickerImpl(new JDatePanelImpl(endModel, datePickerProps), new DateLabelFormatter());
 
