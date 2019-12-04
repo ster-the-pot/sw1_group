@@ -179,18 +179,20 @@ public class AppCalendar extends JFrame implements ActionListener {
 
 		} else if (act.equals("EDIT")) {
 
-			Event newEvent = null;
+						
 			if (event != null) {
+				
 				EventEditDialog ed = new EventEditDialog();
+				
 				ed.edit(this, event);
 
-				newEvent = ed.getEvent();
-				if (newEvent != null) {
+				if (event != null) {
 					if (inMonthView) {
-						monthView.refreshEvent(event, newEvent);
+						monthView.refreshEvent();
 					} else {
-						weekView.refreshEvent(event, newEvent);
+						weekView.refreshEvent();
 					}
+					
 					db.changeEventDetails(userName, event);
 				}
 			}
@@ -209,8 +211,7 @@ public class AppCalendar extends JFrame implements ActionListener {
 
 				if (a == JOptionPane.YES_OPTION) {
 
-					// event.setIgnore(true);
-
+				
 					if (inMonthView) {
 						monthView.removeEvent(event);
 						monthView.setSelectedEvent(null);
@@ -219,6 +220,7 @@ public class AppCalendar extends JFrame implements ActionListener {
 						weekView.setSelectedEvent(null);
 					}
 
+					event.setIgnored(true);
 					
 					db.changeEventDetails(userName, event);
 				}
@@ -233,18 +235,16 @@ public class AppCalendar extends JFrame implements ActionListener {
 
 				if (a == JOptionPane.YES_OPTION) {
 
-					Event newEvent = null;
-					newEvent = event;
-
-					newEvent.setCompleted(true);
+					
+					event.setCompleted(true);
 
 					if (inMonthView) {
-						monthView.refreshEvent(event, newEvent);
+						monthView.refreshEvent();
 					} else {
-						weekView.refreshEvent(event, newEvent);
+						weekView.refreshEvent();
 					}
 
-					db.changeEventDetails(userName, newEvent);
+					db.changeEventDetails(userName, event);
 				}
 
 			}
