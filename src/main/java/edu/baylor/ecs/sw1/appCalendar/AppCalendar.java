@@ -244,6 +244,7 @@ public class AppCalendar extends JFrame implements ActionListener {
 						weekView.refreshEvent();
 					}
 
+					
 					db.changeEventDetails(userName, event);
 				}
 

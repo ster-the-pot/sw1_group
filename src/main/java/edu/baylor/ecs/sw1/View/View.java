@@ -289,10 +289,7 @@ public abstract class View extends JPanel implements ActionListener{
 	 */
 	public void refreshEvent(/*Event eOld, Event e*/) {
 		
-		//events.set(events.indexOf(eOld), e);
-		if(events.indexOf(selectedEvent) != -1) {
-			System.out.println("Selected Event in List!!!");
-		}
+		
 		for(Event e: events) {
 			if(e.getEventID().equals(selectedEvent.getEventID())) {
 				e.setEventName(selectedEvent.getEventName());
@@ -303,10 +300,6 @@ public abstract class View extends JPanel implements ActionListener{
 				e.setStartDate(selectedEvent.getStartDate());
 			}
 		}
-		if(events.indexOf(selectedEvent) != -1) {
-			System.out.println("Selected Event in List!!!");
-		}
-		
 		updateCalendar();
 		
 	}
