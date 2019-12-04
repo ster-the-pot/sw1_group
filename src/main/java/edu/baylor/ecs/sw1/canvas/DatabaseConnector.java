@@ -111,6 +111,7 @@ public class DatabaseConnector {
 		ret.put("completed",e.getCompleted());
 		ret.put("name", e.getEventName());
 		ret.put("description",e.getEventDescription());
+		ret.put("due_at", e.getEndDateAsString());
 		return ret;
 	}
 	/**
