@@ -298,6 +298,7 @@ public abstract class View extends JPanel implements ActionListener{
 				e.setEventDescription(selectedEvent.getEventDescription());
 				e.setIgnored(selectedEvent.getIgnored());
 				e.setStartDate(selectedEvent.getStartDate());
+				e.setCourse(selectedEvent.getCourse());
 			}
 		}
 		updateCalendar();
