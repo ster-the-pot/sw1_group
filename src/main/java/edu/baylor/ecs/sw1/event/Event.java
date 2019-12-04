@@ -1,6 +1,7 @@
 package edu.baylor.ecs.sw1.event;
 
 import java.awt.Color;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import edu.baylor.ecs.sw1.scheduleRender.Schedule;
@@ -63,6 +64,20 @@ public abstract class Event {
 	}
 	public void setCompleted(Boolean completed) {
 		this.completed = completed;
+	}
+	
+	public String getStartDateAsString() {
+		if(startDate == null) return null; 
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		return formatter.format(startDate);
+	}
+	
+	public String getEndDateAsString() {
+		if(endDate == null) return null;
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		return formatter.format(endDate);
 	}
 	
 	public abstract void accept(EventVisitor visitor);

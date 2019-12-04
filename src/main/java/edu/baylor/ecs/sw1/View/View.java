@@ -91,7 +91,7 @@ public abstract class View extends JPanel implements ActionListener{
 			String eventName = (String) eventDoc.get("name");
 			
 
-			String eventID = ((Double) eventDoc.get("id")).toString();
+			String eventID = (String) eventDoc.get("id");
 			Boolean ignored = (Boolean) eventDoc.get("ignore");
 			Boolean completed = (Boolean) eventDoc.get("completed");
 			String dueTimeStamp = (String) eventDoc.get("due_at");
