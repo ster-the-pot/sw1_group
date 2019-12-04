@@ -1,6 +1,7 @@
 package edu.baylor.ecs.sw1.auth;
 
 import java.util.Arrays;
+import java.util.logging.Logger;
 
 import org.bson.Document;
 
@@ -13,9 +14,12 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 
-/**
+import edu.baylor.ecs.sw1.canvas.CanvasAgentKey;
+
+/** DESIGN PATTERN SINGLETON
  * Authorization Service used to add accounts, sign in, and check account
- * information also serves as a Singleton Design Pattern
+ * information also serves as a Singleton Design Pattern, by allowing only a single instance to 
+ * be created this auth instance is shared among all who call the service 
  * 
  * @author strafford
  *
@@ -24,6 +28,7 @@ public class AuthService {
 
 	static MongoClient client;
 	private static AuthService self;
+	static Logger log = Logger.getLogger(AuthService.class.getName());
 
 	MongoDatabase db;
 	MongoCollection<Document> userdata;
@@ -36,6 +41,10 @@ public class AuthService {
 		this.userdata = this.db.getCollection("userdata");
 	}
 
+	/**
+	 * method used to obtain the AuthService Singleton, constructor is private as to not allow creation of objects
+	 * @return
+	 */
 	static public AuthService getAuthService() {
 		if (self == null) {
 			self = new AuthService("java", "userdata", "cerny".toCharArray());
@@ -44,14 +53,22 @@ public class AuthService {
 			return self;
 		}
 	}
-
+	/**
+	 * Closes the Connection to the MongoDB Database 
+	 */
 	public void close() {
 		client.close();
 	}
-	
+	/**
+	 * Method used to authenticate a user into the 
+	 * @param username
+	 * @param password
+	 * @return
+	 */
 	public Boolean authenticate(String username, String password) {
 		FindIterable<Document> result = userdata.find(new Document("username",username).append("password", password));
 		if(result.first()!= null) {
+			log.info("Authenticated User: " + username);
 			return true;
 		}
 		return false;
@@ -99,10 +116,12 @@ public class AuthService {
 			return;
 		}
 		userdata.insertOne(new Document("username", username).append("password", password));
+		log.info("Created Account: " + username);
 	}
 	
 	public void deleteAccount(String username) {
 		userdata.deleteOne(new Document("username",username));
+		log.info("Deleted Account: " + username);
 	}
 
 	public Boolean changePassword(String username, String password) {
@@ -110,6 +129,7 @@ public class AuthService {
 			return false;
 		}
 		userdata.updateOne(Filters.eq("username", username),Updates.set("password", password));
+		log.info("Changed Account Password: " + username);
 		return true;
 	}
 	
