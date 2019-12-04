@@ -48,10 +48,13 @@ public class EventCreationDialog {
 		eventNameField = new JTextField();
 	//	eventPriorityField = new JTextField();
 
+		
+		Calendar cal = Calendar.getInstance();
+		
 		//TODO: get info from calendar
-		int year = 2015;
-		int month = 4;
-		int day = 0;
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH);
+		int day = cal.get(Calendar.DAY_OF_MONTH);
 		
 		UtilDateModel model = new UtilDateModel();
 		model.setDate(year,month,day);
@@ -63,6 +66,8 @@ public class EventCreationDialog {
 		datePickerProps.put("date.today","Today");
 		datePickerProps.put("date.month","Month");
 		datePickerProps.put("date.year","Year");
+		
+		
 		
 		startDatePicker = new JDatePickerImpl(new JDatePanelImpl(model,datePickerProps), new DateLabelFormatter()); 
 		JFormattedTextField textField = startDatePicker.getJFormattedTextField();
@@ -142,6 +147,8 @@ public class EventCreationDialog {
 				event.setEndDate(endDate);
 				//event.setEventPriority(eventPriorityField.getText());
 				event.setEventDescription(descriptionField.getText());
+				
+				event.setCompleted(false);
 			}
 		}
 	}

@@ -15,13 +15,32 @@ import javax.swing.border.Border;
  *
  */
 public class EventDisplayer {
+	static JLabel startDateLabel, endDateLabel, descriptionLabel;
+	
+	
+	
 	static Color blueColor = new Color(230,230,250);
 	public static void display(Frame owner, Event event) {
 		JLabel nameLabel = new JLabel(event.getEventName());
 //		JLabel priorityLabel = new JLabel(event.getEventPriority());
-		JLabel startDateLabel = new JLabel(event.getStartDate().toString());
-		JLabel endDateLabel = new JLabel(event.getEndDate().toString());
-		JLabel descriptionLabel = new JLabel(event.getEventDescription());
+		if(event.getStartDate() != null) {
+			startDateLabel = new JLabel(event.getStartDate().toString());
+		} else {
+			startDateLabel = new JLabel("No Start Date");
+		}
+		
+		if(event.getEndDate() != null) {
+			endDateLabel = new JLabel(event.getEndDate().toString());
+		} else {
+			endDateLabel = new JLabel("No End Date");
+		}
+
+		if(event.getEventDescription() != null && !event.getEventDescription().isEmpty()) {
+			descriptionLabel = new JLabel(event.getEventDescription());
+		} else {
+			descriptionLabel = new JLabel("No Description");
+		}
+		
 		
 		Border border = BorderFactory.createLineBorder(Color.GRAY, 2);
 		

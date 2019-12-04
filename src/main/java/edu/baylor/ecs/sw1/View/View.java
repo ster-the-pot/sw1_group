@@ -89,6 +89,8 @@ public abstract class View extends JPanel implements ActionListener{
 		
 		for(Document eventDoc : userEvents) {
 			String eventName = (String) eventDoc.get("name");
+			
+
 			String eventID = ((Double) eventDoc.get("id")).toString();
 			Boolean ignored = (Boolean) eventDoc.get("ignore");
 			Boolean completed = (Boolean) eventDoc.get("completed");
