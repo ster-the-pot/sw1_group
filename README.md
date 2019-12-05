@@ -60,6 +60,7 @@ Modified Use-Case:Set Free-Time
 * ~~Static Code Result~~
 ### Final Executable
 [Jar Download](https://drive.google.com/open?id=1T9KZASlEDDybTbcT9ndbuI085ys76SmP)
+[JavaDoc](https://drive.google.com/open?id=15lY2S52Hrvj-D4YAzdyhXypKi_G1DUKA)
 
 ### Revisions to Iteration 2
 [PDF Document Link](https://drive.google.com/open?id=1wNtiKu5cmqTlkcel1fnXMX8669O3YsqU)
