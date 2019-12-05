@@ -56,7 +56,7 @@ Modified Use-Case:Set Free-Time
 * ~~Complete Application~~
 * ~~Testing~~
 * [~~Commercial~~](https://drive.google.com/open?id=11nqHCJ6rE2-wftDgNWQCMKpMvgfH0Dcs)
-* [~~UseCaseVideo~](https://drive.google.com/open?id=11nqHCJ6rE2-wftDgNWQCMKpMvgfH0Dcs)
+* [~~UseCaseVideo~](https://drive.google.com/open?id=1wLNvDIZKD_MbFO_z-tGB7fdyn6Gfx4T7)
 * ~~Static Code Result~~
 ### Revisions to Iteration 2
 [PDF Document Link](https://drive.google.com/open?id=1_wwAAdPxD-v5x96uonHohPVenTZy1-El)
