@@ -29,7 +29,7 @@ public class StatsPanel extends JPanel{
 		this.setLayout(new GridLayout(0,1));
 		eCount.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 35));
 		eCount.setForeground(tColor);
-		JLabel countLabel = new JLabel("<html> <center>events currently being managed</center></html>",SwingConstants.CENTER);
+		JLabel countLabel = new JLabel("<html> <center>Events currently being managed</center></html>",SwingConstants.CENTER);
 		countLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 26));
 		countLabel.setForeground(tColor);
 		
