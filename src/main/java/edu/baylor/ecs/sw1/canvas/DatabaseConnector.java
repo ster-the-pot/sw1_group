@@ -61,8 +61,7 @@ public class DatabaseConnector {
 
 	/**
 	 * Get count of all events managed in the database
-	 * 
-	 * @param username
+	 *
 	 * @return
 	 */
 	
@@ -122,7 +121,7 @@ public class DatabaseConnector {
 	/**
 	 * Takes username and Event object and adds event into the database
 	 * @param username
-	 * @param event
+	 * @param baseEvent
 	 */
 	public void addUserEvent(String username, Event baseEvent) {
 		

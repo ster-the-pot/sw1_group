@@ -46,7 +46,6 @@ public class AuthService {
 	/**
 	 * Get count of all events managed in the database
 	 * 
-	 * @param username
 	 * @return
 	 */
 	

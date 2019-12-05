@@ -72,7 +72,6 @@ public class ShowDay extends JPanel implements ActionListener {
 	 *                     next/last Month.
 	 * @param v            Gives the specific type of view (this) in order to update
 	 *                     the Current Selected Event and use the visitor
-	 * @return
 	 */
 	public ShowDay(Date dayDate, List<Event> e, Boolean isOtherMonth, View v) {
 
@@ -104,8 +103,6 @@ public class ShowDay extends JPanel implements ActionListener {
 	 * RenderEvents adds the number of Events needed for the specific view to the
 	 * day panel
 	 * 
-	 * @param
-	 * @return
 	 */
 	private void renderEvents() {
 
@@ -125,8 +122,6 @@ public class ShowDay extends JPanel implements ActionListener {
 	 * ExtraEvents class is called which creates the option of viewing all Events
 	 * for the specific day.
 	 * 
-	 * @param
-	 * @return
 	 */
 	private void checkEventSize() {
 		if ((num = events.size()) > numEvents) {
@@ -242,7 +237,7 @@ public class ShowDay extends JPanel implements ActionListener {
 	/**
 	 * Visitor Method with Event - Subtype: Course
 	 * 
-	 * @param a
+	 * @param c
 	 * @return
 	 */
 	public Color getColor(Course c) {
@@ -254,7 +249,7 @@ public class ShowDay extends JPanel implements ActionListener {
 	/**
 	 * Visitor Method with Event - Subtype: Quiz
 	 * 
-	 * @param a
+	 * @param q
 	 * @return
 	 */
 	public Color getColor(Quiz q) {

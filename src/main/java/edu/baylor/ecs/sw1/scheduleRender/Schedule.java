@@ -103,7 +103,6 @@ public class Schedule {
 	 * Visitor Method with Event - Subtype: Assignment
 	 * 
 	 * @param a Event Subtype Assignment
-	 * @return
 	 */
 	public void getEventValue(Assignment a) {
 		assign.add(a);
@@ -113,7 +112,6 @@ public class Schedule {
 	 * Visitor Method with Event - Subtype: Quiz
 	 * 
 	 * @param q Event Subtype Quiz
-	 * @return
 	 */
 	public void getEventValue(Quiz q) {
 		quizes.add(q);
@@ -123,7 +121,6 @@ public class Schedule {
 	 * Visitor Method with Event - Subtype: Course
 	 * 
 	 * @param c Event Subtype Course
-	 * @return
 	 */
 	public void getEventValue(Course c) {
 		course.add(c);
