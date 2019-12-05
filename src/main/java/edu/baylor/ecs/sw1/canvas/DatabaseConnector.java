@@ -33,6 +33,7 @@ public class DatabaseConnector {
 
 	static MongoClient client;
 	static Logger log = Logger.getLogger(DatabaseConnector.class.getName());
+	Integer count = 0;
 
 
 	Document upsertOptions = new Document().append("upsert", Boolean.TRUE);
@@ -59,8 +60,7 @@ public class DatabaseConnector {
 	}
 
 	/**
-	 * Get all event for a user as an ArrayList of MongoDocuments
-	 * will not return ignored events, but will continue to return completed events
+	 * Get count of all events managed in the database
 	 * 
 	 * @param username
 	 * @return
@@ -111,9 +111,7 @@ public class DatabaseConnector {
 	public Map<String,Object> convertEventMap(Event e) {
 		Map<String,Object> ret = new HashMap<>();
 		ret.put("id", e.getEventID());
-		System.out.println(e.getEventID());
 		ret.put("ignore",e.getIgnored());
-		System.out.println(e.getIgnored() + " ignored");
 		ret.put("completed",e.getCompleted());
 		ret.put("name", e.getEventName());
 		ret.put("description",e.getEventDescription());
@@ -127,6 +125,7 @@ public class DatabaseConnector {
 	 * @param event
 	 */
 	public void addUserEvent(String username, Event baseEvent) {
+		
 		Map<String,Object> event = this.convertEventMap(baseEvent);
 		// Document to insert
 				Document ev = new Document(event);

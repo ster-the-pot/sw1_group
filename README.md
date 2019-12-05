@@ -48,6 +48,20 @@ Modified Use-Case:Set Free-Time
 * More closely reflects process of scheduling
 * Reflected in our design class diagram and sequence diagrams
 
+## Iteration III
+[PDF Document Link]()
+### Deliverables:
+* ~~Git Link~~
+* ~~Issue Tracking Link~~
+* ~~Complete Application~~
+* ~~Testing~~
+* [~~Commercial~~]()
+* ~~Static Code Result~~
+### Revisions to Iteration 2
+[PDF Document Link]()
+Refactored Domain Model
+* Accurately reflects code (Canvas-DB fleshed out)
+
 
 
 
