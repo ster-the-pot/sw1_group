@@ -105,7 +105,7 @@ public class Schedule {
 	 * @param a Event Subtype Assignment
 	 * @return
 	 */
-	public void getValue(Assignment a) {
+	public void getEventValue(Assignment a) {
 		assign.add(a);
 	}
 
@@ -115,7 +115,7 @@ public class Schedule {
 	 * @param q Event Subtype Quiz
 	 * @return
 	 */
-	public void getValue(Quiz q) {
+	public void getEventValue(Quiz q) {
 		quizes.add(q);
 	}
 
@@ -125,7 +125,7 @@ public class Schedule {
 	 * @param c Event Subtype Course
 	 * @return
 	 */
-	public void getValue(Course c) {
+	public void getEventValue(Course c) {
 		course.add(c);
 	}
 

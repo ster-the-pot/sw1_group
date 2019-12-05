@@ -24,6 +24,6 @@ public class Course extends Event {
 	
 	@Override
 	public void accept(Schedule sh) {
-		sh.getValue(this);
+		sh.getEventValue(this);
 	}
 }
