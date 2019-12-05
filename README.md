@@ -49,16 +49,17 @@ Modified Use-Case:Set Free-Time
 * Reflected in our design class diagram and sequence diagrams
 
 ## Iteration III
-[PDF Document Link]()
+[PDF Document Link](https://drive.google.com/open?id=1yzinREHFnLmxJs-BuegDhl93hli6BYJh)
 ### Deliverables:
 * ~~Git Link~~
 * ~~Issue Tracking Link~~
 * ~~Complete Application~~
 * ~~Testing~~
-* [~~Commercial~~]()
+* [~~Commercial~~](https://drive.google.com/open?id=11nqHCJ6rE2-wftDgNWQCMKpMvgfH0Dcs)
+* [~~UseCaseVideo~](https://drive.google.com/open?id=11nqHCJ6rE2-wftDgNWQCMKpMvgfH0Dcs)
 * ~~Static Code Result~~
 ### Revisions to Iteration 2
-[PDF Document Link]()
+[PDF Document Link](https://drive.google.com/open?id=1_wwAAdPxD-v5x96uonHohPVenTZy1-El)
 Refactored Domain Model
 * Accurately reflects code (Canvas-DB fleshed out)
 

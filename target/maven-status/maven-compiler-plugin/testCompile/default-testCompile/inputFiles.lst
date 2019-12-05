@@ -1,7 +1,11 @@
+/Users/strafford/Documents/Baylor/Fall_2019/Software_Engineering/groupProject/myDay/src/test/java/edu/baylor/ecs/sw1/auth/TestAuthService.java
 /Users/strafford/Documents/Baylor/Fall_2019/Software_Engineering/groupProject/myDay/src/test/java/edu/baylor/ecs/sw1/myday/EditEventTest.java
 /Users/strafford/Documents/Baylor/Fall_2019/Software_Engineering/groupProject/myDay/src/test/java/edu/baylor/ecs/sw1/loginPage/loginTester.java
-/Users/strafford/Documents/Baylor/Fall_2019/Software_Engineering/groupProject/myDay/src/test/java/edu/baylor/ecs/sw1/canvas/testCanvasAgent.java
+/Users/strafford/Documents/Baylor/Fall_2019/Software_Engineering/groupProject/myDay/src/test/java/edu/baylor/ecs/sw1/canvas/TestCanvasDBAdapter.java
+/Users/strafford/Documents/Baylor/Fall_2019/Software_Engineering/groupProject/myDay/src/test/java/edu/baylor/ecs/sw1/canvas/TestCanvasAgent.java
+/Users/strafford/Documents/Baylor/Fall_2019/Software_Engineering/groupProject/myDay/src/test/java/edu/baylor/ecs/sw1/canvas/TestDatabaseConnector.java
 /Users/strafford/Documents/Baylor/Fall_2019/Software_Engineering/groupProject/myDay/src/test/java/edu/baylor/ecs/sw1/myday/AppCalendarTester.java
 /Users/strafford/Documents/Baylor/Fall_2019/Software_Engineering/groupProject/myDay/src/test/java/edu/baylor/ecs/sw1/myday/CreateEventTest.java
 /Users/strafford/Documents/Baylor/Fall_2019/Software_Engineering/groupProject/myDay/src/test/java/edu/baylor/ecs/sw1/myday/AppTest.java
+/Users/strafford/Documents/Baylor/Fall_2019/Software_Engineering/groupProject/myDay/src/test/java/edu/baylor/ecs/sw1/myday/SpinnerTest.java
 /Users/strafford/Documents/Baylor/Fall_2019/Software_Engineering/groupProject/myDay/src/test/java/edu/baylor/ecs/sw1/myday/ViewTester.java
