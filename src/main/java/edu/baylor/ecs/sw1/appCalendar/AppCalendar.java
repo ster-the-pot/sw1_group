@@ -127,6 +127,19 @@ public class AppCalendar extends JFrame implements ActionListener {
 
 		render();
 	}
+	
+	private void syncCanvas() {
+		CanvasAgentKey canvas = new CanvasAgentKey();
+		CanvasDBAdapter dbAdapter = new CanvasDBAdapter(canvas,userName);
+		if(!dbAdapter.syncStudentCanvas(userName)) {
+			JOptionPane.showMessageDialog(this, "Canvas Token Failure", "Error", JOptionPane.ERROR_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog(this, "Canvas Synced", "Success", JOptionPane.PLAIN_MESSAGE);
+			View.pullEventsFromDatabase();
+			monthView.updateCalendar();
+			weekView.updateCalendar();
+		}
+	}
 
 	/**
 	 * Listens for all events and responds appropriately
@@ -244,8 +257,6 @@ public class AppCalendar extends JFrame implements ActionListener {
 		} else if (act.equals("CONNECT")) {
 			// box with canvas code spot
 			AuthService authService = AuthService.getAuthService();
-			CanvasAgentKey canvas = new CanvasAgentKey();
-			CanvasDBAdapter db = new CanvasDBAdapter(canvas,userName);
 			
 			if(authService.getCanvasToken(userName).equals("")) {
 				JTextField canvasTokenField = new JTextField();
@@ -262,24 +273,10 @@ public class AppCalendar extends JFrame implements ActionListener {
 				if(option == JOptionPane.OK_OPTION) {
 					authService.setCanvasToken(userName, canvasTokenField.getText());
 					
-					if(!db.syncStudentCanvas(userName)) {
-						JOptionPane.showMessageDialog(this, "Canvas Token Failure", "Error", JOptionPane.ERROR_MESSAGE);
-					} else {
-						JOptionPane.showMessageDialog(this, "Canvas Synced", "Success", JOptionPane.PLAIN_MESSAGE);
-						View.pullEventsFromDatabase();
-						monthView.updateCalendar();
-						weekView.updateCalendar();
-					}
+					syncCanvas();
 				}
 			} else {
-				if(!db.syncStudentCanvas(userName)) {
-					JOptionPane.showMessageDialog(this, "Canvas Token Failure", "Error", JOptionPane.ERROR_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(this, "Canvas Synced", "Success", JOptionPane.PLAIN_MESSAGE);
-					View.pullEventsFromDatabase();
-					monthView.updateCalendar();
-					weekView.updateCalendar();
-				}
+				syncCanvas();
 			}
 		}
 	}
