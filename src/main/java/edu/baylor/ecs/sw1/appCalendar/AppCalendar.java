@@ -155,8 +155,6 @@ public class AppCalendar extends JFrame implements ActionListener {
 			
 			if (event != null) {
 				
-				
-				
 				db.addUserEvent(userName, event);
 
 				if (inMonthView) {
@@ -228,14 +226,15 @@ public class AppCalendar extends JFrame implements ActionListener {
 				if (a == JOptionPane.YES_OPTION) {
 
 					
-					event.setCompleted(true);
+					
 
 					if (inMonthView) {
-						monthView.refreshEvent();
+						monthView.completeEvent(event);//.refreshEvent();
 					} else {
-						weekView.refreshEvent();
+						weekView.completeEvent(event);//.refreshEvent();
 					}
 
+					event.setCompleted(true);
 					
 					db.changeEventDetails(userName, event);
 				}

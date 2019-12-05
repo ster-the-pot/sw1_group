@@ -336,6 +336,15 @@ public abstract class View extends JPanel implements ActionListener{
 		updateCalendar();
 		
 	}
+	
+	public void completeEvent(Event e) {
+		
+		events.get(events.indexOf(e)).setCompleted(true);
+		
+		
+		updateCalendar();
+		
+	}
 
 	
 	protected abstract void initCalendar();
