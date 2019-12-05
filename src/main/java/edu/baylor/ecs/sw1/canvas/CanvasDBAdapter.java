@@ -76,16 +76,18 @@ public class CanvasDBAdapter implements CanvasAgent {
 		for(Map.Entry<String, String> entry: courses.entrySet()) {
 			revCoursesName.put(entry.getValue(), entry.getKey());
 		}
+		
+
 		courses.forEach((k, v) -> {
 			courseAssignments.put(v,this.getAssignments(username, v));	
 		});
-		
 		courseAssignments.forEach((course,json) -> {
 			//System.out.println("COURSE: " + course + "\n-------------");
 			json.forEach(e->{
 				e.put("course",revCoursesName.get(course));
-				System.out.println("Added event for course: "+ revCoursesName.get(course));
+				log.info("Added event for course: "+ revCoursesName.get(course));
 				db.addUserEvent(username, e);
+				
 			});
 		});
 

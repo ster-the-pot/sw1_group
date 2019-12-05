@@ -8,9 +8,11 @@ import org.bson.Document;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
+import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 
@@ -39,6 +41,23 @@ public class AuthService {
 		client = new MongoClient(new ServerAddress("18.224.202.17", 27017), Arrays.asList(credential));
 		this.db = client.getDatabase("userdata");
 		this.userdata = this.db.getCollection("userdata");
+	}
+	
+	/**
+	 * Get count of all events managed in the database
+	 * 
+	 * @param username
+	 * @return
+	 */
+	
+	public Integer getManagedEvents() {
+		Integer count = 0;
+		AggregateIterable<Document> result = userdata.aggregate(
+				Arrays.asList(Aggregates.unwind("$events")));
+		for(Document i : result) {
+			count++;
+		}
+		return count;
 	}
 
 	/**
