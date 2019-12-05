@@ -13,8 +13,9 @@ import javax.swing.JPanel;
 import edu.baylor.ecs.sw1.View.View;
 import edu.baylor.ecs.sw1.event.Event;
 
-/**
- * Contains buttons allowing the user to interact with the application.
+/**DESIGN PATTERN FACTORY METHOD
+ * Contains buttons allowing the user to interact with the application. Factory Method
+ * is used with the initButton(), initPanel(), and initLabel() functions
  * 
  * @author Par Wilkinson
  * @author Elizabeth Brighton
@@ -32,10 +33,7 @@ public class Sidebar extends JPanel {
 	public JPanel legend;
 	public JPanel legend2;
 
-	/*Color blue = new Color(31, 97, 141);
-	Color red = new Color(176, 58, 46);
-	Color purple = new Color(118, 68, 138);
-	Color green = new Color(20, 143, 119);*/
+
 	
 	Color blue = new Color(0, 112, 192);
 	Color red = new Color(192, 0, 0);

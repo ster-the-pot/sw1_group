@@ -57,7 +57,7 @@ public class AppCalendar extends JFrame implements ActionListener {
 	public static String userName;
 
 	/**
-	 * clears the JFrame and readds the appropriate components in the current view
+	 * clears the JFrame and reads the appropriate components in the current view
 	 */
 	private void render() {
 		this.getContentPane().removeAll();
@@ -103,13 +103,17 @@ public class AppCalendar extends JFrame implements ActionListener {
 	 * Constructs the AppCalendar's components and connects the buttons to the
 	 * listener
 	 */
-	public AppCalendar(String str) {
+	public static void setUserName(String str) {
 		userName = str;
+	}
+	
+	public AppCalendar() {
+		//userName = str;
 		inMonthView = true;
 
 		db = new DatabaseConnector("java", "userdata", "cerny");
 
-		sidebar = new Sidebar(str);
+		sidebar = new Sidebar(userName);
 		sidebar.setVisible(true);
 
 		sidebar.viewSwitcher.setActionCommand("SWAP");

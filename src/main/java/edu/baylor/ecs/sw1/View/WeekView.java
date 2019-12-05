@@ -28,8 +28,6 @@ public class WeekView extends View {
 	/**
 	 * InitCalendar initializes the Calendar with the Week View. This also sets
 	 * the first day to be the current day, and the first Week to be the current week
-	 * @param 
-	 * @return
 	 */
 	protected void initCalendar() {
 		panel = new JPanel();
@@ -72,8 +70,6 @@ public class WeekView extends View {
 	/**
 	 * updateCalendar is used when an Event has been changed or a new week is selected
 	 * using the Last/Next options. It refreshes the entire Week using the addPanels function below
-	 * @param 
-	 * @return
 	 */
 	public void updateCalendar() {
 
@@ -92,8 +88,6 @@ public class WeekView extends View {
 	/**
 	 * addPanels goes day by day adding the Events for each day. Each day to be added calls
 	 * the ShowDay class, which correctly implements each Events for the day.
-	 * @param 
-	 * @return 
 	 */
 	protected void addPanels() {
 
@@ -138,8 +132,7 @@ public class WeekView extends View {
 	/**
 	 * When an action is performed (Last/Next). The current week/month/year must be changed.
 	 * The WeekView version of this is a bit more complicated than the month view. 
-	 * @param 
-	 * @return
+	 * @param e
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {

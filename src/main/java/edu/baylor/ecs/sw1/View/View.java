@@ -65,15 +65,17 @@ public abstract class View extends JPanel implements ActionListener{
 	
 	/**
 	 * Constructor calls the prepareGUI method
-	 * @param 
-	 * @return
 	 */
 	public View() {
 		prepareGUI();
 	}
-
+	
+	/**
+	 * Takes all the events specific to the user from 
+	 * the database and places them into an ArrayList.
+	 */
 	public static void pullEventsFromDatabase() {
-		//QUERY HERE!!!!!!
+		
 		DatabaseConnector database = new DatabaseConnector("java","userdata","cerny");
 		ArrayList<Document> userEvents = database.getUserEvents(AppCalendar.userName);
 				
@@ -142,16 +144,8 @@ public abstract class View extends JPanel implements ActionListener{
 	}
 	
 	
-	/**
-	 * prepareGUI() gets the Events for the specific student
-	 * and creates the basic Calendar view outline
-	 * @param 
-	 * @return
-	 */
+
 	private void prepareGUI() {
-		
-		
-		
 		
 		
 		JPanel menuPanel = new JPanel();
@@ -243,7 +237,6 @@ public abstract class View extends JPanel implements ActionListener{
 	 * @param d Date used to find the Events specifically on that day. 
 	 * @return
 	 */
-	
 	protected List<Event> getDayEvents(Date d) {
 			
 		Calendar calendar = Calendar.getInstance();
@@ -269,8 +262,6 @@ public abstract class View extends JPanel implements ActionListener{
 	
 	/**
 	 * Displays the currently selected Event below the Calendar
-	 * @param 
-	 * @return
 	 */
 	protected void initSelect() {
 		
@@ -297,10 +288,8 @@ public abstract class View extends JPanel implements ActionListener{
 	}
 	
 	/**
-	 * Is called when an Event is edited, created or deleted
+	 * Is called when an Event is edited
 	 * 
-	 * @param eOld Old Event that is no longer up do date.
-	 * @param e New Event to replace the old Event
 	 */
 	public void refreshEvent(/*Event eOld, Event e*/) {
 		
@@ -320,6 +309,11 @@ public abstract class View extends JPanel implements ActionListener{
 		
 	}
 	
+	
+	/**
+	 * Is called when an Event is created
+	 * 
+	 */
 	public void createEvent(Event e) {
 		
 		events.add(e);
@@ -328,6 +322,10 @@ public abstract class View extends JPanel implements ActionListener{
 		
 	}
 	
+	/**
+	 * Is called when an Event is deleted
+	 * 
+	 */
 	public void removeEvent(Event e) {
 		
 		
@@ -337,6 +335,10 @@ public abstract class View extends JPanel implements ActionListener{
 		
 	}
 	
+	/**
+	 * Is called when an Event is completed
+	 * 
+	 */
 	public void completeEvent(Event e) {
 		
 		events.get(events.indexOf(e)).setCompleted(true);
@@ -348,7 +350,10 @@ public abstract class View extends JPanel implements ActionListener{
 
 	
 	protected abstract void initCalendar();
-	
+	/**
+	 * updateCalendar is used when an Event has been changed or a new View is selected
+	 * using the Last/Next options. It refreshes the entire Month/Week using the addPanels function below
+	 */
 	public abstract void updateCalendar();
 	
 	protected abstract void addPanels();
@@ -356,6 +361,11 @@ public abstract class View extends JPanel implements ActionListener{
 	@Override
 	public abstract void actionPerformed(ActionEvent e);
 	
-	
+	/**
+	 * Visitor. Accepts a ShowDay object in order for ShowDay to add different
+	 * amounts of Events per day, depending on the View
+	 * @param sd
+	 * @return
+	 */
 	public abstract int accept(ShowDay sd);
 }

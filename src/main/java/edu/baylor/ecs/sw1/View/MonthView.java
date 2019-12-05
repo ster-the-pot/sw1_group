@@ -30,8 +30,6 @@ public class MonthView extends View {
 	/**
 	 * InitCalendar initializes the Calendar with the Month View. This also sets
 	 * the first day to be the current day, and the first Month to be the current Month
-	 * @param 
-	 * @return
 	 */
 	protected void initCalendar() {
 		
@@ -67,8 +65,6 @@ public class MonthView extends View {
 	/**
 	 * updateCalendar is used when an Event has been changed or a new month is selected
 	 * using the Last/Next options. It refreshes the entire Month using the addPanels function below
-	 * @param 
-	 * @return
 	 */
 	public void updateCalendar() {
 
@@ -87,8 +83,6 @@ public class MonthView extends View {
 	/**
 	 * addPanels goes day by day adding the Events for each day. Each day to be added calls
 	 * the ShowDay class, which correctly implements each Events for the day.
-	 * @param 
-	 * @return 
 	 */
 	protected void addPanels() {
 		
@@ -122,8 +116,7 @@ public class MonthView extends View {
 	
 	/**
 	 * When an action is performed (Last/Next). The current month/year must be changed
-	 * @param 
-	 * @return
+	 * @param e
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -146,6 +139,7 @@ public class MonthView extends View {
 		updateCalendar();
 	}
 
+	
 	@Override
 	public int accept(ShowDay sd) {
 		return sd.numGrid(this);

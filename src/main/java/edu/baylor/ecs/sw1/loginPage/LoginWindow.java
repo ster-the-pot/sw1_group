@@ -93,7 +93,8 @@ public class LoginWindow extends JFrame implements Runnable, ActionListener {
 					javax.swing.SwingUtilities.invokeLater(new Runnable() {
 						@Override
 						public void run() {
-							AppCalendar appCalendar = new AppCalendar(curUserName);
+							AppCalendar.setUserName(curUserName);
+							AppCalendar appCalendar = new AppCalendar();
 							appCalendar.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 							appCalendar.setVisible(true);
 						}

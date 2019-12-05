@@ -55,7 +55,6 @@ public class CanvasDBAdapter implements CanvasAgent {
 	 * @param studentID
 	 * @param courseID
 	 * @return
-	 * @return
 	 */
 	public List<Map<String, Object>> getAssignments(String studentID, String courseID) {
 		return cAgent.getAssignments(studentID, courseID);
@@ -64,7 +63,7 @@ public class CanvasDBAdapter implements CanvasAgent {
 
 	/**
 	 * Workflow of syncing all events from Canvas into User's db
-	 * @param studentID
+	 * @param username
 	 */
 	public Boolean syncStudentCanvas(String username) {
 		Map<String, String> courses = this.getCourses(username);
