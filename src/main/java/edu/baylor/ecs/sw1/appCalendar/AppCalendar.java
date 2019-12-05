@@ -2,12 +2,23 @@ package edu.baylor.ecs.sw1.appCalendar;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,6 +33,9 @@ import edu.baylor.ecs.sw1.canvas.CanvasAgentKey;
 import edu.baylor.ecs.sw1.canvas.CanvasDBAdapter;
 import edu.baylor.ecs.sw1.canvas.DatabaseConnector;
 import edu.baylor.ecs.sw1.event.*;
+import edu.baylor.ecs.sw1.loginPage.ImagePanel;
+import edu.baylor.ecs.sw1.utils.ImageSpinner;
+import edu.baylor.ecs.sw1.utils.RotateableImage;
 
 /**
  * This class ties together Calendar views and the Sidebar
@@ -128,12 +142,83 @@ public class AppCalendar extends JFrame implements ActionListener {
 		render();
 	}
 	
+	boolean waitingOnCanvas = false;
+	
 	private void syncCanvas() {
 		CanvasAgentKey canvas = new CanvasAgentKey();
 		CanvasDBAdapter dbAdapter = new CanvasDBAdapter(canvas,userName);
+		
+		
+		JFrame theFrame = this;
+		
+		Thread cernyThread = new Thread() {
+			public void run(){
+				JDialog dialog = new JDialog(theFrame, "Please wait - Syncing with canvas.");
+				
+				BufferedImage before = null;
+				try {
+					before = ImageIO.read(new File("src/main/resources/cerny.png"));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				int w = before.getWidth();
+				int h = before.getHeight();
+				System.out.println("W/H: " + w + " " + h);
+				BufferedImage bufferedImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+				AffineTransform at = new AffineTransform();
+				at.scale(1.0, 1.0);
+				AffineTransformOp scaleOp = 
+				   new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+				bufferedImage = scaleOp.filter(before, bufferedImage);
+				
+				RotateableImage rot = new RotateableImage(bufferedImage);
+				dialog.add(rot);
+				dialog.setPreferredSize(new Dimension(300,300+10));
+				dialog.pack();
+				dialog.setVisible(true);
+				
+				GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+				
+				Point centerPoint = env.getCenterPoint();
+				int dx = centerPoint.x - dialog.getSize().width / 2;
+				int dy = centerPoint.y - dialog.getSize().height / 2;
+				
+				dialog.setLocation(dx,dy);
+				
+				waitingOnCanvas = true;
+			
+				ImageSpinner spinner = new ImageSpinner(rot,1,10f);
+				spinner.start();
+				
+				while(waitingOnCanvas) {
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+	
+				dialog.dispose();
+			}
+		};
+		
+		cernyThread.start();
+		
 		if(!dbAdapter.syncStudentCanvas(userName)) {
 			JOptionPane.showMessageDialog(this, "Canvas Token Failure", "Error", JOptionPane.ERROR_MESSAGE);
 		} else {
+			waitingOnCanvas = false;
+			
+			try {
+				cernyThread.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			JOptionPane.showMessageDialog(this, "Canvas Synced", "Success", JOptionPane.PLAIN_MESSAGE);
 			View.pullEventsFromDatabase();
 			monthView.updateCalendar();

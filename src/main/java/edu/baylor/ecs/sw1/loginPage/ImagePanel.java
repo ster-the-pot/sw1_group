@@ -12,7 +12,7 @@ import javax.swing.JPanel;
  * Basic Panel to render and scale background images
  */
 public class ImagePanel extends JPanel {
-	Image bImage;
+	public Image bImage;
 	private final static Logger LOG = Logger.getLogger(ImagePanel.class.getName());
 
 	public ImagePanel(String img) {
