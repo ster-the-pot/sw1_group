@@ -13,8 +13,9 @@ import javax.swing.JPanel;
 import edu.baylor.ecs.sw1.View.View;
 import edu.baylor.ecs.sw1.event.Event;
 
-/**
- * Contains buttons allowing the user to interact with the application.
+/**DESIGN PATTERN FACTORY METHOD
+ * Contains buttons allowing the user to interact with the application. Factory Method
+ * is used with the initButton(), initPanel(), and initLabel() functions
  * 
  * @author Par Wilkinson
  * @author Elizabeth Brighton
