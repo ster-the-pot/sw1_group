@@ -2,6 +2,8 @@ package edu.baylor.ecs.sw1.loginPage;
 
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
+import java.awt.HeadlessException;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -14,7 +16,9 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -58,7 +62,7 @@ public class LoginPanel extends JPanel {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		ImagePanel lblCernyPhoto = new ImagePanel("src/main/resources/cerny.png");
+		ImagePanel lblCernyPhoto = new ImagePanel("cerny.png");
 		lblCernyPhoto.setPreferredSize(new Dimension(200,200));
 		lblCernyPhoto.setBackground(Color.white);
 		GridBagConstraints gbc_lblCernyPhoto = new GridBagConstraints();
@@ -144,24 +148,30 @@ public class LoginPanel extends JPanel {
 				
 				Object[] options = {"Confirm","Cancel"};
 				
-				int option = JOptionPane.showOptionDialog(owner, message,"Create Account",JOptionPane.OK_CANCEL_OPTION
-						,JOptionPane.QUESTION_MESSAGE,new ImageIcon("empty.png"),options,options[0]);
-				
-				if(option == JOptionPane.OK_OPTION) {
-					String curUserName = dUsernameField.getText();
-					String currPass = dPasswordField.getText();
-					
-					AuthService auth = AuthService.getAuthService();
-					if(auth.accountExists(curUserName)) {
-						// account already exists
-						JOptionPane.showMessageDialog(owner, "That username is already registered.", "Error", JOptionPane.ERROR_MESSAGE);
-					} else if(!auth.passwordStrength(currPass)) {
-						// password too weak
-						JOptionPane.showMessageDialog(owner, "Password is too short.", "Error", JOptionPane.ERROR_MESSAGE);
-					} else {
-						auth.createAccount(curUserName, currPass);
+				int option;
+				try {
+					option = JOptionPane.showOptionDialog(owner, message,"Create Account",JOptionPane.OK_CANCEL_OPTION
+							,JOptionPane.QUESTION_MESSAGE,new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource("empty.png"))),options,options[0]);
+					if(option == JOptionPane.OK_OPTION) {
+						String curUserName = dUsernameField.getText();
+						String currPass = dPasswordField.getText();
+						
+						AuthService auth = AuthService.getAuthService();
+						if(auth.accountExists(curUserName)) {
+							// account already exists
+							JOptionPane.showMessageDialog(owner, "That username is already registered.", "Error", JOptionPane.ERROR_MESSAGE);
+						} else if(!auth.passwordStrength(currPass)) {
+							// password too weak
+							JOptionPane.showMessageDialog(owner, "Password is too short.", "Error", JOptionPane.ERROR_MESSAGE);
+						} else {
+							auth.createAccount(curUserName, currPass);
+						}
 					}
+				} catch (IOException e1) {
+					e1.printStackTrace();
 				}
+				
+				
 			}
 		});
 	}

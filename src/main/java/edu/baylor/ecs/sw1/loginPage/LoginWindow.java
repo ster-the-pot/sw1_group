@@ -30,7 +30,9 @@ public class LoginWindow extends JFrame implements Runnable, ActionListener {
 	JLabel uLabel, pLabel;
 	LoginPanel loginPanel;
 	
+	
 	public LoginWindow(){
+		this.setTitle("MyDay Application");
 		//init box layout to display all components
 		getContentPane().setLayout(new BoxLayout(this.getContentPane(),BoxLayout.Y_AXIS));
 		JPanel topLabel = new JPanel();
@@ -47,7 +49,7 @@ public class LoginWindow extends JFrame implements Runnable, ActionListener {
 		JPanel stats = new StatsPanel();
 	
 		//Create ImagePanel to display logo
-		ImagePanel logo = new ImagePanel("src/main/resources/testIMG.png");
+		ImagePanel logo = new ImagePanel("testIMG.png");
 		statsLogo.add(logo);
 		statsLogo.add(stats);
 		

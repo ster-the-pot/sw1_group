@@ -18,7 +18,7 @@ public class ImagePanel extends JPanel {
 	public ImagePanel(String img) {
 		//retrieve image from resources folder and display in frame
 		try {
-			this.bImage = ImageIO.read(new File(img));
+			this.bImage = ImageIO.read(getClass().getClassLoader().getResource(img));
 		}catch(IOException e) {
 			//Log exception
 			LOG.severe("Image file not Found");
