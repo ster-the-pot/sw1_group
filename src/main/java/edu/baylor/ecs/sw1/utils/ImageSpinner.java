@@ -11,10 +11,14 @@ public class ImageSpinner extends Thread implements Runnable {
         this.totalDegrees = degrees;
         this.speed = speed;
     }
-
+    static boolean running = true;
+    public void setRunning() {
+    	running = false;
+    }
+    
     public void run() {
         int fps = 40;
-        while(true) { 
+        while(running) { 
             float degreesToRotate = speed / fps;
             image.spin(degreesToRotate);
             image.repaint();

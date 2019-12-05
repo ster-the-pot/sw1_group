@@ -204,27 +204,39 @@ public class AppCalendar extends JFrame implements ActionListener {
 						e.printStackTrace();
 					}
 				}
-	
+				spinner.setRunning();
+				dialog.setVisible(false);
 				dialog.dispose();
+				
 			}
 		};
 		
 		cernyThread.start();
 		
 		if(!dbAdapter.syncStudentCanvas(userName)) {
+			
+			waitingOnCanvas = false;
+			try {
+				cernyThread.join(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			JOptionPane.showMessageDialog(this, "Canvas Token Failure", "Error", JOptionPane.ERROR_MESSAGE);
+			
 		} else {
+			
 			waitingOnCanvas = false;
 			
 			try {
-				cernyThread.join();
+				cernyThread.join(100);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 			JOptionPane.showMessageDialog(this, "Canvas Synced", "Success", JOptionPane.PLAIN_MESSAGE);
+			
 			View.pullEventsFromDatabase();
+			
 			monthView.updateCalendar();
 			weekView.updateCalendar();
 		}
