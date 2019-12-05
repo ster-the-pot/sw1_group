@@ -62,9 +62,3 @@ Modified Use-Case:Set Free-Time
 [PDF Document Link](https://drive.google.com/open?id=1_wwAAdPxD-v5x96uonHohPVenTZy1-El)
 Refactored Domain Model
 * Accurately reflects code (Canvas-DB fleshed out)
-
-
-
-
-
-
