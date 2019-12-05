@@ -9,7 +9,10 @@ import java.awt.Image;
 import java.awt.Transparency;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class RotateableImage extends JPanel {
@@ -25,6 +28,13 @@ public class RotateableImage extends JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
+    	try {
+			image = ImageIO.read(new File("src/main/resources/cerny.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
     	AffineTransform at = AffineTransform.getTranslateInstance(14, 10);
     	at.rotate(Math.toRadians(currentDegrees), image.getWidth()/2,image.getHeight()/2);
     	

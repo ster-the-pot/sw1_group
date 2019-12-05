@@ -146,92 +146,41 @@ public class AppCalendar extends JFrame implements ActionListener {
 		render();
 	}
 	
-	boolean waitingOnCanvas = false;
+	
+	
+	
 	
 	private void syncCanvas() {
 		CanvasAgentKey canvas = new CanvasAgentKey();
 		CanvasDBAdapter dbAdapter = new CanvasDBAdapter(canvas,userName);
 		
-		
 		JFrame theFrame = this;
 		
-		Thread cernyThread = new Thread() {
-			public void run(){
-				JDialog dialog = new JDialog(theFrame, "Please wait - Syncing with canvas.");
-				
-				BufferedImage before = null;
-				try {
-					before = ImageIO.read(new File("src/main/resources/cerny.png"));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				int w = before.getWidth();
-				int h = before.getHeight();
-				System.out.println("W/H: " + w + " " + h);
-				BufferedImage bufferedImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-				AffineTransform at = new AffineTransform();
-				at.scale(1.0, 1.0);
-				AffineTransformOp scaleOp = 
-				   new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-				bufferedImage = scaleOp.filter(before, bufferedImage);
-				
-				RotateableImage rot = new RotateableImage(bufferedImage);
-				dialog.add(rot);
-				dialog.setPreferredSize(new Dimension(300,300+10));
-				dialog.pack();
-				dialog.setVisible(true);
-				
-				GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-				
-				Point centerPoint = env.getCenterPoint();
-				int dx = centerPoint.x - dialog.getSize().width / 2;
-				int dy = centerPoint.y - dialog.getSize().height / 2;
-				
-				dialog.setLocation(dx,dy);
-				
-				waitingOnCanvas = true;
-			
-				ImageSpinner spinner = new ImageSpinner(rot,1,10f);
-				spinner.start();
-				
-				while(waitingOnCanvas) {
-					try {
-						Thread.sleep(100);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				spinner.setRunning();
-				dialog.setVisible(false);
-				dialog.dispose();
-				
-			}
-		};
+		//Thread myThread = new Thread() {
+		//	@Override
+		//	public void run() {
+				JOptionPane.showMessageDialog(theFrame, "Syncing Canvas", "Please wait.", JOptionPane.PLAIN_MESSAGE);
+		//	}
+		//};
 		
-		cernyThread.start();
+		//myThread.start();
 		
 		if(!dbAdapter.syncStudentCanvas(userName)) {
-			
-			waitingOnCanvas = false;
-			try {
-				cernyThread.join(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+		//	try {
+		//		myThread.join();
+		//	} catch (InterruptedException e) {
+		//		// TODO Auto-generated catch block
+		//		e.printStackTrace();
+		//	}
+		
 			JOptionPane.showMessageDialog(this, "Canvas Token Failure", "Error", JOptionPane.ERROR_MESSAGE);
-			
 		} else {
-			
-			waitingOnCanvas = false;
-			
-			try {
-				cernyThread.join(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+		//	try {
+		//		myThread.join();
+		//	} catch (InterruptedException e) {
+		//		// TODO Auto-generated catch block
+		//		e.printStackTrace();
+		//	}
 			
 			JOptionPane.showMessageDialog(this, "Canvas Synced", "Success", JOptionPane.PLAIN_MESSAGE);
 			
