@@ -66,12 +66,12 @@ public class CanvasAgentKey implements CanvasAgent {
 	 * @param studentID
 	 */
 	public Map<String, String> getCourses(String studentID) {
-		if (studentID == null || this.key == null || this.key == "") {
+		if (studentID == null || this.key == null || this.key.equals("")) {
 			return null;
 		}
 		Map<String, String> courseList = new HashMap<>();
-		;
-		Set<String> studentCourses = new HashSet<String>();
+
+		//Set<String> studentCourses = new HashSet<String>();
 		// System.out.println(this.key);
 		try {
 			PagedList<JsonNode> response = Unirest.get(host).header("Authorization", "Bearer " + this.key)
@@ -129,7 +129,7 @@ public class CanvasAgentKey implements CanvasAgent {
 		}
 		ArrayList<Map<String, Object>> assignmentList = new ArrayList<>();
 		;
-		Set<String> studentCourses = new HashSet<String>();
+		//Set<String> studentCourses = new HashSet<String>();
 		// System.out.println(this.key);
 		try {
 			PagedList<JsonNode> response = Unirest.get(host + "/" + courseID + "/assignments")

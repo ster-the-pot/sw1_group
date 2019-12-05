@@ -128,7 +128,7 @@ public class DatabaseConnector {
 		
 		Map<String,Object> event = this.convertEventMap(baseEvent);
 		// Document to insert
-				Document ev = new Document(event);
+				//Document ev = new Document(event);
 				// Document to Query
 				// Document d = new Document().append("username", username).append("event", );
 
@@ -159,7 +159,7 @@ public class DatabaseConnector {
 	
 	void addUserEvent(String username, Map<String, Object> event) {
 		// Document to insert
-		Document ev = new Document(event);
+		//Document ev = new Document(event);
 		// Document to Query
 		// Document d = new Document().append("username", username).append("event", );
 

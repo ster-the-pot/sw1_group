@@ -68,7 +68,8 @@ public class ViewTester {
 
 				}
 				View.setEvents(events);
-				AppCalendar appCalendar = new AppCalendar("Ster");
+				AppCalendar.setUserName("STERLING");
+				AppCalendar appCalendar = new AppCalendar();
 				appCalendar.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				appCalendar.setVisible(true);
 
